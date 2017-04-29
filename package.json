@@ -1,0 +1,48 @@
+{
+  "name": "tech-academy-lms",
+  "version": "1.0.0",
+  "description": "Learning Management System for the Tech Academy",
+  "main": "Index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./node_modules/webpack/bin/webpack.js -p",
+    "watch": "node ./node_modules/webpack/bin/webpack.js --watch",
+    "lint": "node ./node_modules/eslint/bin/eslint . --fix",
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "watch-production": "node ./node_modules/webpack/bin/webpack.js --watch --optimize-minimize --define process.env.NODE_ENV=\"'production'\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "TFS"
+  },
+  "author": "Adam Smith, Aaron Medina, Garrett Guevara",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.0",
+    "eslint": "^3.18.0",
+    "file-loader": "^0.11.1",
+    "jquery": "^3.2.1",
+    "jsdom": "^9.12.0",
+    "mocha": "^3.2.0",
+    "react-addons-test-utils": "^15.4.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "dependencies": {
+    "axios": "^0.15.3",
+    "lodash": "^4.17.4",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
+    "redux": "^3.6.0",
+    "redux-promise": "^0.5.3"
+  }
+}
