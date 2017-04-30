@@ -15,8 +15,8 @@ export default (props) => {
 
                 {title}
 
-                <div className="text-center">
-                    <img src={props.Field.FieldReference} />
+                <div className="text-center col-xs-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+                    <img style={{width: "100%"}} src={props.Field.FieldReference} />
                 </div>
 
                 <br />

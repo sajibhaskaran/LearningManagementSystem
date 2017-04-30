@@ -1,4 +1,9 @@
 ﻿// Acts as a bridge for actions called from objects
 export function navCallFunctions(object) {
-    return object;
+
+    if (typeof (object) === "object") {
+        return object;
+    } else {
+        return object();
+    }
 }

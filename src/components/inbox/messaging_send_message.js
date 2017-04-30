@@ -28,7 +28,7 @@ export default class SendMessage extends Component {
 
         if (this.state.TextMessage.trim().length > 1) {
             
-            console.log(this.state.TextMessage);
+            this.props.onNewMessage(this.state.TextMessage);
             this.setState({ TextMessage: "" });
         }
     }
@@ -43,7 +43,7 @@ export default class SendMessage extends Component {
                 <input
                     type="button"
                     value="Send"
-                    onClick={e => { this.props.onNewMessage(this.state.TextMessage); this.setState({ TextMessage: "" }); }}
+                    onClick={e => this.onSendMessage(e)}
                 />
             </div>
         );

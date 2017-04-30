@@ -3,7 +3,7 @@
 export default (props) => {
 
     // Classname
-    const userClass = props.message.Sender === props.userRole ? "spaMessagingCurrentUser" : "spaMessagingOtherUser";
+    const userClass = props.message.SenderRole === props.userRole ? "spaMessagingCurrentUser" : "spaMessagingOtherUser";
 
     return (
         <div className={"spaMessageListItem " + userClass}>

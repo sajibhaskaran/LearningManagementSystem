@@ -3,7 +3,7 @@
 export default function (state = null, action) {
     switch (action.type) {
         case FETCH_ROLE:
-            return action.payload.data;
+            return action.payload.data.Role;
     }
     return state;
 }

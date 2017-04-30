@@ -47,24 +47,23 @@ class Main extends Component {
 
                 preload.src = course.ImageUrl;
 
-                // Return a list of 
+                
                 return (
                     <Link to={"/CourseView/:" + course.CourseId + "/:"} key={course.CourseId}>
-
+                         { /*
                         <div className="col-sm-6 col-12 page">
                             <div className="card">
                                 <img className="card-img-top img-responsive" src={course.ImageUrl} alt="Card image cap" />
                                 <div className="card-block spaCourseBox">
-                                    {/*<h4 className="card-title">{course.CourseName}</h4>*/}
                                     <p className="SPAcourseText"><i className="fa fa-map-marker"></i>{initials}<i className="SPAcourseDetails" /><i className="fa fa-clock-o "></i>{course.DaysToComplete} Days</p>
                                     <p className="card-text SPAcourseText">{course.CourseDescription}</p>
                                 </div>
                             </div>
                         </div>
+                        */}
 
 
-
-                        { /* 
+                                    
                         <div onClick={() => this.props.selectStudentCourseId(course.CourseId)} className="course-list col-sm-6 course-box spaCourseBox">
                             <div className="course-media">
                                 <img src={course.ImageUrl} className="img-responsive course-img" alt="" />
@@ -78,7 +77,7 @@ class Main extends Component {
                                 <p className="brief">{course.CourseDescription}</p>
                             </div>
                         </div>
-                        */}
+                        
                     </Link>
                 );
             });

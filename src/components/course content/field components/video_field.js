@@ -9,6 +9,27 @@ export default (props) => {
     // Check what kind of file it is
     const extension = reference.substr(reference.length - 3);
 
+    // Render Video
+    let video = (
+        <video className="spaStudentCourseVideo" controls>
+                            <source src={reference} />
+                            Your browser does not support this video
+                        </video>
+    );
+
+    // Check if this needs to be embeded or not
+    switch(extension.toLowerCase()){
+        case "mp4":
+            break;
+        case "ogg":
+            break;
+        default:
+            video = (
+              <iframe allowFullScreen="true" width="100%" style={{minHeight: "50vh"}} src={reference}>
+                  </iframe>
+            );
+    }
+
     // Check for title
     const title = props.Field.FieldTitle === "N/A"
         ? "" :
@@ -34,10 +55,7 @@ export default (props) => {
 
                 <div className="row">
                     <div className="col-xs-12">
-                        <video className="spaStudentCourseVideo" controls>
-                            <source src={reference} type={"video/" + extension} />
-                            Your browser does not support this video
-                        </video>
+                        {video}
                     </div>
                 </div>
 

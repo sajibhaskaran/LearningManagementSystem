@@ -3,19 +3,19 @@ import axios from 'axios';
 
 export const PROFILE_ACCESS = 'PROFILE_ACCESS';
 
-// Gets the most important role of the user
+// Accessing user information
 export function profileAccess() {
-	console.log("test");
-	// End point to hit
+	//console.log("test");
+	// url of the end point
 	const url = "/SPA/getProfile";
 
-	// AJAX call using axios library
+	// axios call to get info.
 	const request =axios.get(url)
 	
 	
 	return {
 		type: PROFILE_ACCESS,
-		payload: request.data
+		payload: request
 	}
 	
 }

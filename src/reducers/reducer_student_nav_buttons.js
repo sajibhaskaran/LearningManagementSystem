@@ -1,32 +1,36 @@
-﻿const defaultObject = { type: "VOID", payload: "" };
+﻿import InboxToggle from '../functions/navbar/inbox_toggle';
+
+const defaultObject = { type: "VOID", payload: "" };
 
 const userNavigations = [
     [
         // Students
-        { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject },
-        { title: "Inbox", navnumber: 101, icon: "fa fa-inbox", url: "/Inbox", onclick: defaultObject },
-        { title: "Progress", navnumber: 103, icon: "fa fa-tasks", url: "/Progress", onclick: defaultObject },
-        { title: "Resources", navnumber: 104, icon: "fa fa-info-circle", url: "/Resources", onclick: defaultObject },
-        { title: "Report", navnumber: 105, icon: "fa fa-file", url: "/DailyReport", onclick: defaultObject },
-        { title: "Survey", navnumber: 106, icon: "fa fa-file-o", url: "/weeklySurvey", onclick: defaultObject },
-		{ title: "Profile", navnumber: 107, icon: "fa fa-user", url: "/Profile", onclick: defaultObject }
+        { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" },
+        { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: InboxToggle, customclass: "spaMessagingNavButton" },
+        { title: "Progress", navnumber: 103, icon: "fa fa-tasks", url: "/Progress", onclick: defaultObject, customclass: "" },
+        { title: "Resources", navnumber: 104, icon: "fa fa-info-circle", url: "/Resources", onclick: defaultObject, customclass: "" },
+        { title: "Results", navnumber: 105, icon: "fa fa-trophy", url: "/Results", onclick: defaultObject, customclass: "" },
+        { title: "Report", navnumber: 106, icon: "fa fa-file", url: "/DailyReport", onclick: defaultObject, customclass: "" },
+        { title: "Survey", navnumber: 107, icon: "fa fa-file-o", url: "/weeklySurvey", onclick: defaultObject, customclass: "" },
+        { title: "Profile", navnumber: 108, icon: "fa fa-user", url: "/profile", onclick: defaultObject, customclass: "" }
     ],
 	
     [
         // Instructors
-        { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject },
-        { title: "Inbox", navnumber: 101, icon: "fa fa-inbox", url: "/Inbox", onclick: defaultObject },
-        { title: "Testing", navnumber: 103, icon: "fa fa-pencil-square", url: "/Testing", onclick: defaultObject }
+        { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" },
+        { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: InboxToggle, customclass: "spaMessagingNavButton" },
+        { title: "Testing", navnumber: 103, icon: "fa fa-pencil-square", url: "/Testing", onclick: defaultObject, customclass: "" }
     ],
     [
         // Admin
-        { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject },
-        { title: "Inbox", navnumber: 101, icon: "fa fa-inbox", url: "/Inbox", onclick: defaultObject },
-        { title: "Designer", navnumber: 102, icon: "fa fa-book", url: "/CourseDesigner", onclick: defaultObject },
-        { title: "Progress", navnumber: 103, icon: "fa fa-tasks", url: "/Progress", onclick: defaultObject },
-        { title: "Resources", navnumber: 104, icon: "fa fa-info-circle", url: "/Resources", onclick: defaultObject },
-        { title: "Report", navnumber: 105, icon: "fa fa-file", url: "/DailyReport", onclick: defaultObject },
-        { title: "Survey", navnumber: 106, icon: "fa fa-file-o", url: "/weeklySurvey", onclick: defaultObject }
+        { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" },
+        { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: InboxToggle, customclass: "spaMessagingNavButton" },
+        { title: "Designer", navnumber: 102, icon: "fa fa-book", url: "/CourseDesigner", onclick: defaultObject, customclass: "" },
+        { title: "Progress", navnumber: 103, icon: "fa fa-tasks", url: "/Progress", onclick: defaultObject, customclass: "" },
+        { title: "Resources", navnumber: 104, icon: "fa fa-info-circle", url: "/Resources", onclick: defaultObject, customclass: "" },
+        { title: "Report", navnumber: 105, icon: "fa fa-file", url: "/DailyReport", onclick: defaultObject, customclass: "" },
+        { title: "Survey", navnumber: 106, icon: "fa fa-file-o", url: "/weeklySurvey", onclick: defaultObject, customclass: "" },
+        { title: "Profile", navnumber: 107, icon: "fa fa-user", url: "/profile", onclick: defaultObject, customclass: "" }
     ]
 ];
 

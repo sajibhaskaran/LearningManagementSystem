@@ -120,7 +120,7 @@ class StudentCourseView extends Component {
                 TestSubmitted: false
             });
         }
-
+     
         // Create all possible answer choice fields for possible posting later
         if (nextProps.studentCourseView != null && nextProps.studentCourseView.Page.IsTest && this.state.SelectedAnswers == null) {
 

@@ -35,15 +35,15 @@ class NavigationContainer extends Component {
         if (this.props.navigationRole === null) {
             return (
                 <h1>Loading...</h1>
-                );
+            );
         }
-        
+
         return UserNav(this.props.navigationRole).map((button) => {
             if (button.url === null) {
                 return (
                     <li key={button.navnumber}
                         onClick={() => this.props.navCallFunctions(button.onclick)}
-                        className="dashboardListAction" >
+                        className={"dashboardListAction " + button.customclass} >
                         <i className={button.icon}></i>
                         &nbsp;<span>{button.title}</span>
                     </li>
@@ -52,23 +52,23 @@ class NavigationContainer extends Component {
             return (
                 <Link to={button.url} key={button.navnumber}>
                     <li onClick={() => this.props.navCallFunctions(button.onclick)}
-            className="dashboardListAction">
-			<i className={button.icon}></i>
-			&nbsp;<span>{button.title}</span>
-		</li>
-	</Link>
-);
-            });
-            }
+                        className={"dashboardListAction " + button.customclass}>
+                        <i className={button.icon}></i>
+                        &nbsp;<span>{button.title}</span>
+                    </li>
+                </Link>
+            );
+        });
+    }
 
     render() {
-            	return (
-					<div className="navbar navbar-inverse navbar-fixed-left spaNavigationBar">
-						<a className="navbar-brand text-center" href="#">
-							<img src="/images/favicon.png" />
-						</a>
-						<ul className="nav navbar-nav">
-						  {this.renderList()}
+        return (
+            <div className="navbar navbar-inverse navbar-fixed-left spaNavigationBar">
+                <a className="navbar-brand text-center" href="#">
+                    <img src="/images/favicon.png" />
+                </a>
+                <ul className="nav navbar-nav">
+                    {this.renderList()}
                 </ul>
             </div>
         )
@@ -88,7 +88,7 @@ function mapStateToProps({ navigationRole }) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        navCallFunctions: navCallFunctions, 
+        navCallFunctions: navCallFunctions,
 
         fetchRole: fetchRole
     }, dispatch);

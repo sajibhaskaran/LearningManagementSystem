@@ -11,18 +11,21 @@ import toggleNavBar from "../functions/layout/hamburger_menu";
 import { fetchCourseData } from "../actions/Course Designer/fetch_course_data";
 
 // React Component Imports
+import GetAvatar from '../containers/get_user_avatar'
 import Inbox from '../containers/Inbox/inbox_container';
 import Main from '../containers/courses_dashboard';
 import Instructor from '../containers/instructor_dashboard';
 import Admin from '../containers/admin_dashboard';
 import Progress from '../components/progress/progress';
+import Results from '../components/results/results';
+import CourseDrill from '../components/results/courseDrill';
 import Testing from '../components/testing/testing';
 import Resources from '../components/resources/resources';
 import DailyReport from '../components/daily_report/daily_report_form';
 import WeeklySurvey from "../components/weekly_survey/weekly_survey";
 import FieldEdit from '../components/courses/page_field_edit';
 import StudentCourseView from '../containers/student_course_view';
-import Profile from '../components/profile/profile';
+import UserProfile from '../components/profile/index';
 
 // Course Designer components
 import CreateCourse from '../components/courses/create_course_form';
@@ -67,9 +70,15 @@ export default class CoursesDashboard extends Component {
 
                     <Route path="/resources" component={Resources} />
 
+                    <Route path="/results" component={Results} />
+
+					<Route path="/courseDrill/:value" component={CourseDrill} />
+
                     <Route path="/dailyReport" component={DailyReport} />
 
                     <Route path="/weeklySurvey" component={WeeklySurvey} />
+
+					<Route path="/profile" component={UserProfile} />
                     <Route path="/loader" component={Loader} />
                 </Switch>
             );
@@ -127,7 +136,7 @@ export default class CoursesDashboard extends Component {
 
                     <Route path="/weeklySurvey" component={WeeklySurvey} />
 
-					<Route path="/profile" component={Profile} />
+					<Route path="/profile" component={UserProfile} />
                     <Route path="/loader" component={Loader} />
                 </Switch>
             );
@@ -144,8 +153,11 @@ export default class CoursesDashboard extends Component {
             <div>
                 {/* BAR FOR HAMBURGER */}
                 <div className="topBar">
+
                     <span onClick={() => toggleNavBar()} className="fa fa-bars"></span>
+						<GetAvatar />	
                     <a className="spaLogOff" href="javascript:document.getElementById('logoutForm').submit()"><span>Log Out</span></a>
+					<h4></h4>
                     <form action="/Account/LogOff" style={{ display: "none" }} id="logoutForm" method="post"></form>
                 </div>
                 {/* END HAMBURGER BAR */}                   

@@ -4,12 +4,22 @@ import SelectNavButton from './reducer_select_nav_button';
 //import StudentNavButtonsReducer from './reducer_student_nav_buttons';
 import DailyReport from './dailyreport_reducer';
 import WeeklySurvey from './weeklysurvey_reducer';
+// profile
 import Profile from './profile_reducer';
 import GetProfile from './get_profile';
-import userInfo from './user_info_reducer';
+import ProfileAccess from './profile_info_reducer'
+import ImageAccess from './get_user_image';
+import UserInfo from './user_info_reducer';
+
 
 // courses
 import StudentCourseView from "./student_course_view_reducer";
+
+// Inbox
+import InboxUserList from "./Inbox/user_chat_list_reducer";
+import SelectedUserChat from "./Inbox/select_user_chat_reducer";
+import ChatMessages from "./Inbox/user_chat_session_reducer";
+import SelectedUserChatInfo from "./Inbox/select_user_chat_info_reducer";
 
 // course Creation
 import CourseDashboard from './Course Designer/course_dashboard_reducer';
@@ -33,6 +43,9 @@ import Loaded from './Loader/loader_lifecycle_reducer';
 import MessageList from "./reducer_mock_messages";
 import SelectMessage from "./reducer_message_selected";
 
+// Reports
+import CourseDrill from "./Results/course_drill_reducer";
+
 // redux and redux form
 import { combineReducers } from 'redux';
 //import { reducer as formReducer } from 'redux-form';
@@ -44,9 +57,21 @@ const rootReducer = combineReducers({
     //navBarButtons: StudentNavButtonsReducer,
     selectNavButton: SelectNavButton,
     navigationRole: NavigationRole,
+	// profile
     Profile: Profile,
-	getProfile: GetProfile,
-    userInfo: userInfo,
+    getProfile: GetProfile,
+    userData: ProfileAccess,
+    UserInfo: UserInfo,
+	ImageAccess: ImageAccess,
+
+    // Inbox
+    InboxUserList: InboxUserList,
+    SelectedUserChat: SelectedUserChat,
+    ChatMessages: ChatMessages,
+    SelectedUserChatInfo: SelectedUserChatInfo,
+
+	// Reports
+	CourseDrill: CourseDrill,
 
     // Loader
     Loaded: Loaded,

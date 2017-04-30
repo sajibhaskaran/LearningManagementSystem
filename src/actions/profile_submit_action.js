@@ -4,15 +4,15 @@ export const SUBMIT_PROFILE = 'SUBMIT_PROFILE';
 
 export function submitProfile(file) {
 
-	$.ajax({
+	const request = $.ajax({
 		url: "/SPA/Profile",
 		dataType: 'script',
+		async:false,
 		cache: false,
 		contentType: false,
 		processData: false,
 		data: file,
 		type: 'post'
-
 	});
 	//const url = "/SPA/Profile";
 	//const config = {headers: {'content-type': 'multipart/form-data'}};
@@ -22,12 +22,12 @@ export function submitProfile(file) {
 	//		console.log("success");
 	//		})
 	//	.catch(function (error) {
-    //        console.log(error);
-    //    });
+	//        console.log(error);
+	//    });
 	window.location.hash = "#/Profile";
 
 	return {
 		type: SUBMIT_PROFILE,
-		payload: file
+		payload: request
 	};
 }

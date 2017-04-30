@@ -6,18 +6,11 @@ import ReduxPromise from 'redux-promise';
 
 //import App from './components/app';
 import reducers from './reducers/index';
-import { signalRStart } from './signalR_start';
 import Routes from './routes';
+import { signalRStart } from './signalR_start';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 var store = createStoreWithMiddleware(reducers);
 
-signalRStart(store, 
-
-    ReactDOM.render(
-        <Provider store={store}>
-            <Routes />
-        </Provider>
-            , document.querySelector('.root'))
-);
+signalRStart(store);
