@@ -2,10 +2,10 @@
 
 export const COURSE_DRILL_ACTION = "COURSE_DRILL_ACTION";
 
-export function courseDrillAction(courseId) {
-  console.log("action hit")
+export function courseDrillAction(url) {
+  console.log(url)
 	// url
-  const url = `/SPA/getDrills?courseId=${courseId}`;
+  
 
 	// Request
 	const request = axios.get(url);

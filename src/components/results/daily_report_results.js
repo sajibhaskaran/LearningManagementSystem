@@ -7,11 +7,11 @@ import { courseDrillAction } from '../../actions/Results/course_drill_action';
 
 
 
-class CourseDrill extends Component{
+class DailyReport extends Component{
 
 	componentDidMount() {
 		
-		const url = `/SPA/getDrills?courseId=${this.props.match.params.value}`;
+		const url = '/SPA/getDailyReport';
 		console.log(url);
 		this.props.courseDrillAction(url);
 	}
@@ -19,17 +19,7 @@ class CourseDrill extends Component{
 
 
 	render(){
-		console.log(this.props.courseDrill);
 		return (
-			
-					<div className="col-xs-12">
-						<h1 className="text-center">Course Drill </h1>
-						<h3>Drills</h3>
-						<p>&nbsp;</p>					
-													
-						
-												
-					</div>
 			
 			
 			);
@@ -38,13 +28,13 @@ class CourseDrill extends Component{
 }
 
 function mapStateToProps(state) {
-    return { courseDrill: state.CourseDrill };
+	return { courseDrill: state.CourseDrill };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-    	courseDrillAction
-    }, dispatch);
+	return bindActionCreators({
+		courseDrillAction
+	}, dispatch);
 }
 
 

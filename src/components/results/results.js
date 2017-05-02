@@ -47,7 +47,7 @@ class Main extends Component {
 									<div className="reportButtons text-center">
 										<ResultsButton name = {"Drill"} courseId= {course.CourseId}/>
 										<ResultsButton name = {"Essay"} courseId= {course.CourseId}/>
-										<ResultsButton name = {"Daily"} courseId= {course.CourseId}/>
+										<ResultsButton name = {"Daily"} />
 										<ResultsButton name = {"Weekly"} courseId= {course.CourseId}/>
 									</div>
                                 </div>

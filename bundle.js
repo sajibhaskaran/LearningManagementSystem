@@ -9167,10 +9167,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var COURSE_DRILL_ACTION = exports.COURSE_DRILL_ACTION = "COURSE_DRILL_ACTION";
 
-function courseDrillAction(courseId) {
-	console.log("action hit");
+function courseDrillAction(url) {
+	console.log(url);
 	// url
-	var url = "/SPA/getDrills?courseId=" + courseId;
+
 
 	// Request
 	var request = _axios2.default.get(url);
@@ -21426,7 +21426,10 @@ var CourseDrill = function (_Component) {
 	_createClass(CourseDrill, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.props.courseDrillAction(this.props.match.params.value);
+
+			var url = '/SPA/getDrills?courseId=' + this.props.match.params.value;
+			console.log(url);
+			this.props.courseDrillAction(url);
 		}
 	}, {
 		key: 'render',
@@ -21508,15 +21511,57 @@ var ResultsButton = function (_Component) {
 	_createClass(ResultsButton, [{
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement(
-				_reactRouterDom.Link,
-				{ to: '/courseDrill/' + this.props.courseId },
-				_react2.default.createElement(
-					'button',
-					{ className: 'btn btn-primary reportButton text-center' },
-					this.props.name
-				)
-			);
+
+			switch (this.props.name) {
+				case 'Drill':
+					// link to drill component
+					return _react2.default.createElement(
+						_reactRouterDom.Link,
+						{ to: '/courseDrill/' + this.props.courseId },
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-primary reportButton text-center' },
+							this.props.name
+						)
+					);
+					break;
+				case 'Essay':
+					// link to essay component
+					return _react2.default.createElement(
+						_reactRouterDom.Link,
+						{ to: '/courseDrill/' + this.props.courseId },
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-primary reportButton text-center' },
+							this.props.name
+						)
+					);
+					break;
+				case 'Daily':
+					// link to daily component
+					return _react2.default.createElement(
+						_reactRouterDom.Link,
+						{ to: '/courseDrill/' + this.props.courseId },
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-primary reportButton text-center' },
+							this.props.name
+						)
+					);
+					break;
+				case 'Weekly':
+					// link to daily component
+					return _react2.default.createElement(
+						_reactRouterDom.Link,
+						{ to: '/courseDrill/' + this.props.courseId },
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-primary reportButton text-center' },
+							this.props.name
+						)
+					);
+					break;
+			}
 		}
 	}]);
 
@@ -21621,7 +21666,7 @@ var Main = function (_Component) {
 									{ className: 'reportButtons text-center' },
 									_react2.default.createElement(_drillButton2.default, { name: "Drill", courseId: course.CourseId }),
 									_react2.default.createElement(_drillButton2.default, { name: "Essay", courseId: course.CourseId }),
-									_react2.default.createElement(_drillButton2.default, { name: "Daily", courseId: course.CourseId }),
+									_react2.default.createElement(_drillButton2.default, { name: "Daily" }),
 									_react2.default.createElement(_drillButton2.default, { name: "Weekly", courseId: course.CourseId })
 								)
 							)

@@ -8,13 +8,51 @@ export default class ResultsButton extends Component {
 	}
 
 	render(){
+
+		switch(this.props.name) {
+			case 'Drill':
+				// link to drill component
+				return( 
+			<Link to={`/courseDrill/${this.props.courseId}`}>
+				<button className="btn btn-primary reportButton text-center">				
+					{this.props.name}				
+				</button>
+			</Link>				
+			);
+				break;
+			case 'Essay':
+		// link to essay component
+		return( 
+			<Link to={`/courseDrill/${this.props.courseId}`}>
+				<button className="btn btn-primary reportButton text-center">				
+					{this.props.name}				
+				</button>
+			</Link>				
+			);
+				break;
+			case 'Daily':
+		// link to daily component
+		return( 
+			<Link to={`/courseDrill/${this.props.courseId}`}>
+				<button className="btn btn-primary reportButton text-center">				
+					{this.props.name}				
+				</button>
+			</Link>				
+			);
+				break;
+			case 'Weekly':
+				// link to daily component
 		return( 
 		<Link to={`/courseDrill/${this.props.courseId}`}>
-		<button className="btn btn-primary reportButton text-center">				
-		{this.props.name}				
-		</button>
-		</Link>				
+				<button className="btn btn-primary reportButton text-center">				
+					{this.props.name}				
+				</button>
+			</Link>				
 			);
+				break;
+		}
+
+		
 	}
 
 }
