@@ -2,7 +2,7 @@
 
 export const SUBMIT_WEEKLYSURVEY = 'SUBMIT_WEEKLYSURVEY';
 
-export function submitWeeklySurvey() {
+export function submitWeeklySurvey(values) {
     const url = "/SPA/WeeklySurvey";
 
     const request = axios.post(url, { form: JSON.stringify(values) })

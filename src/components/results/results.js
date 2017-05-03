@@ -48,7 +48,7 @@ class Main extends Component {
 										<ResultsButton name = {"Drill"} courseId= {course.CourseId}/>
 										<ResultsButton name = {"Essay"} courseId= {course.CourseId}/>
 										<ResultsButton name = {"Daily"} />
-										<ResultsButton name = {"Weekly"} courseId= {course.CourseId}/>
+										<ResultsButton name = {"Weekly"}/>
 									</div>
                                 </div>
                             </div>

@@ -12,27 +12,53 @@ class CourseDrill extends Component{
 	componentDidMount() {
 		
 		const url = `/SPA/getDrills?courseId=${this.props.match.params.value}`;
-		console.log(url);
 		this.props.courseDrillAction(url);
 	}
 
 
 
-	render(){
-		console.log(this.props.courseDrill);
-		return (
-			
-					<div className="col-xs-12">
-						<h1 className="text-center">Course Drill </h1>
-						<h3>Drills</h3>
-						<p>&nbsp;</p>					
-													
+	render() {
+
+		if (this.props.courseDrill !== null) {
+			console.log(this.props.courseDrill);
+
+			const renderList = this.props.courseDrill.map((item, i) => {
+				return (
+
+					<div key={i}>
+						<hr />
+						<h6>Page Number: {item.PageNumber} </h6>
+						<h6>Date Submitted: {item.Submitted}</h6>
+						<h6>Title: {item.PageTitle} </h6>
+						<h6>Submission Text: {item.SubmissionText} </h6>
+						<h6>Passed: {item.Passed} </h6>
 						
-												
+
+
 					</div>
-			
-			
+				);
+
+
+			});
+
+
+			return (
+
+				<div className="col-xs-12">
+					<h1 className="text-center">Course Drill </h1>
+					
+					<p>&nbsp;</p>
+					{renderList}
+
+
+				</div>
+
+
 			);
+		} else {
+			return (<h4>No drills yet.</h4>);
+		}
+		
 	}
 
 }

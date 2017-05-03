@@ -33,7 +33,7 @@ export default class ResultsButton extends Component {
 			case 'Daily':
 		// link to daily component
 		return( 
-			<Link to={`/courseDrill/${this.props.courseId}`}>
+			<Link to={'/dailyReportResult/'}>
 				<button className="btn btn-primary reportButton text-center">				
 					{this.props.name}				
 				</button>
@@ -43,7 +43,7 @@ export default class ResultsButton extends Component {
 			case 'Weekly':
 				// link to daily component
 		return( 
-		<Link to={`/courseDrill/${this.props.courseId}`}>
+			<Link to={'/weeklyReportResult/'}>
 				<button className="btn btn-primary reportButton text-center">				
 					{this.props.name}				
 				</button>
