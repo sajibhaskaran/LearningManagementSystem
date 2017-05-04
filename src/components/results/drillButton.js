@@ -20,10 +20,10 @@ export default class ResultsButton extends Component {
 			</Link>				
 			);
 				break;
-			case 'Essay':
+			case 'Tests':
 		// link to essay component
 		return( 
-			<Link to={`/courseDrill/${this.props.courseId}`}>
+			<Link to={`/testResults/${this.props.courseId}`}>
 				<button className="btn btn-primary reportButton text-center">				
 					{this.props.name}				
 				</button>

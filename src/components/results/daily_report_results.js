@@ -29,11 +29,12 @@ class DailyReportResult extends Component{
 					
 					<div key ={i}>
 					<hr />
-                    <h4>Course Position: </h4><p>{item.CoursePosition}</p>
-                    <h4>Feedback: </h4><p>{item.Feedback}</p>
-                    <h4>Hours Studied: </h4><p>{item.HoursStudied}</p>
-                    <h4>Positive Experiences: </h4><p>{item.PositiveExperiences}</p>
-                    <h4>Help Needed: </h4><p>{item.NeedHelp}</p>
+					<h6>Date Submitted: {item.Date}</h6>
+					<h6>Course Position: {item.CoursePosition} </h6>
+					<h6>Feedback: {item.Feedback} </h6>
+					<h6>Hours Studied: {item.HoursStudied} </h6>
+					<h6>Positive Experiences: {item.PositiveExperiences} </h6>
+					<h6>Help Needed: {item.NeedHelp} </h6>
 
 					
 					</div>

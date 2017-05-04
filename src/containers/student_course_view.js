@@ -232,6 +232,7 @@ class StudentCourseView extends Component {
                         <input
                             type="button"
                             className="btn btn-large btn-primary"
+                            style={{ marginRight: "10px" }}
                             value="Back"
                             onClick={() => this.back()} />
 
@@ -283,12 +284,14 @@ class StudentCourseView extends Component {
                         <input
                             type="button"
                             className="btn btn-large btn-primary"
+                            style={{ left: "40%", transform: "translateX(-40%)", marginTop: "10px", marginLeft: "5px", marginRight: "5px", marginBottom: "10px"  }}
                             value="Back"
                             onClick={() => this.back()} />
 
                         <input
                             type="button"
                             className="btn btn-large btn-primary"
+                            style={{ left: "40%", transform: "translateX(-40%)", marginTop: "10px", marginLeft: "5px", marginRight: "5px", marginBottom: "10px" }}
                             value="Next"
                             onClick={() => this.next()} />
                     </div>
@@ -338,15 +341,16 @@ class StudentCourseView extends Component {
                 });
 
                 return (
-                    <div>
+                    <div className="text-center">
                         <ol>
                             {testMap}
                         </ol>
-
+                 
                         <input
                             type="button"
                             className="btn btn-primary"
-                            value="Submit"
+							value="Submit"
+							
                             onClick={() => this.onSubmitTest()}
                         />
 

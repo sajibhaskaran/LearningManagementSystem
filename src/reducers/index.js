@@ -46,6 +46,9 @@ import SelectMessage from "./reducer_message_selected";
 // Reports
 import CourseDrill from "./Results/course_drill_reducer";
 
+// Student Search
+import StudentSearch from "./Student Search/student_search_reducer";
+
 // redux and redux form
 import { combineReducers } from 'redux';
 //import { reducer as formReducer } from 'redux-form';
@@ -72,6 +75,9 @@ const rootReducer = combineReducers({
 
 	// Reports
 	CourseDrill: CourseDrill,
+
+	// Student Search
+	StudentSearch: StudentSearch,
 
     // Loader
     Loaded: Loaded,

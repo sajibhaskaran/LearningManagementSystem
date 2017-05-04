@@ -46,7 +46,7 @@ class Main extends Component {
                                 <div className="card-block spaCourseBox">
 									<div className="reportButtons text-center">
 										<ResultsButton name = {"Drill"} courseId= {course.CourseId}/>
-										<ResultsButton name = {"Essay"} courseId= {course.CourseId}/>
+										<ResultsButton name = {"Tests"} courseId= {course.CourseId}/>
 										<ResultsButton name = {"Daily"} />
 										<ResultsButton name = {"Weekly"}/>
 									</div>
@@ -86,13 +86,14 @@ componentDidUpdate(prevProps, prevState) {
 	}
 
 	render() {
-
+		console.log(this.props.match.params.value);
 		return (
             <Loader Loaded={this.state.Loaded} className="loader">
                 <div className="row">
 
-                    <div className="col-md-12">
-            {this.mapCourseViews()}
+					<div className="col-md-12">
+						{}
+						{this.mapCourseViews()}
                     </div>
             	</div>
             </Loader>

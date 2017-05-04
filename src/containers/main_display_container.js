@@ -19,6 +19,7 @@ import Admin from '../containers/admin_dashboard';
 import Progress from '../components/progress/progress';
 import Results from '../components/results/results';
 import CourseDrill from '../components/results/courseDrill';
+import TestResults from '../components/results/test_results';
 import DailyReportResult from '../components/results/daily_report_results';
 import WeeklyReportResult from '../components/weekly_survey/weekly_report_results';
 import Testing from '../components/testing/testing';
@@ -76,6 +77,8 @@ export default class CoursesDashboard extends Component {
 
 					<Route path="/courseDrill/:value" component={CourseDrill} />
 
+					<Route path="/testResults/:value" component={TestResults} />
+
 					<Route path="/dailyReportResult/" component={DailyReportResult} />
 
 					<Route path="/weeklyReportResult/" component={WeeklyReportResult} />
@@ -103,7 +106,9 @@ export default class CoursesDashboard extends Component {
 
                     <Route path="/resources" component={Resources} />
 
-                    <Route path="/dailyReport" component={DailyReport} />
+					<Route path="/dailyReport" component={DailyReport} />
+
+					<Route path="/results/:value" component={Results} />
 
                     <Route path="/weeklySurvey" component={WeeklySurvey} />
                     <Route path="/loader" component={Loader} />
