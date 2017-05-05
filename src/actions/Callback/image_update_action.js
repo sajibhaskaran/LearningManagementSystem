@@ -9,8 +9,7 @@ export function imageUpdate() {
 	const url = "/SPA/getImageFile";
 
 	// axios call to get info.
-	const request =axios.get(url)
-	//console.log(request);
+	const request = axios.get(url)
 	
 	return {
 		type: IMAGE_UPDATE,

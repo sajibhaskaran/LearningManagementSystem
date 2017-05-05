@@ -19,5 +19,6 @@ export default () => (
                 <p className="brief">This course is the missing link in effective training in the software field. It contains hundreds of tech definitions written by the The Tech Academy.</p>
             </div>
         </div>
+
     </div>
 )

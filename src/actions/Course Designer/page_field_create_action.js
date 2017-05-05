@@ -7,6 +7,7 @@ export function postPageCreateField(field) {
     // object conversion to json
     const json = JSON.stringify(field);
 
+    // url
     const url = "/SPA/PageFieldCreate";
 
     // Post request

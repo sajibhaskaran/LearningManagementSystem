@@ -23,9 +23,11 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h1>Progress</h1>
                         </div>
+
                         <div className="text-center">
                             <h3>Computer Basics</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -35,6 +37,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 100%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -49,6 +52,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>Overview of Software Development</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -58,6 +62,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 80%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -72,6 +77,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>HTML & CSS</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -81,6 +87,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 30%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -95,6 +102,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>Database & SQL</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -104,6 +112,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 0%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -118,6 +127,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>JavaScript</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -127,6 +137,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 0%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -141,6 +152,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>Visual Studio</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -150,6 +162,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 0%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -164,6 +177,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>C# and ASP.NET</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -173,6 +187,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 0%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -187,6 +202,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>Project Management</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -196,6 +212,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 0%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -210,6 +227,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>Live Project</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -219,6 +237,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 0%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -233,6 +252,7 @@ export default class Progress extends Component {
                         <div className="text-center">
                             <h3>Job Placement</h3>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-striped active progress-bar-info"
@@ -242,6 +262,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Progress: 0%</div>
                         </div>
+
                         <div className="progress">
                             <div
                                 className="progress-bar progress-bar-danger"
@@ -251,6 +272,7 @@ export default class Progress extends Component {
                                 aria-valuemin="0"
                                 aria-valuemax="100">My Goal: 0%</div>
                         </div>
+
                     </div>
                 </div>
             </div>

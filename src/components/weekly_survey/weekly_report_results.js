@@ -11,6 +11,7 @@ class WeeklyReportResult extends Component {
 
 	componentDidMount() {
 
+        // url for the getWeeklyReport
 		const url = '/SPA/getWeeklyReport';
 		this.props.courseDrillAction(url);
 	}
@@ -22,10 +23,9 @@ class WeeklyReportResult extends Component {
 
 
 		if (this.props.courseDrill !== null) {
-			console.log(this.props.courseDrill);
 			const renderList = this.props.courseDrill.map((item, i) => {
 				return (
-
+                    // Key for error in console due to mapping
 					<div key={i}>
 						<hr />
                         <h4>Course Position: </h4><p>{item.CoursePosition}</p>

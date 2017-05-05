@@ -1,7 +1,9 @@
 ﻿import React from 'react';
 
 export default () => (
+
     <div className="course-list col-sm-6 course-box spaCourseBox">
+
         <div className="course-media">
             <img src="/images/courses/overview.png" className="img-responsive course-img" alt="" />
         </div>
@@ -14,5 +16,7 @@ export default () => (
             </ul>
             <p className="brief">Here you will learn the basic elements that are fundamental to any computer program, leading to greater comprehension of every computer programming language you will learn in the future.</p>
         </div>
+
     </div>
+    
 )
