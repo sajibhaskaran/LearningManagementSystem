@@ -11,7 +11,7 @@ import { fetchStudentCourses } from '../../actions/Student Courses/fetch_courses
 import { selectStudentCourseId } from '../../actions/Student Courses/select_student_course_id_action';
 
 // Components
-import ResultsButton from '../../components/results/drillButton';
+import ResultsButton from '../../components/results_student_view/drillButton';
 
 class Main extends Component {
 	constructor(props) {

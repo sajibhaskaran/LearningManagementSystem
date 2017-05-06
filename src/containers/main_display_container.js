@@ -17,10 +17,12 @@ import Main from '../containers/courses_dashboard';
 import Instructor from '../containers/instructor_dashboard';
 import Admin from '../containers/admin_dashboard';
 import Progress from '../components/progress/progress';
-import Results from '../components/results/results';
-import CourseDrill from '../components/results/courseDrill';
-import TestResults from '../components/results/test_results';
-import DailyReportResult from '../components/results/daily_report_results';
+import Results from '../components/results_student_view/results';
+import CourseDrill from '../components/results_student_view/courseDrill';
+import TestResults from '../components/results_student_view/test_results';
+import DailyReportResult from '../components/results_student_view/daily_report_results';
+import InstructorDailyReportResult from '../components/results_instructor_view/daily_report_results_instructor';
+import InstructorWeeklyReportResult from '../components/results_instructor_view/weekly_report_results_instructor';
 import WeeklyReportResult from '../components/weekly_survey/weekly_report_results';
 import Testing from '../components/testing/testing';
 import Resources from '../components/resources/resources';
@@ -29,6 +31,7 @@ import WeeklySurvey from "../components/weekly_survey/weekly_survey";
 import FieldEdit from '../components/courses/page_field_edit';
 import StudentCourseView from '../containers/student_course_view';
 import UserProfile from '../components/profile/index';
+import UniqueStudentCourses from '../components/results_instructor_view/unique_student_courses';
 
 // Course Designer components
 import CreateCourse from '../components/courses/create_course_form';
@@ -108,7 +111,13 @@ export default class CoursesDashboard extends Component {
 
 					<Route path="/dailyReport" component={DailyReport} />
 
-					<Route path="/results/:value" component={Results} />
+					<Route path="/instructorDailyReportResult/:id" component={InstructorDailyReportResult} />
+
+					<Route path="/instructorWeeklyReportResult/:id" component={InstructorWeeklyReportResult} />
+
+					<Route path="/weeklyReportResult/" component={WeeklyReportResult} />
+
+					<Route path="/studentCourses/:value" component={UniqueStudentCourses} />
 
                     <Route path="/weeklySurvey" component={WeeklySurvey} />
                     <Route path="/loader" component={Loader} />

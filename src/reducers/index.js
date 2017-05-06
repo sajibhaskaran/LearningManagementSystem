@@ -45,6 +45,7 @@ import SelectMessage from "./reducer_message_selected";
 
 // Reports
 import CourseDrill from "./Results/course_drill_reducer";
+import ResultsInstructorView from "./Results/results_instructor_view_reducer";
 
 // Student Search
 import StudentSearch from "./Student Search/student_search_reducer";
@@ -75,6 +76,7 @@ const rootReducer = combineReducers({
 
 	// Reports
 	CourseDrill: CourseDrill,
+	ResultsInstructorView: ResultsInstructorView, 
 
 	// Student Search
 	StudentSearch: StudentSearch,

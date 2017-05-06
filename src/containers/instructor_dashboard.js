@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+// Student Course Page
+
+
 // Loader
 import Loader from '../components/loader/loader';
 
@@ -29,13 +32,18 @@ class Instructor extends Component {
 
 			// Map over props and populate our page based on these props
 			const courseMap = this.props.studentSearch.map((student, i) => {
-				
+
+				// Gives ability to pass two table ID's (student info) to <Link> Params
+				let userInfo = [
+					student.Id,
+					student.Name
+				]
 
 				return (
-
+					
 					
 					<div className="col-sm-4 col-12 page" key={i}>
-						<Link to={`/Results/${student.Name}`} >
+						<Link to={`/studentCourses/${userInfo}`} >
 						<div className="card" style={{ height: "auto", paddingBottom: "5px" }}>
 							{/*<img className="card-img-top img-responsive" src={path + picArray[i]} alt="Card image cap" />*/}
 							<div className="card-block spaCourseBox text-center">
