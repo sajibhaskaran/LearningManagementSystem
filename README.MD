@@ -1,5 +1,5 @@
 ﻿# INTRO TO USING THE REACT PORTION OF TECH ACADEMY LMS
-## CODED WITH LOVE BY ADAM SMITH, AARON MEDINA, AND GARRETT GUEVARA
+## CODED WITH LOVE BY ADAM SMITH, AARON MEDINA, GARRETT GUEVARA AND SAJI BHASKARAN
 
 -All dependencies are located in the package.json.
 -To get the dependencies on your machine you will need to have installed NodeJS and NPM (Node Package Manager).
