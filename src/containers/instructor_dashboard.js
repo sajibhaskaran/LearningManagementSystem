@@ -16,13 +16,19 @@ class Instructor extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			Loaded: false
+			Loaded: false,
+			term: '',
+			students: []
 		};
+
+		this.props.studentSearchAction();
+
+		this.handleChange = this.handleChange.bind(this)
 	}
 
-	mapCourseViews() {
+	mapStudentViews() {
 
-		if (this.props.studentSearch !== null) {
+		if (this.state.students !== null) {
 			//console.log(this.props.studentSearch);
 
 			// Preload images
@@ -31,7 +37,7 @@ class Instructor extends Component {
 			//const path = "/images/resultsIMG/";
 
 			// Map over props and populate our page based on these props
-			const courseMap = this.props.studentSearch.map((student, i) => {
+			const studentMap = this.state.students.map((student, i) => {
 
 				// Gives ability to pass two table ID's (student info) to <Link> Params
 				let userInfo = [
@@ -48,7 +54,7 @@ class Instructor extends Component {
 							{/*<img className="card-img-top img-responsive" src={path + picArray[i]} alt="Card image cap" />*/}
 							<div className="card-block spaCourseBox text-center">
 									<h6>{student.Name} </h6>
-									<p> {student.Location}</p>
+									<p> { student.Location  || "not listed"}</p>
 							</div>
 						</div>
 						</Link>
@@ -57,9 +63,28 @@ class Instructor extends Component {
 				);
 			});
 
-			return courseMap;
+			return studentMap;
 
 		}
+	}
+
+
+	handleChange(e) {
+
+		let searchResult = this.props.studentSearch.filter(student => student.Name
+																			.toLowerCase()
+																			.includes(e.target.value
+																			.toLowerCase()));
+		//console.log(e.target.value, searchResult)
+		this.setState({
+			
+			term: e.target.value,
+			students: searchResult
+
+
+
+		})
+
 	}
 
 
@@ -75,20 +100,44 @@ componentDidUpdate(prevProps, prevState) {
 	$(".spaCourseBox").matchHeight();
 }
 
+
 componentDidMount() {
-	// get request to return a list of all the TechAcademy students    	
-	this.props.studentSearchAction();
+	// get request to return a list of all the TechAcademy students 
+	//this.props.studentSearchAction();
+	this.setState({
+		students: this.props.studentSearch
+	})
+
+	console.log(this.state.students)
+	
+}
+
+componentWillReceiveProps(nextProps) {
+	
+	this.setState({
+		students: nextProps.studentSearch
+	})
+
+	
+
 }
 
 
 render() {
 	return (
-		<div>
-			<h1 style={{ textAlign: "center" }}>List of students...</h1>
-			<hr />
+		<div className="text-center">
+			<h1>List of students...</h1>
+			
+			<input
+				type="text"
+				placeholder="Search...."
+				value={this.state.term}
+				onChange={this.handleChange}
+			/>
+			<hr className="style-two" />
 			<div className="container">
 				<div className="row">
-					{this.mapCourseViews()}
+					{this.mapStudentViews()}
 				</div>
 			</div>
 		</div>

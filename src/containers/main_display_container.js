@@ -23,6 +23,9 @@ import TestResults from '../components/results_student_view/test_results';
 import DailyReportResult from '../components/results_student_view/daily_report_results';
 import InstructorDailyReportResult from '../components/results_instructor_view/daily_report_results_instructor';
 import InstructorWeeklyReportResult from '../components/results_instructor_view/weekly_report_results_instructor';
+import InstructorTestResult from '../components/results_instructor_view/test_results_instructor';
+import InstructorDrillResult from '../components/results_instructor_view/drill_results_instructor';
+
 import WeeklyReportResult from '../components/weekly_survey/weekly_report_results';
 import Testing from '../components/testing/testing';
 import Resources from '../components/resources/resources';
@@ -111,9 +114,13 @@ export default class CoursesDashboard extends Component {
 
 					<Route path="/dailyReport" component={DailyReport} />
 
-					<Route path="/instructorDailyReportResult/:id" component={InstructorDailyReportResult} />
+					<Route path="/instructorDailyReportResult/:value" component={InstructorDailyReportResult} />
 
-					<Route path="/instructorWeeklyReportResult/:id" component={InstructorWeeklyReportResult} />
+					<Route path="/instructorWeeklyReportResult/:value" component={InstructorWeeklyReportResult} />
+
+					<Route path="/instructorTestResult/:value" component={InstructorTestResult} />
+
+					<Route path="/instructorDrillResult/:value" component={InstructorDrillResult} />
 
 					<Route path="/weeklyReportResult/" component={WeeklyReportResult} />
 

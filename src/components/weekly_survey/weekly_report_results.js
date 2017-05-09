@@ -22,22 +22,23 @@ class WeeklyReportResult extends Component {
 
 
 
-		if (this.props.courseDrill !== null) {
+		if (this.props.courseDrill > [0]) {
 			const renderList = this.props.courseDrill.map((item, i) => {
 				return (
                     // Key for error in console due to mapping
 					<div key={i}>
 						<hr />
-                        <h4>Course Position: </h4><p>{item.CoursePosition}</p>
-                        <h4>Need Help: </h4><p>{item.NeedHelp}</p>
-                        <h4>Materials and Supplies Needed: </h4><p>{item.MaterialsAndSupplies}</p>
-                        <h4>Meetups: </h4><p>{item.Meetups}</p>
-                        <h4>Positive Experiences: </h4><p>{item.PositiveExperiences}</p>
-                        <h4>Complaints: </h4><p>{item.Complaints}</p>
-                        <h4>Hours Studied: </h4><p>{item.HoursStudied}</p>
-                        <h4>Job Search: </h4><p>{item.JobSearch}</p>
-                        <h4>Referral: </h4><p>{item.Referral}</p>
-                        <h4>Miscellaneous: </h4><p>{item.Miscellaneous}</p>
+						<h4>Date Submitted: </h4><p>{item.Date}</p>
+                        <h5>Course Position: </h5><p>{item.CoursePosition}</p>
+                        <h5>Need Help: </h5><p>{item.NeedHelp}</p>
+                        <h5>Materials and Supplies Needed: </h5><p>{item.MaterialsAndSupplies}</p>
+                        <h5>Meetups: </h5><p>{item.Meetups}</p>
+                        <h5>Positive Experiences: </h5><p>{item.PositiveExperiences}</p>
+                        <h5>Complaints: </h5><p>{item.Complaints}</p>
+                        <h5>Hours Studied: </h5><p>{item.HoursStudied}</p>
+                        <h5>Job Search: </h5><p>{item.JobSearch}</p>
+                        <h5>Referral: </h5><p>{item.Referral}</p>
+                        <h5>Miscellaneous: </h5><p>{item.Miscellaneous}</p>
 
 
 					</div>
@@ -51,7 +52,7 @@ class WeeklyReportResult extends Component {
 				<div className="container text-center">
 
 					<div className="row">
-						<h1>Daily Reports</h1>
+						<h1>Weekly Reports</h1>
 						<hr />
 					</div>
 
@@ -67,7 +68,7 @@ class WeeklyReportResult extends Component {
 
 
 		} else {
-			return (<h6>Not working...</h6>)
+			return (<h6>No weekly reports yet...</h6>)
 		}
 
 

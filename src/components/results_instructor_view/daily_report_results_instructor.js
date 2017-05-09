@@ -2,17 +2,24 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
+// Loader
+import Loader from '../../components/loader/loader';
+
+// actions
 import { resultsInstructorViewAction } from '../../actions/Results/results_instructor_view_action';
-// importing components
+
 
 
 
 class DailyReportResult extends Component {
 
 	componentDidMount() {
-
-		const url = `/SPA/getDailyReport?Id=${this.props.match.params.id}`;
-		
+		// getting the user info from the props/params
+		const userInfo = this.props.match.params.value.split(',');
+		// url to pass to the end point
+		const url = `/SPA/getDailyReport?Id=${userInfo[1]}`;
+		// calling the action
 		this.props.resultsInstructorViewAction(url);
 	}
 
@@ -21,20 +28,20 @@ class DailyReportResult extends Component {
 	render() {
 
 
-
-		if (this.props.resultsInstructorView !== null) {
-			console.log(this.props);
+		// checking to see if data exists
+		if (this.props.resultsInstructorView > [0]) {
+			
 			const renderList = this.props.resultsInstructorView.map((item, i) => {
 				return (
 
 					<div key={i}>
-						<hr />
-						<h6>Date Submitted: {item.Date}</h6>
-						<h6>Course Position: {item.CoursePosition} </h6>
-						<h6>Feedback: {item.Feedback} </h6>
-						<h6>Hours Studied: {item.HoursStudied} </h6>
-						<h6>Positive Experiences: {item.PositiveExperiences} </h6>
-						<h6>Help Needed: {item.NeedHelp} </h6>
+						<hr className="style-two" />
+						<h4>Date Submitted: </h4><p>{item.Date}</p>
+						<h5>Course Position: </h5><p>{item.CoursePosition}</p>
+						<h5>Feedback: </h5><p>{item.Feedback}</p>
+						<h5>Hours Studied: </h5><p>{item.HoursStudied}</p>
+						<h5>Positive Experiences: </h5><p>{item.PositiveExperiences}</p>
+						<h5>Help Needed: </h5><p>{item.NeedHelp}</p>
 
 
 					</div>
@@ -49,7 +56,7 @@ class DailyReportResult extends Component {
 
 					<div className="row">
 						<h1>Daily Reports</h1>
-						<hr />
+						<h3>Student Name: </h3><h5>{this.props.match.params.value.split(',')[2]}</h5>
 					</div>
 
 					<div className="col-sm-12 text-left">
@@ -64,7 +71,7 @@ class DailyReportResult extends Component {
 
 
 		} else {
-			return (<h6>Not working...</h6>)
+			return (<h6>No daily reports yet</h6>)
 		}
 
 

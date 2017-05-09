@@ -22,19 +22,19 @@ class DailyReportResult extends Component{
 		
 		
 		
-		if(this.props.courseDrill !== null){
+		if (this.props.courseDrill > [0]){
 			console.log(this.props.courseDrill);
 			const renderList = this.props.courseDrill.map((item, i)=> {
 				return (				
 					
 					<div key ={i}>
 					<hr />
-					<h6>Date Submitted: {item.Date}</h6>
-					<h6>Course Position: {item.CoursePosition} </h6>
-					<h6>Feedback: {item.Feedback} </h6>
-					<h6>Hours Studied: {item.HoursStudied} </h6>
-					<h6>Positive Experiences: {item.PositiveExperiences} </h6>
-					<h6>Help Needed: {item.NeedHelp} </h6>
+					<h4>Date Submitted: </h4><p>{item.Date}</p>
+					<h5>Course Position: </h5><p>{item.CoursePosition}</p>
+					<h5>Feedback: </h5><p>{item.Feedback}</p>
+					<h5>Hours Studied: </h5><p>{item.HoursStudied}</p>
+					<h5>Positive Experiences: </h5><p>{item.PositiveExperiences}</p>
+					<h5>Help Needed: </h5><p>{item.NeedHelp}</p>
 
 					
 					</div>
@@ -64,7 +64,7 @@ class DailyReportResult extends Component{
 			
 		
 	}else{
-		return(<h6>Not working...</h6>)
+		return(<h6>No daily reports yet...</h6>)
 		}
 
 		

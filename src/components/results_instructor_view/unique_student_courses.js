@@ -24,11 +24,11 @@ class UniqueStudentCourses extends Component {
 
 
 
-	mapCourseViews(userId) {
+	mapCourseViews(userID) {
 
 		if (this.props.StudentCoursesList !== null) {
 
-			console.log("check", userId);
+			//console.log("check", userId);
 
 			// Preload images
 			var preload = new Image();
@@ -37,7 +37,7 @@ class UniqueStudentCourses extends Component {
 
 			// Map over props and populate our page based on these props
 			const courseMap = this.props.StudentCoursesList.map((course, i) => {
-
+				let userInfo = [course.CourseId, userID[0], userID[1]]
 
 				return (
 
@@ -47,10 +47,10 @@ class UniqueStudentCourses extends Component {
 							<img className="card-img-top img-responsive" src={path + picArray[i]} alt="Card image cap" />
 							<div className="card-block spaCourseBox">
 								<div className="reportButtons text-center">
-									<ResultsButton name={"Drill"} courseId={course.CourseId} />
-									<ResultsButton name={"Tests"} courseId={course.CourseId} />
-									<ResultsButton name={"Daily"} userId={userId} />
-									<ResultsButton name={"Weekly"} userId={userId} />
+									<ResultsButton name={"Drill"} userInfo={userInfo} />
+									<ResultsButton name={"Tests"} userInfo={userInfo} />
+									<ResultsButton name={"Daily"} userInfo={userInfo} />
+									<ResultsButton name={"Weekly"} userInfo={userInfo} />
 								</div>
 							</div>
 						</div>
@@ -102,7 +102,7 @@ class UniqueStudentCourses extends Component {
 
 						<div className="col-md-12">
 							{}
-							{this.mapCourseViews(userInfo[0])}
+							{this.mapCourseViews(userInfo)}
 						</div>
 					</div>
 				</Loader>

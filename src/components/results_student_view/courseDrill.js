@@ -19,19 +19,19 @@ class CourseDrill extends Component{
 
 	render() {
 
-		if (this.props.courseDrill !== null) {
+		if (this.props.courseDrill > [0]) {
 			console.log(this.props.courseDrill);
 
 			const renderList = this.props.courseDrill.map((item, i) => {
 				return (
 
 					<div key={i}>
-						<hr />
-						<h6>Page Number: {item.PageNumber} </h6>
-						<h6>Date Submitted: {item.Submitted}</h6>
-						<h6>Title: {item.PageTitle} </h6>
-						<h6>Submission Text: {item.SubmissionText} </h6>
-						<h6>Passed: {item.Passed} </h6>
+						<hr className="style-two" />
+						<h4>Date Submitted: </h4><p>{item.Submitted}</p>
+						<h5>Page Number: </h5><p>{item.PageNumber}</p>
+						<h5>Title: </h5><p>{item.PageTitle}</p>
+						<h5>Submission Text: </h5><p>{item.SubmissionText}</p>
+						<h5>Passed: </h5><p>{item.Passed}</p>
 						
 
 
@@ -56,6 +56,7 @@ class CourseDrill extends Component{
 
 			);
 		} else {
+			console.log(this.props.courseDrill);
 			return (<h4>No drills yet.</h4>);
 		}
 		

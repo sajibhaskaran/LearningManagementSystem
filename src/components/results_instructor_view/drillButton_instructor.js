@@ -13,7 +13,7 @@ export default class ResultsButton extends Component {
 			case 'Drill':
 				// link to drill component
 				return (
-					<Link to={`/courseDrill/${this.props.courseId}`}>
+					<Link to={`/instructorDrillResult/${this.props.userInfo}`}>
 						<button className="btn btn-primary reportButton text-center">
 							{this.props.name}
 						</button>
@@ -21,9 +21,10 @@ export default class ResultsButton extends Component {
 				);
 				break;
 			case 'Tests':
+				
 				// link to essay component
 				return (
-					<Link to={`/testResults/${this.props.courseId}`}>
+					<Link to={`/instructortestResult/${this.props.userInfo}`}>
 						<button className="btn btn-primary reportButton text-center">
 							{this.props.name}
 						</button>
@@ -34,7 +35,7 @@ export default class ResultsButton extends Component {
 				// link to daily component
 				
 				return (
-					<Link to={`/instructorDailyReportResult/${this.props.userId}`}>
+					<Link to={`/instructorDailyReportResult/${this.props.userInfo}`}>
 						<button className="btn btn-primary reportButton text-center">
 							{this.props.name}
 						</button>
@@ -44,7 +45,7 @@ export default class ResultsButton extends Component {
 			case 'Weekly':
 				// link to daily component
 				return (
-					<Link to={`/instructorWeeklyReportResult/${this.props.userId}`}>
+					<Link to={`/instructorWeeklyReportResult/${this.props.userInfo}`}>
 						<button className="btn btn-primary reportButton text-center">
 							{this.props.name}
 						</button>

@@ -6,20 +6,21 @@ import { connect } from 'react-redux';
 // Loader
 import Loader from '../../components/loader/loader';
 
-//actions
+// actions
 import { resultsInstructorViewAction } from '../../actions/Results/results_instructor_view_action';
 
 
 
 
-class WeeklyReportResult extends Component {
+class InstructorDrillResult extends Component {
 
 	componentDidMount() {
-		// getting the user info from the props/params
+		//getting the user info from the props/params
+		
 		const userInfo = this.props.match.params.value.split(',');
-		// url for the getWeeklyReport
-		const url = `/SPA/getWeeklyReport?Id=${userInfo[1]}`;
-
+		// making url for the endpoint
+		const url = `/SPA/GetDrills?courseId=${userInfo[0]}&studentId=${userInfo[1]}`;
+		// calling the action
 		this.props.resultsInstructorViewAction(url);
 	}
 
@@ -27,25 +28,24 @@ class WeeklyReportResult extends Component {
 
 	render() {
 
-
-		// checking to see if the data exists
+		// checking to see if data exists
 		if (this.props.resultsInstructorView > [0]) {
+			
+
 			const renderList = this.props.resultsInstructorView.map((item, i) => {
+				
 				return (
-					// Key for error in console due to mapping
+
 					<div key={i}>
 						<hr className="style-two" />
-						<h4>Date Submitted: </h4><p>{item.Date}</p>
-						<h5>Course Position: </h5><p>{item.CoursePosition}</p>
-						<h5>Need Help: </h5><p>{item.NeedHelp}</p>
-						<h5>Materials and Supplies Needed: </h5><p>{item.MaterialsAndSupplies}</p>
-						<h5>Meetups: </h5><p>{item.Meetups}</p>
-						<h5>Positive Experiences: </h5><p>{item.Positives}</p>
-						<h5>Complaints: </h5><p>{item.Complaints}</p>
-						<h5>Hours Studied: </h5><p>{item.HoursStudied}</p>
-						<h5>Job Search: </h5><p>{item.JobSearch}</p>
-						<h5>Referral: </h5><p>{item.Referral}</p>
-						<h5>Miscellaneous: </h5><p>{item.Miscellaneous}</p>
+						<h4> Page Number: </h4><p>{item.PageNumber}</p>
+						<h5> Page Title: </h5><p>{item.PageTitle}</p>
+						<h5> Submission Text: </h5><p>{item.SubmissionText}</p>
+						<h5> Submitted: </h5><p>{item.Submitted}</p>
+						<h5> Passed: </h5><p>{item.Passed}</p>
+
+
+
 
 
 					</div>
@@ -54,14 +54,15 @@ class WeeklyReportResult extends Component {
 
 			});
 
-			
+
 			return (
+
 				<div className="container text-center">
 
 					<div className="row">
-						<h1>Weekly Reports</h1>
+						<h1>Drill Results</h1>
 						<h3>Student Name: </h3><h5>{this.props.match.params.value.split(',')[2]}</h5>
-						
+
 					</div>
 
 					<div className="col-sm-12 text-left">
@@ -73,13 +74,9 @@ class WeeklyReportResult extends Component {
 				</div>
 
 			);
-
-
 		} else {
-			
-			return (<h6>No weekly reports yet</h6>);
+			return (<h4>No drills yet.</h4>);
 		}
-
 
 	}
 
@@ -96,4 +93,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(WeeklyReportResult);
+export default connect(mapStateToProps, mapDispatchToProps)(InstructorDrillResult);

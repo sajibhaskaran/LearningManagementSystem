@@ -19,7 +19,7 @@ class TestResults extends Component {
 
 	render() {
 
-		if (this.props.courseDrill !== null) {
+		if (this.props.courseDrill > [0]) {
 			console.log(this.props.courseDrill);
 
 			const renderList = this.props.courseDrill.map((item, i) => {
@@ -28,9 +28,9 @@ class TestResults extends Component {
 					<div key={i}>
 						<hr />
 						<h4> Question Number: </h4><p>{item.QuestionNumber}</p>
-						<h4> Question: </h4><p>{item.Question}</p>
-						<h4> Answer: </h4><p>{item.Answer}</p>
-						<h4> Result: </h4><p>{item.Result}</p>
+						<h5> Question: </h5><p>{item.Question}</p>
+						<h5> Answer: </h5><p>{item.Answer}</p>
+						<h5> Result: </h5><p>{item.Result}</p>
 						
 						
 
@@ -57,7 +57,7 @@ class TestResults extends Component {
 
 			);
 		} else {
-			return (<h4>No drills yet.</h4>);
+			return (<h4>No tests yet.</h4>);
 		}
 
 	}
