@@ -3,8 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-// Student Course Page
-
 
 // Loader
 import Loader from '../components/loader/loader';
@@ -29,7 +27,7 @@ class Instructor extends Component {
 	mapStudentViews() {
 
 		if (this.state.students !== null) {
-			//console.log(this.props.studentSearch);
+			
 
 			// Preload images
 			//var preload = new Image();
@@ -70,19 +68,16 @@ class Instructor extends Component {
 
 
 	handleChange(e) {
-
+		// filtering the search results
 		let searchResult = this.props.studentSearch.filter(student => student.Name
 																			.toLowerCase()
 																			.includes(e.target.value
 																			.toLowerCase()));
-		//console.log(e.target.value, searchResult)
+		
 		this.setState({
 			
 			term: e.target.value,
 			students: searchResult
-
-
-
 		})
 
 	}
@@ -101,16 +96,7 @@ componentDidUpdate(prevProps, prevState) {
 }
 
 
-componentDidMount() {
-	// get request to return a list of all the TechAcademy students 
-	//this.props.studentSearchAction();
-	this.setState({
-		students: this.props.studentSearch
-	})
 
-	console.log(this.state.students)
-	
-}
 
 componentWillReceiveProps(nextProps) {
 	
