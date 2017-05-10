@@ -112,15 +112,25 @@ componentWillReceiveProps(nextProps) {
 render() {
 	return (
 		<div className="text-center">
-			<h1>List of students...</h1>
+			 
+
+		<h1>List of students</h1>
 			
-			<input
+			
+			
+
+			<div className="container-1">
+				<input
 				type="text"
+				id="search"
 				placeholder="Search...."
 				value={this.state.term}
 				onChange={this.handleChange}
-			/>
+			/> 
+			</div>
+
 			<hr className="style-two" />
+
 			<div className="container">
 				<div className="row">
 					{this.mapStudentViews()}
