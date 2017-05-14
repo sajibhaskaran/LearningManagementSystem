@@ -40,7 +40,8 @@ class Instructor extends Component {
 				// Gives ability to pass two table ID's (student info) to <Link> Params
 				let userInfo = [
 					student.Id,
-					student.Name
+					student.Name,
+                    student.Location
 				]
 
 				return (

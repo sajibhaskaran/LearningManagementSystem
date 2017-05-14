@@ -50,6 +50,9 @@ import ResultsInstructorView from "./Results/results_instructor_view_reducer";
 // Student Search
 import StudentSearch from "./Student Search/student_search_reducer";
 
+// Progress Bars
+import Progress from "./Progress/progress_reducer";
+
 // redux and redux form
 import { combineReducers } from 'redux';
 //import { reducer as formReducer } from 'redux-form';
@@ -61,6 +64,7 @@ const rootReducer = combineReducers({
     //navBarButtons: StudentNavButtonsReducer,
     selectNavButton: SelectNavButton,
     navigationRole: NavigationRole,
+
 	// profile
     Profile: Profile,
     getProfile: GetProfile,
@@ -79,7 +83,10 @@ const rootReducer = combineReducers({
 	ResultsInstructorView: ResultsInstructorView, 
 
 	// Student Search
-	StudentSearch: StudentSearch,
+    StudentSearch: StudentSearch,
+
+    // Progress Bars
+    Progress: Progress,
 
     // Loader
     Loaded: Loaded,

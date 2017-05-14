@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 // action creator
 import { fetchStudentCourseView } from "../actions/fetch_student_course_view";
 import { postStudentTest } from "../actions/Student Courses/student_post_test_results_action";
-
+import { postCurrentPosition } from "../actions/Student Courses/student_post_current_course_position";
 // Loader 
 import Loader from "../components/loader/loader";
 import { loadedFalse } from "../actions/Loader/loaded_false_action";
@@ -392,6 +392,8 @@ class StudentCourseView extends Component {
         let pageNumber = this.props.match.params.pageNumber;
         let courseId = this.props.match.params.courseId;
 
+        //postCurrentPosition(courseId, pageNumber);
+
         // increase page number by one
         if (pageNumber !== ":") {
             pageNumber = pageNumber.slice(1, pageNumber.length);
@@ -399,7 +401,9 @@ class StudentCourseView extends Component {
         } else {
             pageNumber = 1;
         }
-        
+
+        let courseID = courseId.slice(1, courseId.length);
+        postCurrentPosition(courseID, pageNumber-1);
         // Check to make sure they don't go past the last page
         if (this.props.studentCourseView !== null){
             if (pageNumber > this.props.studentCourseView.LastPageNumber){
@@ -445,7 +449,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchStudentCourseView: fetchStudentCourseView,
         loadedFalse: loadedFalse,
-        postStudentTest: postStudentTest
+        postStudentTest: postStudentTest,
+        postCurrentPosition: postCurrentPosition
     }, dispatch);
 }
 

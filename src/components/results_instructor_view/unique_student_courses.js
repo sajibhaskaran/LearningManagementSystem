@@ -9,6 +9,7 @@ import Loader from '../../components/loader/loader';
 // Actions
 import { fetchStudentCourses } from '../../actions/Student Courses/fetch_courses';
 import { selectStudentCourseId } from '../../actions/Student Courses/select_student_course_id_action';
+import { studentSearchAction } from '../../actions/Student Search/student_search_action';
 
 // Components
 import ResultsButton from '../../components/results_instructor_view/drillButton_instructor';
@@ -19,6 +20,8 @@ class UniqueStudentCourses extends Component {
 		this.state = {
 			Loaded: false
 		};
+
+		//this.props.studentSearchAction();
 
 	}
 
@@ -71,6 +74,8 @@ class UniqueStudentCourses extends Component {
 		}
 	}
 
+               
+
 	componentDidUpdate(prevProps, prevState) {
 
 		// set loaded to true
@@ -83,8 +88,8 @@ class UniqueStudentCourses extends Component {
 	}
 
 	componentDidMount() {
-		// Make get request to return a list of all the courses in our reducer    	
-		this.props.fetchStudentCourses();
+	    // Make get request to return a list of all the courses in our reducer    	
+	    this.props.fetchStudentCourses();
 	}
 
 	render() {
@@ -92,16 +97,14 @@ class UniqueStudentCourses extends Component {
 		if (typeof this.props.match.params.value !== "undefined") {
 
 			// Split UserId/Name string returned from database into array - Then index the Name from tableID below
-			let userInfo = this.props.match.params.value.split(",");
+		    let userInfo = this.props.match.params.value.split(",");
 			return (
 				<Loader Loaded={this.state.Loaded} className="loader">
 					<div className="row text-center">
-						<h1>Student Name:</h1><h3>{userInfo[1]}</h3>
+						<h1>Student Name:</h1><h3>{userInfo[1]}</h3><p>{userInfo[2] || "not listed"}</p>
 					</div>
 					<div className="row">
-
 						<div className="col-md-12">
-							{}
 							{this.mapCourseViews(userInfo)}
 						</div>
 					</div>
@@ -123,7 +126,8 @@ function mapDispatchToProps(dispatch) {
 // Allow this component to access redux store
 function mapStateToProps(state) {
 	return {
-		StudentCoursesList: state.StudentCoursesList
+	    StudentCoursesList: state.StudentCoursesList,
+	    studentSearch: state.StudentSearch
 	};
 }
 
