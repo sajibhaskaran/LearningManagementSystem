@@ -95,13 +95,14 @@ class UniqueStudentCourses extends Component {
 	render() {
 		// checking if params are available, due to React's speed
 		if (typeof this.props.match.params.value !== "undefined") {
+        let userInfo = this.props.match.params.value.split(",");
+			return (
 
 			// Split UserId/Name string returned from database into array - Then index the Name from tableID below
-		    let userInfo = this.props.match.params.value.split(",");
-			return (
+		    
 				<Loader Loaded={this.state.Loaded} className="loader">
 					<div className="row text-center">
-						<h1>Student Name:</h1><h3>{userInfo[1]}</h3><p>{userInfo[2] || "not listed"}</p>
+						<h1>Student Name:</h1><h3>{userInfo[1]}</h3><h4>({userInfo[2] || "not listed"})</h4>
 					</div>
 					<div className="row">
 						<div className="col-md-12">

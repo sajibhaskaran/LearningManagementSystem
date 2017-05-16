@@ -18,6 +18,7 @@ export default (props) => {
     // Get todays week day as an int
     const d = new Date();
     const dayOfWeek = d.getDay();
+    
 
     return (
         <div className="col-xs-4" style={{
@@ -37,7 +38,7 @@ export default (props) => {
 
                     <div className="col-xs-12" >
                         <h6>Location: </h6>
-                        <p> {info.Location}</p>
+                        <p> {info.Location || "not listed"}</p>
                     </div>
 
                     <div className="col-xs-12" >
@@ -53,6 +54,11 @@ export default (props) => {
                     <div className="col-xs-12" >
                         <h6>Current Page: </h6>
                         <p> {info.PageNumber.toString()}</p>
+                    </div>
+
+                    <div className="col-xs-12" >
+                        <h6>Last Login: </h6>
+                         <p>{info.LastLogin.toString()}</p>
                     </div>
 
                     <div className="col-xs-12" >

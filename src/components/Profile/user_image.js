@@ -53,23 +53,34 @@ class UserImage extends Component {
 
 		let reader = new FileReader();
 		let file = e.target.files[0];
-		
-		// loading the image to preview
-		reader.onloadend = () => {
-			this.setState({
-				file: file,
-				imageUrl: reader.result
-			});
-			
+		let type = file.type;
+		let size = file.size;
+
+		if (type === 'image/jpeg' || type === 'image/jpg' || type === 'image/png') {
+
+		    if (size < 2e+6) {
+		        // loading the image to preview
+		        reader.onloadend = () => {
+		            this.setState({
+		                file: file,
+		                imageUrl: reader.result
+		            });
+		        }
+
+		        reader.readAsDataURL(file)
+		        // saving the image to the server
+		        let form_data= new FormData();
+		        form_data.append("file", file);
+		        this.props.submitProfile(form_data);
+		    } else {
+                alert("Please provide a image that is under 2mb");
+		    }
+
+		} else {
+		    alert("Please provide JPG or PNG files only");
+		    console.log(type);
 		}
 		
-		reader.readAsDataURL(file)
-		// saving the image to the server
-		let form_data= new FormData();
-		form_data.append("file", file);
-		this.props.submitProfile(form_data);
-		
-
 	}
 
 	
