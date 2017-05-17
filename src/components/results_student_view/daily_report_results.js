@@ -12,7 +12,7 @@ class DailyReportResult extends Component{
 	componentDidMount() {
 		
 		const url = '/SPA/getDailyReport';
-		console.log(url);
+		
 		this.props.courseDrillAction(url);
 	}
 
@@ -23,7 +23,7 @@ class DailyReportResult extends Component{
 		
 		
 		if (this.props.courseDrill > [0]){
-			console.log(this.props.courseDrill);
+		
 			const renderList = this.props.courseDrill.map((item, i)=> {
 				return (				
 					

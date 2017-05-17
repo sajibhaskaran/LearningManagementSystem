@@ -86,7 +86,7 @@ componentDidUpdate(prevProps, prevState) {
 	}
 
 	render() {
-		console.log(this.props.match.params.value);
+		
 		return (
             <Loader Loaded={this.state.Loaded} className="loader">
                 <div className="row">

@@ -19,8 +19,10 @@ const userNavigations = [
         // Instructors
         { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" },
         { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: InboxToggle, customclass: "spaMessagingNavButton" },
-        { title: "Testing", navnumber: 103, icon: "fa fa-pencil-square", url: "/Testing", onclick: defaultObject, customclass: "" }
+        { title: "Testing", navnumber: 103, icon: "fa fa-pencil-square", url: "/testing", onclick: defaultObject, customclass: "" },
+        { title: "Daily Report", navnumber: 104, icon: "fa fa-flag-o", url: "/instructorDailyReports", onclick: defaultObject, customclass: "" }
     ],
+
     [
         // Admin
         { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" },

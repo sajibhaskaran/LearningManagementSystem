@@ -52,8 +52,6 @@ class UniqueStudentCourses extends Component {
 								<div className="reportButtons text-center">
 									<ResultsButton name={"Drill"} userInfo={userInfo} />
 									<ResultsButton name={"Tests"} userInfo={userInfo} />
-									<ResultsButton name={"Daily"} userInfo={userInfo} />
-									<ResultsButton name={"Weekly"} userInfo={userInfo} />
 								</div>
 							</div>
 						</div>

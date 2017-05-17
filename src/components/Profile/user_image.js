@@ -19,8 +19,7 @@ class UserImage extends Component {
 		
 		};
 		
-		//this.handleImageChange = this.handleImageChange.bind(this);
-		//this.handleSubmit = this.handleSubmit.bind(this);
+		
 	}
 
 
@@ -78,7 +77,7 @@ class UserImage extends Component {
 
 		} else {
 		    alert("Please provide JPG or PNG files only");
-		    console.log(type);
+		   
 		}
 		
 	}

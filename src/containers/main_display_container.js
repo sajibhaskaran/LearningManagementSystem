@@ -22,6 +22,9 @@ import CourseDrill from '../components/results_student_view/courseDrill';
 import TestResults from '../components/results_student_view/test_results';
 import DailyReportResult from '../components/results_student_view/daily_report_results';
 import InstructorDailyReportResult from '../components/results_instructor_view/daily_report_results_instructor';
+// For Instructor Navigation 
+import InstructorDailyReports from '../components/instructor_daily_reports/instructor_daily_reports';
+//
 import InstructorWeeklyReportResult from '../components/results_instructor_view/weekly_report_results_instructor';
 import InstructorTestResult from '../components/results_instructor_view/test_results_instructor';
 import InstructorDrillResult from '../components/results_instructor_view/drill_results_instructor';
@@ -108,13 +111,15 @@ export default class CoursesDashboard extends Component {
 
                     <Route path="/courseView/:courseId/:pageNumber" component={StudentCourseView} />
 
-                    <Route path="/Testing" component={Testing} />
+                    <Route path="/testing" component={Testing} />
 
                     <Route path="/resources" component={Resources} />
 
 					<Route path="/dailyReport" component={DailyReport} />
 
 					<Route path="/instructorDailyReportResult/:value" component={InstructorDailyReportResult} />
+
+                    <Route path="/instructorDailyReports" component={InstructorDailyReports} />
 
 					<Route path="/instructorWeeklyReportResult/:value" component={InstructorWeeklyReportResult} />
 

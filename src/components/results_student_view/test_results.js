@@ -20,7 +20,7 @@ class TestResults extends Component {
 	render() {
 
 		if (this.props.courseDrill > [0]) {
-			console.log(this.props.courseDrill);
+			
 
 			const renderList = this.props.courseDrill.map((item, i) => {
 				return (

@@ -20,7 +20,7 @@ class CourseDrill extends Component{
 	render() {
 
 		if (this.props.courseDrill > [0]) {
-			console.log(this.props.courseDrill);
+			
 
 			const renderList = this.props.courseDrill.map((item, i) => {
 				return (
@@ -56,7 +56,7 @@ class CourseDrill extends Component{
 
 			);
 		} else {
-			console.log(this.props.courseDrill);
+			
 			return (<h4>No drills yet.</h4>);
 		}
 		

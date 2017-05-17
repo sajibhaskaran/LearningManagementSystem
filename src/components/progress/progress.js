@@ -1,8 +1,12 @@
-﻿import React, { Component } from 'react';
+﻿// libraries
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+// action
 import { fetchProgress } from "../../actions/Progress/progress_action";
+// component
+import ProgressBar from './ProgressBar';
 
 class Progress extends Component {
     constructor(props) {
@@ -10,312 +14,138 @@ class Progress extends Component {
 
     }
 
-    calculateProgress(values) {
-        console.log(values);
-    }
-
-    componentDidMount() {
+   
+	componentDidMount() {
+		// calling the action
         this.props.fetchProgress();
     }
 
+	courseList() {
+		// doing the calculation to figure out the progress in individual courses.
+		let count = 0;
+		
+		let daysUsed = this.props.courseProgress.Data.daysUsed;
+		let daysStudyDone = this.props.courseProgress.Data.daysActuallyDone;
+		let courseDays = this.props.courseProgress.CourseDays;		
+		let courses = [];
+
+		console.log("start",daysUsed, daysStudyDone);
+		
+		this.props.courseProgress.CoursesDone.push(this.props.courseProgress.CurrentCoursePercent);
+		if (daysUsed >= daysStudyDone) {
+			while (daysUsed > courseDays[count]) {
+
+				daysUsed -= courseDays[count];
+				var temp = 0;
+				if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+					var temp = 100;
+				}
+				else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+					temp = this.props.courseProgress.CoursesDone[count];
+				}
+
+				courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
+				count++;
+			}
+
+			let percent = Math.round((daysUsed / courseDays[count]) * 100);
+
+			courses.push([this.props.courseProgress.AllCourses[count], this.props.courseProgress.CoursesDone[count], percent]);
+
+		}
+		else {
+			while (daysUsed >= courseDays[count]) {
+				
+
+				daysUsed -= courseDays[count];
+				daysStudyDone -= courseDays[count];
+				console.log(daysUsed, daysStudyDone);
+				var temp = 0;
+				if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+					var temp = 100;
+				}
+				else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+					temp = this.props.courseProgress.CoursesDone[count];
+				}
+
+				courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
+				count++;
+			}
+
+			//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count],courseDays[count], daysUsed);
+			let percent = Math.round((daysUsed / courseDays[count]) * 100);
+			let percentDone = 0;
+			if (daysStudyDone <= courseDays[count]) {
+				percentDone = Math.round((daysStudyDone / courseDays[count]) * 100);
+			} else percentDone = 100;
+
+			daysStudyDone -= courseDays[count]
+			
+			courses.push([this.props.courseProgress.AllCourses[count], percentDone, percent]);
+			count++
+			//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
+
+			while (daysStudyDone >= courseDays[count]) {
+				
+
+				
+				daysStudyDone -= courseDays[count];
+				var temp = 0;
+				if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+					var temp = 100;
+				}
+				else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+					temp = this.props.courseProgress.CoursesDone[count];
+				}
+
+				courses.push([this.props.courseProgress.AllCourses[count], temp, 0]);
+				count++;
+				console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
+			}
+
+
+			
+
+
+		}
+		
+			
+		
+			// returning a list of course progress bars
+			return courses.map((course, i) => {
+				return <ProgressBar key={i} name={course[0]} percentDone={course[1]} percentShouldHaveDone={course[2]} />
+			});
+
+	}
+	
 
 
 
-
-
-    // keep in mind, this will all have to be generated mathematically, goal by timestamp and progress by checkpoints
+    // render function after checking the props availability.
     render() {
-        console.log(this.props.courseProgress);
+        
         if (this.props.courseProgress != null) {
-            console.log(this.props.courseProgress.daysUsed);
-
             return (
                 <div className="container">
                     <div className="row">
-                        <div className="col-xs-12">
-
-                            {/* Boot Camp */}
+						<div className="col-xs-12">
+							                           
                             <div className="text-center">
                                 <h1>Progress</h1>
-                            </div>
+							</div>
+							<hr />
+							{/* progress bar of the total course*/}
+							<ProgressBar
+								name={"Boot Camp"}
+								percentDone={this.props.courseProgress.Data.percentActuallyDone}
+								percentShouldHaveDone={this.props.courseProgress.Data.percentShouldHaveDone} />
 
-                            <div className="text-center">
-                                <h3>Boot Camp</h3>
-                            </div>
+							<hr />
+							{/* calling the function to display the progress bars of the indiviadual courses.*/}
+							{this.courseList()}
 
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: this.props.courseProgress.percentActuallyDone + "%" }}
-                                    aria-valuenow="100"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: {this.props.courseProgress.percentActuallyDone + "%"}</div>
-                            </div>
 
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: this.props.courseProgress.percentShouldHaveDone +"%" }}
-                                    aria-valuenow="100"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: {this.props.courseProgress.percentShouldHaveDone + "%"}</div>
-                            </div>
-
-                            {/* Computer Basics */}
-                            
-
-                            <div className="text-center">
-                                <h3>Computer Basics</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '100%' }}
-                                    aria-valuenow="100"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 100%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '100%' }}
-                                    aria-valuenow="100"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 100%</div>
-                            </div>
-
-                            {/* Software Development */}
-                            <div className="text-center">
-                                <h3>Overview of Software Development</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '80%' }}
-                                    aria-valuenow="80"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 80%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '100%' }}
-                                    aria-valuenow="1000"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 100%</div>
-                            </div>
-
-                            {/* HTML & CSS */}
-                            <div className="text-center">
-                                <h3>HTML & CSS</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '30%' }}
-                                    aria-valuenow="30"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 30%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '50%' }}
-                                    aria-valuenow="50"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 50%</div>
-                            </div>
-
-                            {/* SQL */}
-                            <div className="text-center">
-                                <h3>Database & SQL</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 0%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 0%</div>
-                            </div>
-
-                            {/* JavaScript */}
-                            <div className="text-center">
-                                <h3>JavaScript</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 0%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 0%</div>
-                            </div>
-
-                            {/* VS */}
-                            <div className="text-center">
-                                <h3>Visual Studio</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 0%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 0%</div>
-                            </div>
-
-                            {/* C# */}
-                            <div className="text-center">
-                                <h3>C# and ASP.NET</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 0%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 0%</div>
-                            </div>
-
-                            {/* Project Management */}
-                            <div className="text-center">
-                                <h3>Project Management</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 0%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 0%</div>
-                            </div>
-
-                            {/* Live Project */}
-                            <div className="text-center">
-                                <h3>Live Project</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 0%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 0%</div>
-                            </div>
-
-                            {/* Job Placement */}
-                            <div className="text-center">
-                                <h3>Job Placement</h3>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-striped active progress-bar-info"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Progress: 0%</div>
-                            </div>
-
-                            <div className="progress">
-                                <div
-                                    className="progress-bar progress-bar-danger"
-                                    role="progressbar"
-                                    style={{ width: '0%' }}
-                                    aria-valuenow="0"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100">My Goal: 0%</div>
-                            </div>
-
-                        </div>
+						</div>
                     </div>
                 </div>
             );

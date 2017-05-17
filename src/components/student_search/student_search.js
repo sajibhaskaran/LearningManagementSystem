@@ -23,7 +23,7 @@ class StudentSearch extends Component {
 	mapCourseViews() {
 
 		if (this.props.studentSearch !== null) {
-			console.log(this.props.studentSearch);
+			
 			// Preload images
 			var preload = new Image();
 			const picArray = 
