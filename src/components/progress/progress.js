@@ -124,7 +124,8 @@ class Progress extends Component {
     // render function after checking the props availability.
     render() {
         
-        if (this.props.courseProgress != null) {
+		if (this.props.courseProgress != null) {
+			
             return (
                 <div className="container">
                     <div className="row">
@@ -137,7 +138,7 @@ class Progress extends Component {
 							{/* progress bar of the total course*/}
 							<ProgressBar
 								name={"Boot Camp"}
-								percentDone={this.props.courseProgress.Data.percentActuallyDone}
+								percentDone={this.props.courseProgress.Data.percentActuallyDone }
 								percentShouldHaveDone={this.props.courseProgress.Data.percentShouldHaveDone} />
 
 							<hr />
@@ -150,7 +151,7 @@ class Progress extends Component {
                 </div>
             );
 
-        } else return (<div>getting the data</div>);
+        } else return (<div>No data yet.</div>);
     }
 }
 

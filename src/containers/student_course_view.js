@@ -40,6 +40,8 @@ class StudentCourseView extends Component {
         this.onRadioButtonSelect = this.onRadioButtonSelect.bind(this);
     }
 
+    
+
     componentDidMount() {
         let courseId = this.props.match.params.courseId;
         let pageNumber = this.props.match.params.pageNumber;
@@ -223,43 +225,42 @@ class StudentCourseView extends Component {
             if (this.state.TestSubmitted) {
 
                 const className = this.state.Score > 85 ? "text-success" : "text-error";
-
                 return (
                     <div>
                         <div className="text-center">
                             <h5 className={className}>Your score is: {this.state.Score}%</h5>
                         </div>
                         <input
-                            type="button"
-                            className="btn btn-large btn-primary"
-                            style={{ marginRight: "10px" }}
-                            value="Back"
-                            onClick={() => this.back()} />
+                type="button"
+                className="btn btn-large btn-primary"
+                style={{ marginRight: "10px" }}
+            value="Back"
+            onClick={() => this.back()} />
 
-                        <input
-                            type="button"
+        <input
+            type="button"
                             className="btn btn-large btn-primary"
                             value="Next"
                             onClick={() => this.next()} />
                     </div>
                 );
-            }
+                            }
 
-            if (this.props.studentCourseView.Page.IsTest == false) {
+    if (this.props.studentCourseView.Page.IsTest == false) {
 
-                // Map over fields and generate them
-                const coursesMap = this.props.studentCourseView.Page.Fields.map((field) => {
+        // Map over fields and generate them
+        const coursesMap = this.props.studentCourseView.Page.Fields.map((field) => {
 
-                    switch (field.FieldType) {
-                        case "Paragraph":
-                            return (
-                                <Paragraph key={field.PageFieldId} Field={field} />
-                            );
-                        case "Image":
-                            return (
-                                <Image key={field.PageFieldId} Field={field} />
-                            );
-                        case "Link":
+            switch (field.FieldType) {
+                case "Paragraph":
+                    return (
+                        <Paragraph key={field.PageFieldId} Field={field} />
+                    );
+                case "Image":
+                    return (
+                        <Image key={field.PageFieldId} Field={field} />
+                    );
+                case "Link":
                             return (
                                 <Anchor key={field.PageFieldId} Field={field} />
                             );
@@ -275,12 +276,11 @@ class StudentCourseView extends Component {
                             return (
                                 <Video key={field.PageFieldId} Field={field} />
                             );
-                    }
-                });
-
+}
+});
                 return (
                     <div>
-                        {coursesMap}
+{coursesMap}
                         <input
                             type="button"
                             className="btn btn-large btn-primary"
@@ -296,54 +296,52 @@ class StudentCourseView extends Component {
                             onClick={() => this.next()} />
                     </div>
                 );
-            } else if (this.state.SelectedAnswers != null) {
+} else if (this.state.SelectedAnswers != null) {
 
-                // Create array to assign non-correct values
+    // Create array to assign non-correct values
                 let notCorrect = [0, 1, 2, 3].map((num) => {
                     if (num != this.state.CorrectValue) {
                         return num;
-                    }
-                });
+}
+});
 
-                // Write test map.  Questions will be scrambled server side
+    // Write test map.  Questions will be scrambled server side
                 const testMap = this.props.studentCourseView.Page.TestFields.map((field) => {
 
-                    // Map over possible question items
+    // Map over possible question items
                     const possibleAnswers = field.Questions.map((answer, i) => {
 
-                        //let value = answer.CorrectChoice === true ? this.state.CorrectValue : notCorrect[i];
+    //let value = answer.CorrectChoice === true ? this.state.CorrectValue : notCorrect[i];
 
-                        //const json = JSON.stringify({ Value: value, Answer: answer.Choice });
-
+    //const json = JSON.stringify({ Value: value, Answer: answer.Choice });
                         return (
                             <li key={answer.QuestionChoiceId}>
                                 <input
                                     type="radio"
                                     name={answer.TestQuestionId}
                                     value={answer.Choice}
-                                    //checked={this.state.SelectedAnswers[answer.TestQuestionId].Answer === answer.Choice} // Can't control this component
+    //checked={this.state.SelectedAnswers[answer.TestQuestionId].Answer === answer.Choice} // Can't control this component
                                     onClick={event => this.onRadioButtonSelect(event)}
                                 /> {answer.Choice}
                             </li>
                         );
-                    });
+});
 
                     const question = (
                         <li key={field.TestQuestionId}>
-                            {field.Question}
+{field.Question}
                             <ol className="spaStudentTestPageNestedList">
-                                {possibleAnswers}
+{possibleAnswers}
                             </ol>
                         </li>
                     );
 
                     return question;
-                });
-
+});
                 return (
                     <div className="text-center">
                         <ol>
-                            {testMap}
+{testMap}
                         </ol>
                  
                         <input
@@ -367,74 +365,74 @@ class StudentCourseView extends Component {
                             onClick={() => this.next()} />
                     </div>
                 );
-            }
+}
 
-        } else {
+} else {
             return "";
-        }
-    }
+}
+}
 
     back() {
-        // grab url data
+    // grab url data
         let pageNumber = this.props.match.params.pageNumber;
         let courseId = this.props.match.params.courseId;
 
-        // decrease page number by one
+    // decrease page number by one
         pageNumber = pageNumber.slice(1, pageNumber.length);
         pageNumber = parseInt(pageNumber) - 1;
 
-        // update the url to be called by componentWillUpdate()
+    // update the url to be called by componentWillUpdate()
         window.location.hash = `#/courseView/${courseId}/:${pageNumber}`;
-    }
+}
 
     next() {
-        // grab url data
+    // grab url data
         let pageNumber = this.props.match.params.pageNumber;
         let courseId = this.props.match.params.courseId;
 
-        //postCurrentPosition(courseId, pageNumber);
+    //postCurrentPosition(courseId, pageNumber);
 
-        // increase page number by one
+    // increase page number by one
         if (pageNumber !== ":") {
             pageNumber = pageNumber.slice(1, pageNumber.length);
             pageNumber = parseInt(pageNumber) + 1;
-        } else {
+} else {
             pageNumber = 1;
-        }
+}
 
         let courseID = courseId.slice(1, courseId.length);
         postCurrentPosition(courseID, pageNumber-1);
-        // Check to make sure they don't go past the last page
+    // Check to make sure they don't go past the last page
         if (this.props.studentCourseView !== null){
             if (pageNumber > this.props.studentCourseView.LastPageNumber){
                 window.location.hash = "#/";
                 return;
-            }
-        }
+}
+}
 
-        // update the url to be called by componentWillUpdate()
+    // update the url to be called by componentWillUpdate()
         window.location.hash = `#/courseView/${courseId}/:${pageNumber}`;
-    }
+}
 
     render() {
         const name = this.props.studentCourseView === null ?
             "" : this.props.studentCourseView.CourseName;
-
         return (
             <Loader Loaded={this.props.Loaded} className="loader">
                 <div className="col-xs-12">
                     <div className="row text-center">
                         <h3>{name}</h3>
+                        <p>Page Number{this.props.match.params.pageNumber}</p>
                     </div>
                     <div className="row">
                         <div className="col-xs-12">
-                            {this.renderCourseContent()}
+{this.renderCourseContent()}
                         </div>
                     </div>
                 </div>
             </Loader>
         );
-    }
+}
 }
 
 function mapStateToProps(state) {
@@ -444,14 +442,14 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
+    function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators({
-        fetchStudentCourseView: fetchStudentCourseView,
-        loadedFalse: loadedFalse,
-        postStudentTest: postStudentTest,
-        postCurrentPosition: postCurrentPosition
-    }, dispatch);
-}
+        return bindActionCreators({
+            fetchStudentCourseView: fetchStudentCourseView,
+            loadedFalse: loadedFalse,
+            postStudentTest: postStudentTest,
+            postCurrentPosition: postCurrentPosition
+        }, dispatch);
+    }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentCourseView);
+    export default connect(mapStateToProps, mapDispatchToProps)(StudentCourseView);

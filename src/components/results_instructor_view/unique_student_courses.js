@@ -57,11 +57,6 @@ class UniqueStudentCourses extends Component {
 						</div>
 					</div>
 
-
-
-
-
-
 				);
 			});
 
