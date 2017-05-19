@@ -21219,7 +21219,7 @@ exports.default = ProgressBar;
 
 
 Object.defineProperty(exports, "__esModule", {
-				value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -21253,158 +21253,159 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var Progress = function (_Component) {
-				_inherits(Progress, _Component);
+	_inherits(Progress, _Component);
 
-				function Progress(props) {
-								_classCallCheck(this, Progress);
+	function Progress(props) {
+		_classCallCheck(this, Progress);
 
-								return _possibleConstructorReturn(this, (Progress.__proto__ || Object.getPrototypeOf(Progress)).call(this, props));
+		return _possibleConstructorReturn(this, (Progress.__proto__ || Object.getPrototypeOf(Progress)).call(this, props));
+	}
+
+	_createClass(Progress, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			// calling the action
+			this.props.fetchProgress();
+		}
+	}, {
+		key: 'courseList',
+		value: function courseList() {
+			// doing the calculation to figure out the progress in individual courses.
+			var count = 0;
+
+			var daysUsed = this.props.courseProgress.Data.daysUsed;
+			var daysStudyDone = this.props.courseProgress.Data.daysActuallyDone;
+			var courseDays = this.props.courseProgress.CourseDays;
+			var courses = [];
+
+			console.log("start", daysUsed, daysStudyDone);
+
+			this.props.courseProgress.CoursesDone.push(this.props.courseProgress.CurrentCoursePercent);
+			if (daysUsed >= daysStudyDone) {
+				while (daysUsed > courseDays[count]) {
+
+					daysUsed -= courseDays[count];
+					var temp = 0;
+					if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+						var temp = 100;
+					} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+						temp = this.props.courseProgress.CoursesDone[count];
+					}
+
+					courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
+					count++;
 				}
 
-				_createClass(Progress, [{
-								key: 'componentDidMount',
-								value: function componentDidMount() {
-												// calling the action
-												this.props.fetchProgress();
-								}
-				}, {
-								key: 'courseList',
-								value: function courseList() {
-												// doing the calculation to figure out the progress in individual courses.
-												var count = 0;
+				var percent = Math.round(daysUsed / courseDays[count] * 100);
 
-												var daysUsed = this.props.courseProgress.Data.daysUsed;
-												var daysStudyDone = this.props.courseProgress.Data.daysActuallyDone;
-												var courseDays = this.props.courseProgress.CourseDays;
-												var courses = [];
+				courses.push([this.props.courseProgress.AllCourses[count], this.props.courseProgress.CoursesDone[count], percent]);
+			} else {
+				while (daysUsed >= courseDays[count]) {
 
-												console.log("start", daysUsed, daysStudyDone);
+					daysUsed -= courseDays[count];
+					daysStudyDone -= courseDays[count];
+					console.log(daysUsed, daysStudyDone);
+					var temp = 0;
+					if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+						var temp = 100;
+					} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+						temp = this.props.courseProgress.CoursesDone[count];
+					}
 
-												this.props.courseProgress.CoursesDone.push(this.props.courseProgress.CurrentCoursePercent);
-												if (daysUsed >= daysStudyDone) {
-																while (daysUsed > courseDays[count]) {
+					courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
+					count++;
+				}
 
-																				daysUsed -= courseDays[count];
-																				var temp = 0;
-																				if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
-																								var temp = 100;
-																				} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
-																								temp = this.props.courseProgress.CoursesDone[count];
-																				}
+				//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count],courseDays[count], daysUsed);
+				var _percent = Math.round(daysUsed / courseDays[count] * 100);
+				var percentDone = 0;
+				if (daysStudyDone <= courseDays[count]) {
+					percentDone = Math.round(daysStudyDone / courseDays[count] * 100);
+				} else percentDone = 100;
 
-																				courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
-																				count++;
-																}
+				daysStudyDone -= courseDays[count];
 
-																var percent = Math.round(daysUsed / courseDays[count] * 100);
+				courses.push([this.props.courseProgress.AllCourses[count], percentDone, _percent]);
+				count++;
+				//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
 
-																courses.push([this.props.courseProgress.AllCourses[count], this.props.courseProgress.CoursesDone[count], percent]);
-												} else {
-																while (daysUsed >= courseDays[count]) {
+				while (daysStudyDone >= courseDays[count]) {
 
-																				daysUsed -= courseDays[count];
-																				daysStudyDone -= courseDays[count];
-																				console.log(daysUsed, daysStudyDone);
-																				var temp = 0;
-																				if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
-																								var temp = 100;
-																				} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
-																								temp = this.props.courseProgress.CoursesDone[count];
-																				}
+					daysStudyDone -= courseDays[count];
+					var temp = 0;
+					if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+						var temp = 100;
+					} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+						temp = this.props.courseProgress.CoursesDone[count];
+					}
 
-																				courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
-																				count++;
-																}
+					courses.push([this.props.courseProgress.AllCourses[count], temp, 0]);
+					count++;
+					console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
+				}
+			}
 
-																//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count],courseDays[count], daysUsed);
-																var _percent = Math.round(daysUsed / courseDays[count] * 100);
-																var percentDone = 0;
-																if (daysStudyDone <= courseDays[count]) {
-																				percentDone = Math.round(daysStudyDone / courseDays[count] * 100);
-																} else percentDone = 100;
+			// returning a list of course progress bars
+			return courses.map(function (course, i) {
+				return _react2.default.createElement(_ProgressBar2.default, { key: i, name: course[0], percentDone: course[1], percentShouldHaveDone: course[2] });
+			});
+		}
 
-																daysStudyDone -= courseDays[count];
+		// render function after checking the props availability.
 
-																courses.push([this.props.courseProgress.AllCourses[count], percentDone, _percent]);
-																count++;
-																//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
+	}, {
+		key: 'render',
+		value: function render() {
 
-																while (daysStudyDone >= courseDays[count]) {
+			if (this.props.courseProgress != null) {
 
-																				daysStudyDone -= courseDays[count];
-																				var temp = 0;
-																				if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
-																								var temp = 100;
-																				} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
-																								temp = this.props.courseProgress.CoursesDone[count];
-																				}
+				return _react2.default.createElement(
+					'div',
+					{ className: 'container' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-xs-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'text-center' },
+								_react2.default.createElement(
+									'h1',
+									null,
+									'Progress'
+								)
+							),
+							_react2.default.createElement('hr', null),
+							_react2.default.createElement(_ProgressBar2.default, {
+								name: "Boot Camp",
+								percentDone: this.props.courseProgress.Data.percentActuallyDone,
+								percentShouldHaveDone: this.props.courseProgress.Data.percentShouldHaveDone }),
+							_react2.default.createElement('hr', null),
+							this.courseList()
+						)
+					)
+				);
+			} else return _react2.default.createElement(
+				'div',
+				null,
+				'No data yet.'
+			);
+		}
+	}]);
 
-																				courses.push([this.props.courseProgress.AllCourses[count], temp, 0]);
-																				count++;
-																				console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
-																}
-												}
-
-												// returning a list of course progress bars
-												return courses.map(function (course, i) {
-																return _react2.default.createElement(_ProgressBar2.default, { key: i, name: course[0], percentDone: course[1], percentShouldHaveDone: course[2] });
-												});
-								}
-
-								// render function after checking the props availability.
-
-				}, {
-								key: 'render',
-								value: function render() {
-
-												if (this.props.courseProgress != null) {
-																return _react2.default.createElement(
-																				'div',
-																				{ className: 'container' },
-																				_react2.default.createElement(
-																								'div',
-																								{ className: 'row' },
-																								_react2.default.createElement(
-																												'div',
-																												{ className: 'col-xs-12' },
-																												_react2.default.createElement(
-																																'div',
-																																{ className: 'text-center' },
-																																_react2.default.createElement(
-																																				'h1',
-																																				null,
-																																				'Progress'
-																																)
-																												),
-																												_react2.default.createElement('hr', null),
-																												_react2.default.createElement(_ProgressBar2.default, {
-																																name: "Boot Camp",
-																																percentDone: this.props.courseProgress.Data.percentActuallyDone,
-																																percentShouldHaveDone: this.props.courseProgress.Data.percentShouldHaveDone }),
-																												_react2.default.createElement('hr', null),
-																												this.courseList()
-																								)
-																				)
-																);
-												} else return _react2.default.createElement(
-																'div',
-																null,
-																'getting the data'
-												);
-								}
-				}]);
-
-				return Progress;
+	return Progress;
 }(_react.Component);
 
 function mapStateToProps(state) {
-				return { courseProgress: state.Progress };
+	return { courseProgress: state.Progress };
 }
 
 function mapDispatchToProps(dispatch) {
-				return (0, _redux.bindActionCreators)({
-								fetchProgress: _progress_action.fetchProgress
-				}, dispatch);
+	return (0, _redux.bindActionCreators)({
+		fetchProgress: _progress_action.fetchProgress
+	}, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Progress);
@@ -27660,7 +27661,7 @@ var userNavigations = [[
 // Students
 { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" }, { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: _inbox_toggle2.default, customclass: "spaMessagingNavButton" }, { title: "Progress", navnumber: 103, icon: "fa fa-tasks", url: "/Progress", onclick: defaultObject, customclass: "" }, { title: "Resources", navnumber: 104, icon: "fa fa-info-circle", url: "/Resources", onclick: defaultObject, customclass: "" }, { title: "Results", navnumber: 105, icon: "fa fa-trophy", url: "/Results", onclick: defaultObject, customclass: "" }, { title: "Report", navnumber: 106, icon: "fa fa-file", url: "/DailyReport", onclick: defaultObject, customclass: "" }, { title: "Survey", navnumber: 107, icon: "fa fa-file-o", url: "/weeklySurvey", onclick: defaultObject, customclass: "" }, { title: "Profile", navnumber: 108, icon: "fa fa-user", url: "/profile", onclick: defaultObject, customclass: "" }], [
 // Instructors
-{ title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" }, { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: _inbox_toggle2.default, customclass: "spaMessagingNavButton" }, { title: "Testing", navnumber: 103, icon: "fa fa-pencil-square", url: "/testing", onclick: defaultObject, customclass: "" }, { title: "Daily Report", navnumber: 104, icon: "fa fa-flag-o", url: "/instructorDailyReports", onclick: defaultObject, customclass: "" }], [
+{ title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" }, { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: _inbox_toggle2.default, customclass: "spaMessagingNavButton" }, { title: "Testing", navnumber: 103, icon: "fa fa-pencil-square", url: "/testing", onclick: defaultObject, customclass: "" }, { title: "Reports", navnumber: 104, icon: "fa fa-flag-o", url: "/instructorDailyReports", onclick: defaultObject, customclass: "" }], [
 // Admin
 { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" }, { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: _inbox_toggle2.default, customclass: "spaMessagingNavButton" }, { title: "Designer", navnumber: 102, icon: "fa fa-book", url: "/CourseDesigner", onclick: defaultObject, customclass: "" }, { title: "Progress", navnumber: 103, icon: "fa fa-tasks", url: "/Progress", onclick: defaultObject, customclass: "" }, { title: "Resources", navnumber: 104, icon: "fa fa-info-circle", url: "/Resources", onclick: defaultObject, customclass: "" }, { title: "Report", navnumber: 105, icon: "fa fa-file", url: "/DailyReport", onclick: defaultObject, customclass: "" }, { title: "Survey", navnumber: 106, icon: "fa fa-file-o", url: "/weeklySurvey", onclick: defaultObject, customclass: "" }, { title: "Profile", navnumber: 107, icon: "fa fa-user", url: "/profile", onclick: defaultObject, customclass: "" }]];
 
