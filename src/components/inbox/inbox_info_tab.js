@@ -61,10 +61,10 @@ export default (props) => {
                          <p>{info.LastLogin.toString()}</p>
                     </div>
 
-                    <div className="col-xs-12" >
+					{/* <div className="col-xs-12" >
                         <h6>Recent Score: </h6>
                         <p> {info.RecentTestScore}</p>
-                    </div>
+                    </div> */}
 
                     <div className="col-xs-12" >
                         <h6>Schedule Today: </h6>

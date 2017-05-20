@@ -1,6 +1,7 @@
 ﻿import { LOADED_FALSE } from '../../actions/Loader/loaded_false_action';
 import { FETCH_COURSES } from '../../actions/Course Designer/course_dashboard_action';
 import { FETCH_STUDENT_COURSE_VIEW } from "../../actions/fetch_student_course_view";
+import { FETCH_PROGRESS } from "../../actions/Progress/progress_action";
 
 
 // Keeps track of when the loader should be in a loading state
@@ -18,7 +19,10 @@ export default function (state = false, action) {
 
         // Loader will render its loaded state
         case FETCH_COURSES:
-            return true;
+			return true;
+
+		case FETCH_PROGRESS:
+			return true;
     }
 
     return state;

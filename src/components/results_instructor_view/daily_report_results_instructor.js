@@ -9,30 +9,46 @@ import Loader from '../../components/loader/loader';
 // actions
 import { resultsInstructorViewAction } from '../../actions/Results/results_instructor_view_action';
 
+// model
+import Modal from '../../components/Modal/modal';
+
 
 
 
 class DailyReportResult extends Component {
+    constructor(props) {
+        super(props);
 
-	componentDidMount() {
-		// getting the user info from the props/params
-		const userInfo = this.props.match.params.value.split(',');
-		// url to pass to the end point
-		const url = `/SPA/getDailyReport?Id=${userInfo[1]}`;
-		// calling the action
-		this.props.resultsInstructorViewAction(url);
-	}
+        this.state = { isOpen: false };
+
+        this.toggleModal = this.toggleModal.bind(this);
+    }
+
+    toggleModal () {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
+
+    componentDidMount() {
+        // getting the user info from the props/params
+        const userInfo = this.props.match.params.value.split(',');
+        // url to pass to the end point
+        const url = `/SPA/getDailyReport?Id=${userInfo[1]}`;
+        // calling the action
+        this.props.resultsInstructorViewAction(url);
+    }
 
 
 
-	render() {
+    render() {
 
 
-		// checking to see if data exists
-		if (this.props.resultsInstructorView > [0]) {
+        // checking to see if data exists
+        if (this.props.resultsInstructorView > [0]) {
 			
-			const renderList = this.props.resultsInstructorView.map((item, i) => {
-				return (
+            const renderList = this.props.resultsInstructorView.map((item, i) => {
+                return (
 
 					<div key={i}>
 						<hr className="style-two" />
@@ -43,25 +59,35 @@ class DailyReportResult extends Component {
 						<h5>Positive Experiences: </h5><p>{item.PositiveExperiences}</p>
 						<h5>Help Needed: </h5><p>{item.NeedHelp}</p>
 
+                        <button type="button" className="btn btn-info btn-lg" onClick={this.toggleModal}>
+                            Give Feedbacks
+                        </button>
+
+                        <Modal show={this.state.isOpen}
+                        onClose={this.toggleModal} />
+
+
+                      
+
 
 					</div>
 				);
 
 
-			});
+                        });
 
 
-			return (
-				<div className="container text-center">
+                        return (
+                            <div className="container text-center">
 
-					<div className="row">
-						<h1>Daily Reports</h1>
-						<h3>Student Name: </h3><h5>{this.props.match.params.value.split(',')[2]}</h5>
-					</div>
+                                <div className="row">
+                                    <h1>Daily Reports</h1>
+                                    <h3>Student Name: </h3><h5>{this.props.match.params.value.split(',')[2]}</h5>
+                                </div>
 
-					<div className="col-sm-12 text-left">
+                                <div className="col-sm-12 text-left">
 
-						{renderList}
+                        {renderList}
 
 					</div>
 
@@ -70,24 +96,24 @@ class DailyReportResult extends Component {
 			);
 
 
-		} else {
-			return (<h6>No daily reports yet</h6>)
-		}
+					} else {
+                        return (<h6>No daily reports yet</h6>)
+					}
 
 
-	}
+                        }
 
-}
+        }
 
-function mapStateToProps(state) {
-	return { resultsInstructorView: state.ResultsInstructorView };
-}
+        function mapStateToProps(state) {
+            return { resultsInstructorView: state.ResultsInstructorView };
+        }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({
-		resultsInstructorViewAction
-	}, dispatch);
-}
+        function mapDispatchToProps(dispatch) {
+            return bindActionCreators({
+                resultsInstructorViewAction
+            }, dispatch);
+        }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(DailyReportResult);

@@ -13,7 +13,8 @@ import { fetchCourseData } from "../actions/Course Designer/fetch_course_data";
 // React Component Imports
 import GetAvatar from '../containers/get_user_avatar'
 import Inbox from '../containers/Inbox/inbox_container';
-import Main from '../containers/courses_dashboard';
+import StudentDashboard from '../containers/courses_dashboard';
+import Main from '../containers/main';
 import Instructor from '../containers/instructor_dashboard';
 import Admin from '../containers/admin_dashboard';
 import Progress from '../components/progress/progress';
@@ -30,6 +31,8 @@ import InstructorTestResult from '../components/results_instructor_view/test_res
 import InstructorDrillResult from '../components/results_instructor_view/drill_results_instructor';
 
 import WeeklyReportResult from '../components/weekly_survey/weekly_report_results';
+import Feedback from '../components/feedback/feedback';
+import Modal from '../components/Modal/modal';
 import Testing from '../components/testing/testing';
 import Resources from '../components/resources/resources';
 import DailyReport from '../components/daily_report/daily_report_form';
@@ -72,9 +75,14 @@ export default class CoursesDashboard extends Component {
         if (navigationRole === 'TechAcademyStudent' || navigationRole === 'UniversityStudent') {
             return (
                 <Switch>
-                    <Route exact path="/" component={Main} />
+					{<Route exact path="/" component={Main} />}
 
-                    {/* <Route path="/inbox" component={Inbox} /> */}
+					{<Route exact path="/studentDashboard" component={StudentDashboard} />}
+
+
+					{/* <Route path="/inbox" component={Inbox} /> */}
+
+					<Route path="/feedback" component={Feedback} />
 
                     <Route path="/courseView/:courseId/:pageNumber" component={StudentCourseView} />
 
@@ -196,6 +204,7 @@ export default class CoursesDashboard extends Component {
 
                 <div className="spaMainDisplayContainer">
                     <Inbox />
+                    <Modal/>
 
                     {/* REACT ROUTER DOM */}
                     {this.renderUserRoutes()}

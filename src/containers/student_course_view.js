@@ -42,9 +42,10 @@ class StudentCourseView extends Component {
 
     
 
-    componentDidMount() {
-        let courseId = this.props.match.params.courseId;
-        let pageNumber = this.props.match.params.pageNumber;
+	componentDidMount() {
+		
+		let courseId = (typeof this.props.match == 'undefined') ? this.props.courseId : this.props.match.params.courseId;
+		let pageNumber = (typeof this.props.match == 'undefined') ? this.props.pageNumber : this.props.match.params.pageNumber;
 
         if (pageNumber === ":") {
             pageNumber = "1";
@@ -72,18 +73,19 @@ class StudentCourseView extends Component {
                 SelectedAnswers: null,
                 TestSubmitted: false
             });
-        }
+		}
+
     }
 
     componentWillUpdate(nextProps, nextState) {
 
         // Next course props to check
-        let nextCourseId = nextProps.match.params.courseId;
-        let nextPageNumber = nextProps.match.params.pageNumber;
+		let nextCourseId = (typeof nextProps.match == 'undefined') ? this.props.courseId : nextProps.match.params.courseId;
+		let nextPageNumber = (typeof nextProps.match == 'undefined') ? this.props.pageNumber : nextProps.match.params.pageNumber;
 
         // Current course props to check
-        let currentCourseId = this.props.match.params.courseId;
-        let currentPageNumber = this.props.match.params.pageNumber;
+		let currentCourseId = (typeof this.props.match == 'undefined') ? this.props.courseId : this.props.match.params.courseId;
+		let currentPageNumber = (typeof this.props.match == 'undefined') ? this.props.pageNumber : this.props.match.params.pageNumber;
 
         // Check if the update should trigger a course get request
         if (nextCourseId != currentCourseId || nextPageNumber != currentPageNumber) {
@@ -149,7 +151,11 @@ class StudentCourseView extends Component {
             });
 
             this.setState({ SelectedAnswers: newTestState });
-        }
+		}
+
+		if (currentPageNumber > 1) {
+			console.log(courseId);
+		}
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -341,7 +347,7 @@ class StudentCourseView extends Component {
                 return (
                     <div className="text-center">
                         <ol>
-{testMap}
+                        {testMap}
                         </ol>
                  
                         <input
@@ -374,12 +380,16 @@ class StudentCourseView extends Component {
 
     back() {
     // grab url data
-        let pageNumber = this.props.match.params.pageNumber;
-        let courseId = this.props.match.params.courseId;
+		let pageNumber = (typeof this.props.match == 'undefined') ? this.props.pageNumber : this.props.match.params.pageNumber;
+		let courseId = (typeof this.props.match == 'undefined') ? this.props.courseId : this.props.match.params.courseId;
 
     // decrease page number by one
         pageNumber = pageNumber.slice(1, pageNumber.length);
-        pageNumber = parseInt(pageNumber) - 1;
+		pageNumber = parseInt(pageNumber) - 1;
+
+		let courseID = courseId.slice(1, courseId.length);
+	// Posting the current page.
+		postCurrentPosition(courseID, pageNumber);
 
     // update the url to be called by componentWillUpdate()
         window.location.hash = `#/courseView/${courseId}/:${pageNumber}`;
@@ -387,10 +397,10 @@ class StudentCourseView extends Component {
 
     next() {
     // grab url data
-        let pageNumber = this.props.match.params.pageNumber;
-        let courseId = this.props.match.params.courseId;
+		let pageNumber = (typeof this.props.match == 'undefined') ? this.props.pageNumber : this.props.match.params.pageNumber;
+		let courseId = (typeof this.props.match == 'undefined') ? this.props.courseId : this.props.match.params.courseId;
 
-    //postCurrentPosition(courseId, pageNumber);
+    
 
     // increase page number by one
         if (pageNumber !== ":") {
@@ -400,8 +410,10 @@ class StudentCourseView extends Component {
             pageNumber = 1;
 }
 
-        let courseID = courseId.slice(1, courseId.length);
-        postCurrentPosition(courseID, pageNumber-1);
+		let courseID = courseId.slice(1, courseId.length);
+	// Posting the currunt page
+		postCurrentPosition(courseID, pageNumber);
+
     // Check to make sure they don't go past the last page
         if (this.props.studentCourseView !== null){
             if (pageNumber > this.props.studentCourseView.LastPageNumber){
@@ -416,13 +428,15 @@ class StudentCourseView extends Component {
 
     render() {
         const name = this.props.studentCourseView === null ?
-            "" : this.props.studentCourseView.CourseName;
+			"" : this.props.studentCourseView.CourseName;
+		const pageNumber = (typeof this.props.match == 'undefined') ? this.props.pageNumber : this.props.match.params.pageNumber;
+
         return (
             <Loader Loaded={this.props.Loaded} className="loader">
                 <div className="col-xs-12">
                     <div className="row text-center">
                         <h3>{name}</h3>
-                        <p>Page Number{this.props.match.params.pageNumber}</p>
+						<p>Page Number{pageNumber}</p>
                     </div>
                     <div className="row">
                         <div className="col-xs-12">
