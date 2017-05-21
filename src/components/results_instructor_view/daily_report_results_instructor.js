@@ -67,7 +67,7 @@ class DailyReportResult extends Component {
                         </button>
 
 
-						<ModalComponent show={this.state.isOpen} toggleModal={this.toggleModal} />
+						<ModalComponent show={this.state.isOpen} toggleModal={this.toggleModal} name={this.props.match.params.value.split(',')[0]}/>
                       
 
 
@@ -83,7 +83,7 @@ class DailyReportResult extends Component {
 
                                 <div className="row">
                                     <h1>Daily Reports</h1>
-                                    <h3>Student Name: </h3><h5>{this.props.match.params.value.split(',')[2]}</h5>
+                                    <h3>Student Name: </h3><h5>{this.props.match.params.value.split(',')[0]}</h5>
                                 </div>
 
                                 <div className="col-sm-12 text-left">

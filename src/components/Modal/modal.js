@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 // Loader
 import Loader from '../../components/loader/loader';
@@ -19,7 +19,7 @@ class ModalComponent extends Component {
 
 
 	render() {
-
+		
 		const modalStyle = {
 			position: 'fixed',
 			zIndex: 1040,
@@ -44,14 +44,23 @@ class ModalComponent extends Component {
 				style={modalStyle}
 				backdropStyle={backdropStyle}>
 				<Modal.Header>
-					<Modal.Title id="title"><span id="title1">{"props.title"}</span></Modal.Title>
+					<Modal.Title id="title"><span id="title1">Message to: {this.props.name}</span></Modal.Title>
 				</Modal.Header>
+				
 				<Modal.Body>
-					<textarea />
+					<form>
+						<FormGroup controlId="formControlsTextarea" >
+							 
+							<FormControl componentClass="textarea" placeholder="message..." style={{ height: 150 }}/>
+						</FormGroup>
+					
+						
+					</form>
+					
 				</Modal.Body>
 				<Modal.Footer>
-					<Button bsStyle="info" >Close</Button>
-					<Button bsStyle="info" >Save</Button>
+					<Button bsStyle="info" onClick={this.props.toggleModal}>Close</Button>
+					<Button bsStyle="info" >Send</Button>
 				</Modal.Footer>
 			</Modal>
 
