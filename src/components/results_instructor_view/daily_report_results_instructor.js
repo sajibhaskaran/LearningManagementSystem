@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+
 // Loader
 import Loader from '../../components/loader/loader';
 
@@ -10,7 +11,7 @@ import Loader from '../../components/loader/loader';
 import { resultsInstructorViewAction } from '../../actions/Results/results_instructor_view_action';
 
 // model
-import Modal from '../../components/Modal/modal';
+import ModalComponent from '../../components/Modal/modal';
 
 
 
@@ -45,7 +46,9 @@ class DailyReportResult extends Component {
 
 
         // checking to see if data exists
-        if (this.props.resultsInstructorView > [0]) {
+		if (this.props.resultsInstructorView > [0]) {
+
+			
 			
             const renderList = this.props.resultsInstructorView.map((item, i) => {
                 return (
@@ -58,15 +61,13 @@ class DailyReportResult extends Component {
 						<h5>Hours Studied: </h5><p>{item.HoursStudied}</p>
 						<h5>Positive Experiences: </h5><p>{item.PositiveExperiences}</p>
 						<h5>Help Needed: </h5><p>{item.NeedHelp}</p>
-
+						
                         <button type="button" className="btn btn-info btn-lg" onClick={this.toggleModal}>
                             Give Feedbacks
                         </button>
 
-                        <Modal show={this.state.isOpen}
-                        onClose={this.toggleModal} />
 
-
+						<ModalComponent show={this.state.isOpen} toggleModal={this.toggleModal} />
                       
 
 

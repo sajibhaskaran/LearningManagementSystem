@@ -1,7 +1,8 @@
-﻿/ libraries
+﻿// libraries
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Modal, Button } from 'react-bootstrap';
 
 // Loader
 import Loader from '../../components/loader/loader';
@@ -12,12 +13,25 @@ import { resultsInstructorViewAction } from '../../actions/Results/results_instr
 
 
 
-class Modal extends Component {
+class ModalComponent extends Component {
 
 
 
 
 	render() {
+
+		const modalStyle = {
+			position: 'fixed',
+			zIndex: 1040,
+			top: 0, bottom: 0, left: 0, right: 0
+		};
+
+		const backdropStyle = {
+
+			zIndex: 'auto',
+			backgroundColor: '#000',
+			opacity: 0
+		};
 		
 		if (!this.props.show) {
 			
@@ -25,27 +39,21 @@ class Modal extends Component {
 		}
 
 		return (
-			<div className="container text-center">
-
-				<div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<div className="modal-dialog" role="document">
-						<div className="modal-content">
-							<div className="modal-header">
-								<button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 className="modal-title" id="myModalLabel">Modal title</h4>
-							</div>
-							<div className="modal-body">
-								...
-      </div>
-							<div className="modal-footer">
-								<button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-								<button type="button" className="btn btn-primary">Save changes</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
+			<Modal show={this.props.show}
+				onHide={this.props.toggleModal}
+				style={modalStyle}
+				backdropStyle={backdropStyle}>
+				<Modal.Header>
+					<Modal.Title id="title"><span id="title1">{"props.title"}</span></Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<textarea />
+				</Modal.Body>
+				<Modal.Footer>
+					<Button bsStyle="info" >Close</Button>
+					<Button bsStyle="info" >Save</Button>
+				</Modal.Footer>
+			</Modal>
 
 		);
 
@@ -56,4 +64,4 @@ class Modal extends Component {
 }
 
 
-export default Modal;
+export default ModalComponent;
