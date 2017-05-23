@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-
 // Loader
 import Loader from '../../components/loader/loader';
 
@@ -11,7 +10,7 @@ import Loader from '../../components/loader/loader';
 import { resultsInstructorViewAction } from '../../actions/Results/results_instructor_view_action';
 
 // model
-import ModalComponent from '../../components/Modal/modal';
+import FeedbackModal from '../../components/Feedback/feedback_modal';
 
 
 
@@ -46,9 +45,7 @@ class DailyReportResult extends Component {
 
 
         // checking to see if data exists
-		if (this.props.resultsInstructorView > [0]) {
-
-			
+        if (this.props.resultsInstructorView > [0]) {
 			
             const renderList = this.props.resultsInstructorView.map((item, i) => {
                 return (
@@ -61,13 +58,18 @@ class DailyReportResult extends Component {
 						<h5>Hours Studied: </h5><p>{item.HoursStudied}</p>
 						<h5>Positive Experiences: </h5><p>{item.PositiveExperiences}</p>
 						<h5>Help Needed: </h5><p>{item.NeedHelp}</p>
-						
+
                         <button type="button" className="btn btn-info btn-lg" onClick={this.toggleModal}>
-                            Give Feedbacks
+                            Give Feedback
                         </button>
 
+						<FeedbackModal
+							show={this.state.isOpen}
+							toggleModal={this.toggleModal}
+							name={this.props.match.params.value.split(',')[0]}
+							id={this.props.match.params.value.split(',')[1]}/>
 
-						<ModalComponent show={this.state.isOpen} toggleModal={this.toggleModal} name={this.props.match.params.value.split(',')[0]}/>
+
                       
 
 
@@ -83,7 +85,7 @@ class DailyReportResult extends Component {
 
                                 <div className="row">
                                     <h1>Daily Reports</h1>
-                                    <h3>Student Name: </h3><h5>{this.props.match.params.value.split(',')[0]}</h5>
+                                    <h3>Student Name: </h3><h5>{this.props.match.params.value.split(',')[2]}</h5>
                                 </div>
 
                                 <div className="col-sm-12 text-left">

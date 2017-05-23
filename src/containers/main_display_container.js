@@ -32,7 +32,7 @@ import InstructorDrillResult from '../components/results_instructor_view/drill_r
 
 import WeeklyReportResult from '../components/weekly_survey/weekly_report_results';
 import Feedback from '../components/feedback/feedback';
-import Modal from '../components/Modal/modal';
+
 import Testing from '../components/testing/testing';
 import Resources from '../components/resources/resources';
 import DailyReport from '../components/daily_report/daily_report_form';
@@ -204,7 +204,7 @@ export default class CoursesDashboard extends Component {
 
                 <div className="spaMainDisplayContainer">
                     <Inbox />
-                    <Modal/>
+                  
 
                     {/* REACT ROUTER DOM */}
                     {this.renderUserRoutes()}
