@@ -53,6 +53,9 @@ import StudentSearch from "./Student Search/student_search_reducer";
 // Progress Bars
 import Progress from "./Progress/progress_reducer";
 
+// Feedback
+import Feedback from "./Feedback/feedback_reducer";
+
 // redux and redux form
 import { combineReducers } from 'redux';
 //import { reducer as formReducer } from 'redux-form';
@@ -86,7 +89,11 @@ const rootReducer = combineReducers({
     StudentSearch: StudentSearch,
 
     // Progress Bars
-    Progress: Progress,
+	Progress: Progress,
+
+	// Feedback
+	Feedback: Feedback,
+
 
     // Loader
     Loaded: Loaded,

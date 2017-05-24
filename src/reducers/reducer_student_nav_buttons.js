@@ -6,8 +6,8 @@ const userNavigations = [
     [
         // Students
 		{ title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/studentDashboard", onclick: defaultObject, customclass: "" },
-        { title: "Messaging", navnumber: 101, icon: "fa fa-inbox", url: null, onclick: InboxToggle, customclass: "spaMessagingNavButton" },
-        { title: "Feedback", navnumber: 102, icon: "fa fa-telegram", url: "/Feedback", onclick: defaultObject, customclass: ""},
+		{ title: "Messaging", navnumber: 101, icon: "fa fa-users", url: null, onclick: InboxToggle, customclass: "spaMessagingNavButton" },
+		{ title: "Inbox", navnumber: 102, icon: "fa fa-inbox", url: "/Feedback", onclick: defaultObject, customclass: ""},
         { title: "Progress", navnumber: 103, icon: "fa fa-tasks", url: "/Progress", onclick: defaultObject, customclass: "" },
         { title: "Resources", navnumber: 104, icon: "fa fa-info-circle", url: "/Resources", onclick: defaultObject, customclass: "" },
         { title: "Results", navnumber: 105, icon: "fa fa-trophy", url: "/Results", onclick: defaultObject, customclass: "" },

@@ -65,7 +65,7 @@ class NavigationContainer extends Component {
         return (
             <div className="navbar navbar-inverse navbar-fixed-left spaNavigationBar">
                 <a className="navbar-brand text-center" href="#">
-                    <img src="/images/favicon.png" />
+                    <img src="/images/favicon.ico" />
                 </a>
                 <ul className="nav navbar-nav">
                     {this.renderList()}

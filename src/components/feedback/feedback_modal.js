@@ -17,7 +17,8 @@ class FeedbackModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			Message: "",
+			Id: this.props.id,
+			Content: "",
 
 		};
 
@@ -26,26 +27,31 @@ class FeedbackModal extends Component {
 	}
 
 		handleInputChange(e) {
-			
+			// handling the 
 			const value = e.target.value;
 			const name = e.target.name;
 
 			this.setState({
-				Message: value
+				Content: value
 			});
 		}
 
 	handleSubmit(event) {
 		event.preventDefault();
-		console.log(this.state.Message);
-
+		// calling the action
 		sendFeedbackMessage(this.state);
+		// clearing the text area.
+		this.setState({
+			Content: ''
+		});
+
+		// hiding the modal
 		this.props.toggleModal();
 	}
 
 
 	render() {
-
+		// styles for the modal.
 		const modalStyle = {
 			position: 'fixed',
 			zIndex: 1040,
@@ -58,7 +64,7 @@ class FeedbackModal extends Component {
 			backgroundColor: '#000',
 			opacity: 0
 		};
-
+		// checking to see if the props exists
 		if (!this.props.show) {
 
 			return null;
@@ -81,14 +87,12 @@ class FeedbackModal extends Component {
 								componentClass="textarea"
 								placeholder="message..."
 								style={{ height: 150 }}
-								
-								value={this.state.Message}
+
+								value={this.state.Content}
 								onChange={this.handleInputChange}
 							/>
 						</FormGroup>
-
-
-					
+										
 
 				</Modal.Body>
 				<Modal.Footer>

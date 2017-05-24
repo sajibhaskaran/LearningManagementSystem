@@ -320,7 +320,8 @@ class StudentCourseView extends Component {
     //let value = answer.CorrectChoice === true ? this.state.CorrectValue : notCorrect[i];
 
     //const json = JSON.stringify({ Value: value, Answer: answer.Choice });
-                        return (
+						return (
+							<div className="text-left">
                             <li key={answer.QuestionChoiceId}>
                                 <input
                                     type="radio"
@@ -329,17 +330,22 @@ class StudentCourseView extends Component {
     //checked={this.state.SelectedAnswers[answer.TestQuestionId].Answer === answer.Choice} // Can't control this component
                                     onClick={event => this.onRadioButtonSelect(event)}
                                 /> {answer.Choice}
-                            </li>
+							</li>
+								
+							</div>
                         );
 });
 
-                    const question = (
+					const question = (
+						<div className="text-left">
+						<br />
                         <li key={field.TestQuestionId}>
 {field.Question}
                             <ol className="spaStudentTestPageNestedList">
 {possibleAnswers}
                             </ol>
-                        </li>
+						</li>
+							</div>
                     );
 
                     return question;
@@ -348,26 +354,32 @@ class StudentCourseView extends Component {
                     <div className="text-center">
                         <ol>
                         {testMap}
-                        </ol>
-                 
-                        <input
-                            type="button"
-                            className="btn btn-primary"
-							value="Submit"
-							
-                            onClick={() => this.onSubmitTest()}
-                        />
+						</ol>
+						<div className="row">
+							<div className="col-xs-12">
+								<input
+									type="button"
+									className="btn btn-primary"
+									value="Submit"
+									style={{ marginTop: "10px", marginBottom: "5px" }}
+									onClick={() => this.onSubmitTest()}
+								/>
+							</div>
+						</div>
+                        
 
                         <input
                             type="button"
                             className="btn btn-large btn-primary"
-                            value="Back"
+							value="Back"
+							style={{ marginRight: "5px" }}
                             onClick={() => this.back()} />
 
                         <input
                             type="button"
                             className="btn btn-large btn-primary"
-                            value="Next"
+							value="Next"
+							style={{ marginLeft: "5px" }}
                             onClick={() => this.next()} />
                     </div>
                 );
