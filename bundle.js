@@ -751,6 +751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(262);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(639);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
 
@@ -12786,11 +12787,7 @@ var SUBMIT_DAILYREPORT = exports.SUBMIT_DAILYREPORT = 'SUBMIT_DAILYREPORT';
 function submitDailyReport(values) {
     var url = "/SPA/DailyReport";
 
-    var request = _axios2.default.post(url, { form: JSON.stringify(values) }).then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-    });
+    var request = _axios2.default.post(url, { form: JSON.stringify(values) }).then(function (response) {}).catch(function (error) {});
 
     window.location.hash = "#/";
 
@@ -12824,11 +12821,7 @@ var SUBMIT_WEEKLYSURVEY = exports.SUBMIT_WEEKLYSURVEY = 'SUBMIT_WEEKLYSURVEY';
 function submitWeeklySurvey(values) {
     var url = "/SPA/WeeklySurvey";
 
-    var request = _axios2.default.post(url, { form: JSON.stringify(values) }).then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-    });
+    var request = _axios2.default.post(url, { form: JSON.stringify(values) }).then(function (response) {}).catch(function (error) {});
 
     window.location.hash = "#/";
 
@@ -13860,10 +13853,6 @@ var StudentCourseView = function (_Component) {
                 });
 
                 this.setState({ SelectedAnswers: newTestState });
-            }
-
-            if (currentPageNumber > 1) {
-                console.log(courseId);
             }
         }
     }, {
@@ -24064,11 +24053,7 @@ var SEND_FEEDBACK_MESSAGE = exports.SEND_FEEDBACK_MESSAGE = 'SEND_FEEDBACK_MESSA
 function sendFeedbackMessage(values) {
 	var url = "/SPA/DailyReportFeedback";
 
-	var request = _axios2.default.post(url, { form: JSON.stringify(values) }).then(function (response) {
-		console.log(response);
-	}).catch(function (error) {
-		console.log(error);
-	});
+	var request = _axios2.default.post(url, { form: JSON.stringify(values) }).then(function (response) {}).catch(function (error) {});
 
 	return {
 		type: SEND_FEEDBACK_MESSAGE,
@@ -28706,7 +28691,7 @@ exports.default = SendMessage;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+				value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28745,175 +28730,171 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var Daily = function (_Component) {
-    _inherits(Daily, _Component);
+				_inherits(Daily, _Component);
 
-    function Daily(props) {
-        _classCallCheck(this, Daily);
+				function Daily(props) {
+								_classCallCheck(this, Daily);
 
-        var _this = _possibleConstructorReturn(this, (Daily.__proto__ || Object.getPrototypeOf(Daily)).call(this, props));
+								var _this = _possibleConstructorReturn(this, (Daily.__proto__ || Object.getPrototypeOf(Daily)).call(this, props));
 
-        _this.state = {
-            Loaded: false,
-            term: '',
-            students: []
-        };
+								_this.state = {
+												Loaded: false,
+												term: '',
+												students: []
+								};
 
-        _this.props.studentSearchAction();
+								_this.props.studentSearchAction();
 
-        _this.handleChange = _this.handleChange.bind(_this);
-        return _this;
-    }
+								_this.handleChange = _this.handleChange.bind(_this);
+								return _this;
+				}
 
-    _createClass(Daily, [{
-        key: 'mapStudentViews',
-        value: function mapStudentViews() {
+				_createClass(Daily, [{
+								key: 'mapStudentViews',
+								value: function mapStudentViews() {
 
-            if (this.state.students !== null) {
-                //console.log(this.props.studentSearch);
+												if (this.state.students !== null) {
 
-                // Preload images
-                //var preload = new Image();
-                //const picArray = [StudentSearch]
-                //const path = "/images/resultsIMG/";
+																// Preload images
+																//var preload = new Image();
+																//const picArray = [StudentSearch]
+																//const path = "/images/resultsIMG/";
 
-                // Map over props and populate our page based on these props
-                var studentMap = this.state.students.map(function (student, i) {
-                    console.log(student);
-                    // Gives ability to pass two table ID's (student info) to <Link> Params
-                    var userInfo = [student.Name, student.Id, student.Location];
+																// Map over props and populate our page based on these props
+																var studentMap = this.state.students.map(function (student, i) {
+																				// Gives ability to pass two table ID's (student info) to <Link> Params
+																				var userInfo = [student.Name, student.Id, student.Location];
 
-                    return _react2.default.createElement(
-                        'div',
-                        { className: 'col-sm-4 col-12 page', key: i },
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/instructorDailyReportResult/' + userInfo },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'card', style: { height: "auto", paddingBottom: "5px" } },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'card-block spaCourseBox text-center' },
-                                    _react2.default.createElement(
-                                        'h6',
-                                        null,
-                                        student.Name,
-                                        ' '
-                                    ),
-                                    _react2.default.createElement(
-                                        'p',
-                                        null,
-                                        ' ',
-                                        student.Location || "not listed"
-                                    )
-                                )
-                            )
-                        )
-                    );
-                });
+																				return _react2.default.createElement(
+																								'div',
+																								{ className: 'col-sm-4 col-12 page', key: i },
+																								_react2.default.createElement(
+																												_reactRouterDom.Link,
+																												{ to: '/instructorDailyReportResult/' + userInfo },
+																												_react2.default.createElement(
+																																'div',
+																																{ className: 'card', style: { height: "auto", paddingBottom: "5px" } },
+																																_react2.default.createElement(
+																																				'div',
+																																				{ className: 'card-block spaCourseBox text-center' },
+																																				_react2.default.createElement(
+																																								'h6',
+																																								null,
+																																								student.Name,
+																																								' '
+																																				),
+																																				_react2.default.createElement(
+																																								'p',
+																																								null,
+																																								' ',
+																																								student.Location || "not listed"
+																																				)
+																																)
+																												)
+																								)
+																				);
+																});
 
-                return studentMap;
-            }
-        }
-    }, {
-        key: 'handleChange',
-        value: function handleChange(e) {
+																return studentMap;
+												}
+								}
+				}, {
+								key: 'handleChange',
+								value: function handleChange(e) {
 
-            var searchResult = this.props.studentSearch.filter(function (student) {
-                return student.Name.toLowerCase().includes(e.target.value.toLowerCase());
-            });
-            //console.log(e.target.value, searchResult)
-            this.setState({
+												var searchResult = this.props.studentSearch.filter(function (student) {
+																return student.Name.toLowerCase().includes(e.target.value.toLowerCase());
+												});
 
-                term: e.target.value,
-                students: searchResult
+												this.setState({
 
-            });
-        }
-    }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
+																term: e.target.value,
+																students: searchResult
 
-            // set loaded to true
-            if (this.state.Loaded === false) {
+												});
+								}
+				}, {
+								key: 'componentDidUpdate',
+								value: function componentDidUpdate(prevProps, prevState) {
 
-                this.setState({ Loaded: true });
-            }
+												// set loaded to true
+												if (this.state.Loaded === false) {
 
-            $(".spaCourseBox").matchHeight();
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            // get request to return a list of all the TechAcademy students 
-            //this.props.studentSearchAction();
-            this.setState({
-                students: this.props.studentSearch
-            });
+																this.setState({ Loaded: true });
+												}
 
-            console.log(this.state.students);
-        }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
+												$(".spaCourseBox").matchHeight();
+								}
+				}, {
+								key: 'componentDidMount',
+								value: function componentDidMount() {
+												// get request to return a list of all the TechAcademy students 
+												//this.props.studentSearchAction();
+												this.setState({
+																students: this.props.studentSearch
+												});
+								}
+				}, {
+								key: 'componentWillReceiveProps',
+								value: function componentWillReceiveProps(nextProps) {
 
-            this.setState({
-                students: nextProps.studentSearch
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'text-center' },
-                _react2.default.createElement(
-                    'h1',
-                    null,
-                    'students daily reports'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'container-1' },
-                    _react2.default.createElement('input', {
-                        type: 'text',
-                        id: 'search',
-                        placeholder: 'Search....',
-                        value: this.state.term,
-                        onChange: this.handleChange
-                    })
-                ),
-                _react2.default.createElement('hr', { className: 'style-two' }),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'container' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'row' },
-                        this.mapStudentViews()
-                    )
-                )
-            );
-        }
-    }]);
+												this.setState({
+																students: nextProps.studentSearch
+												});
+								}
+				}, {
+								key: 'render',
+								value: function render() {
+												return _react2.default.createElement(
+																'div',
+																{ className: 'text-center' },
+																_react2.default.createElement(
+																				'h1',
+																				null,
+																				'students daily reports'
+																),
+																_react2.default.createElement(
+																				'div',
+																				{ className: 'container-1' },
+																				_react2.default.createElement('input', {
+																								type: 'text',
+																								id: 'search',
+																								placeholder: 'Search....',
+																								value: this.state.term,
+																								onChange: this.handleChange
+																				})
+																),
+																_react2.default.createElement('hr', { className: 'style-two' }),
+																_react2.default.createElement(
+																				'div',
+																				{ className: 'container' },
+																				_react2.default.createElement(
+																								'div',
+																								{ className: 'row' },
+																								this.mapStudentViews()
+																				)
+																)
+												);
+								}
+				}]);
 
-    return Daily;
+				return Daily;
 }(_react.Component);
 
 // Bind actions to redux
 
 
 function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        studentSearchAction: _student_search_action.studentSearchAction
-    }, dispatch);
+				return (0, _redux.bindActionCreators)({
+								studentSearchAction: _student_search_action.studentSearchAction
+				}, dispatch);
 }
 
 // Allow this component to access redux store
 function mapStateToProps(state) {
-    return {
-        studentSearch: state.StudentSearch
-    };
+				return {
+								studentSearch: state.StudentSearch
+				};
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Daily);
@@ -29656,7 +29637,6 @@ var Progress = function (_Component) {
 
 						daysUsed -= courseDays[count];
 						daysStudyDone -= courseDays[count];
-						//console.log(daysUsed, daysStudyDone);
 						var temp = 0;
 						if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
 							var temp = 100;
@@ -29668,7 +29648,6 @@ var Progress = function (_Component) {
 						count++;
 					}
 
-					//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count],courseDays[count], daysUsed);
 					var _percent = Math.round(daysUsed / courseDays[count] * 100);
 					var percentDone = 0;
 					if (daysStudyDone <= courseDays[count]) {
@@ -29679,7 +29658,6 @@ var Progress = function (_Component) {
 
 					courses.push([this.props.courseProgress.AllCourses[count], percentDone, _percent]);
 					count++;
-					//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
 
 					while (daysStudyDone >= courseDays[count]) {
 
@@ -29693,7 +29671,6 @@ var Progress = function (_Component) {
 
 						courses.push([this.props.courseProgress.AllCourses[count], temp, 0]);
 						count++;
-						//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
 					}
 				}
 
@@ -30530,7 +30507,6 @@ var InstructorTestResult = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			var userInfo = this.props.match.params.value.split(',');
-			//console.log(userInfo);
 			var url = '/SPA/GetTestResults?courseId=' + userInfo[0] + '&Id=' + userInfo[1];
 			this.props.resultsInstructorViewAction(url);
 		}
@@ -30539,7 +30515,6 @@ var InstructorTestResult = function (_Component) {
 		value: function render() {
 
 			if (this.props.resultsInstructorView > [0]) {
-				//console.log(this.props);
 
 				var renderList = this.props.resultsInstructorView.map(function (item, i) {
 					return _react2.default.createElement(
@@ -30718,8 +30693,6 @@ var UniqueStudentCourses = function (_Component) {
 		value: function mapCourseViews(userID) {
 
 			if (this.props.StudentCoursesList !== null) {
-
-				//console.log("check", userId);
 
 				// Preload images
 				var preload = new Image();
@@ -31864,15 +31837,10 @@ var Testing = function (_Component) {
         return _possibleConstructorReturn(this, (Testing.__proto__ || Object.getPrototypeOf(Testing)).call(this, props));
     }
 
+    // keep in mind, this will all have to be generated mathematically, goal by timestamp and progress by checkpoints
+
+
     _createClass(Testing, [{
-        key: 'calculateProgress',
-        value: function calculateProgress(values) {
-            console.log(values);
-        }
-
-        // keep in mind, this will all have to be generated mathematically, goal by timestamp and progress by checkpoints
-
-    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -33330,7 +33298,6 @@ var GetAvatar = function (_Component) {
 		}
 		/*
   componentWillReceiveProps(nextProps){
-  	console.log("kitti", nextProps, this.props.image.data);
   	//this.forceUpdate();
   	//location.reload()
   	if(typeof this.props.image.data !== "undefined") {
@@ -33340,7 +33307,6 @@ var GetAvatar = function (_Component) {
   		//window.location.hash+="Profile";
   
   		//location.reload();
-  		console.log("yes", this.props.image.data)
   	}
   	
   }
@@ -33447,7 +33413,6 @@ var Instructor = function (_Component) {
 		value: function mapStudentViews() {
 
 			if (this.state.students !== null) {
-				//console.log(this.props.studentSearch);
 
 				// Preload images
 				//var preload = new Image();
@@ -33500,7 +33465,7 @@ var Instructor = function (_Component) {
 			var searchResult = this.props.studentSearch.filter(function (student) {
 				return student.Name.toLowerCase().includes(e.target.value.toLowerCase());
 			});
-			//console.log(e.target.value, searchResult)
+
 			this.setState({
 
 				term: e.target.value,
@@ -33528,8 +33493,6 @@ var Instructor = function (_Component) {
 			this.setState({
 				students: this.props.studentSearch
 			});
-
-			console.log(this.state.students);
 		}
 	}, {
 		key: 'componentWillReceiveProps',
@@ -35160,7 +35123,6 @@ exports.default = function () {
 
 	switch (action.type) {
 		case _profile_access_action.PROFILE_ACCESS:
-			//console.log(action.payload);
 			return action.payload;
 	}
 
@@ -35269,11 +35231,9 @@ exports.default = function () {
 
 	switch (action.type) {
 		case _profile_submit_action.SUBMIT_PROFILE:
-			console.log(action.type, action.payload);
 			if (action.payload = "success") return true;
 
 		case _image_access_callback_action.IMAGE_ACCESS_CALLBACK:
-			console.log(action.type);
 			return false;
 
 	}
@@ -58521,7 +58481,7 @@ function showSiblings(container, mountNode) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Provider; });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["b"] = createProvider;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(6);
@@ -58549,53 +58509,58 @@ function warnAboutReceivingStore() {
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__utils_warning__["a" /* default */])('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
 }
 
-var Provider = function (_Component) {
-  _inherits(Provider, _Component);
+function createProvider() {
+  var _Provider$childContex;
 
-  Provider.prototype.getChildContext = function getChildContext() {
-    return { store: this.store, storeSubscription: null };
-  };
+  var storeKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'store';
+  var subKey = arguments[1];
 
-  function Provider(props, context) {
-    _classCallCheck(this, Provider);
+  var subscriptionKey = subKey || storeKey + 'Subscription';
 
-    var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+  var Provider = function (_Component) {
+    _inherits(Provider, _Component);
 
-    _this.store = props.store;
-    return _this;
+    Provider.prototype.getChildContext = function getChildContext() {
+      var _ref;
+
+      return _ref = {}, _ref[storeKey] = this[storeKey], _ref[subscriptionKey] = null, _ref;
+    };
+
+    function Provider(props, context) {
+      _classCallCheck(this, Provider);
+
+      var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+
+      _this[storeKey] = props.store;
+      return _this;
+    }
+
+    Provider.prototype.render = function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react__["Children"].only(this.props.children);
+    };
+
+    return Provider;
+  }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+  if (process.env.NODE_ENV !== 'production') {
+    Provider.prototype.componentWillReceiveProps = function (nextProps) {
+      if (this[storeKey] !== nextProps.store) {
+        warnAboutReceivingStore();
+      }
+    };
   }
 
-  Provider.prototype.render = function render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react__["Children"].only(this.props.children);
+  Provider.propTypes = {
+    store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
+    children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element.isRequired
   };
+  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[storeKey] = __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired, _Provider$childContex[subscriptionKey] = __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["b" /* subscriptionShape */], _Provider$childContex);
+  Provider.displayName = 'Provider';
 
   return Provider;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-
-
-
-if (process.env.NODE_ENV !== 'production') {
-  Provider.prototype.componentWillReceiveProps = function (nextProps) {
-    var store = this.store;
-    var nextStore = nextProps.store;
-
-
-    if (store !== nextStore) {
-      warnAboutReceivingStore();
-    }
-  };
 }
 
-Provider.propTypes = {
-  store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
-  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element.isRequired
-};
-Provider.childContextTypes = {
-  store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
-  storeSubscription: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["b" /* subscriptionShape */]
-};
-Provider.displayName = 'Provider';
+/* harmony default export */ __webpack_exports__["a"] = (createProvider());
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),

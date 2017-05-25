@@ -16,7 +16,6 @@ class GetAvatar extends Component{
 	}
 	/*
 	componentWillReceiveProps(nextProps){
-		console.log("kitti", nextProps, this.props.image.data);
 		//this.forceUpdate();
 		//location.reload()
 		if(typeof this.props.image.data !== "undefined") {
@@ -26,7 +25,6 @@ class GetAvatar extends Component{
 			//window.location.hash+="Profile";
 
 			//location.reload();
-			console.log("yes", this.props.image.data)
 		}
 		
 	}

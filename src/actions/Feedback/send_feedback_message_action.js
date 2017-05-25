@@ -7,10 +7,8 @@ export function sendFeedbackMessage(values) {
 
 	const request = axios.post(url, { form: JSON.stringify(values) })
 		.then(function (response) {
-			console.log(response);
 		})
 		.catch(function (error) {
-			console.log(error);
 		});
 
 	

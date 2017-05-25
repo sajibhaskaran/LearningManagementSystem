@@ -31,8 +31,6 @@ class UniqueStudentCourses extends Component {
 
 		if (this.props.StudentCoursesList !== null) {
 
-			//console.log("check", userId);
-
 			// Preload images
 			var preload = new Image();
 			const picArray = ["cb.png", "osd.png", "versioncontrol.png", "html.png", "sql.png", "js.png", "visualstudio.png", "csharp.png", "pm.png", "liveproject.png", "job.png"];

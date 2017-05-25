@@ -73,7 +73,6 @@ class Progress extends Component {
 
 					daysUsed -= courseDays[count];
 					daysStudyDone -= courseDays[count];
-					//console.log(daysUsed, daysStudyDone);
 					var temp = 0;
 					if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
 						var temp = 100;
@@ -86,7 +85,6 @@ class Progress extends Component {
 					count++;
 				}
 
-				//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count],courseDays[count], daysUsed);
 				let percent = Math.round((daysUsed / courseDays[count]) * 100);
 				let percentDone = 0;
 				if (daysStudyDone <= courseDays[count]) {
@@ -97,7 +95,6 @@ class Progress extends Component {
 
 				courses.push([this.props.courseProgress.AllCourses[count], percentDone, percent]);
 				count++
-				//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
 
 				while (daysStudyDone >= courseDays[count]) {
 
@@ -114,7 +111,6 @@ class Progress extends Component {
 
 					courses.push([this.props.courseProgress.AllCourses[count], temp, 0]);
 					count++;
-					//console.log(daysStudyDone, this.props.courseProgress.AllCourses[count], courseDays[count], daysUsed);
 				}
 
 

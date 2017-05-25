@@ -29,7 +29,6 @@ class Daily extends Component {
     mapStudentViews() {
 
         if (this.state.students !== null) {
-            //console.log(this.props.studentSearch);
 
             // Preload images
             //var preload = new Image();
@@ -38,7 +37,6 @@ class Daily extends Component {
 
             // Map over props and populate our page based on these props
             const studentMap = this.state.students.map((student, i) => {
-                console.log(student);
                 // Gives ability to pass two table ID's (student info) to <Link> Params
                 let userInfo = [
                     student.Name,
@@ -77,7 +75,7 @@ class Daily extends Component {
 																			.toLowerCase()
 																			.includes(e.target.value
 																			.toLowerCase()));
-        //console.log(e.target.value, searchResult)
+
 		this.setState({
 			
         term: e.target.value,
@@ -110,7 +108,7 @@ componentDidMount() {
         students: this.props.studentSearch
     })
 
-	console.log(this.state.students)
+	
 	
     }
 

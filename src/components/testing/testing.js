@@ -8,9 +8,6 @@ export default class Testing extends Component {
 
     }
 
-    calculateProgress(values) {
-        console.log(values);
-    }
 
     // keep in mind, this will all have to be generated mathematically, goal by timestamp and progress by checkpoints
     render() {

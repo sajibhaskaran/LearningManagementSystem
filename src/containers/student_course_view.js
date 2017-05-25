@@ -153,9 +153,7 @@ class StudentCourseView extends Component {
             this.setState({ SelectedAnswers: newTestState });
 		}
 
-		if (currentPageNumber > 1) {
-			console.log(courseId);
-		}
+	
     }
 
     componentDidUpdate(prevProps, prevState) {

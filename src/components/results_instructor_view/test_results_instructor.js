@@ -15,7 +15,6 @@ class InstructorTestResult extends Component {
 
 	componentDidMount() {
 		const userInfo =  this.props.match.params.value.split(',');
-		//console.log(userInfo);
 		const url = `/SPA/GetTestResults?courseId=${userInfo[0]}&Id=${userInfo[1]}`;
 		this.props.resultsInstructorViewAction(url);
 	}
@@ -25,7 +24,6 @@ class InstructorTestResult extends Component {
 	render() {
 
 		if (this.props.resultsInstructorView > [0]) {
-			//console.log(this.props);
 
 			const renderList = this.props.resultsInstructorView.map((item, i) => {
 				return (
