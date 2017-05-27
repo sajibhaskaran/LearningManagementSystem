@@ -51,7 +51,7 @@ class Daily extends Component {
 					{/*	<Link to={`/studentCourses/${userInfo}`} > */}
                         <Link to={`/instructorDailyReportResult/${userInfo}`}>
 						<div className="card" style={{ height: "auto", paddingBottom: "5px" }}>
-    {/*<img className="card-img-top img-responsive" src={path + picArray[i]} alt="Card image cap" />*/}
+				 {/*<img className="card-img-top img-responsive" src={path + picArray[i]} alt="Card image cap" />*/}
 							<div className="card-block spaCourseBox text-center">
 									<h6>{student.Name} </h6>
 									<p> { student.Location  || "not listed"}</p>
@@ -128,7 +128,7 @@ render() {
 		<div className="text-center">
 			 
 
-		<h1>students daily reports</h1>
+		<h1>student's daily reports</h1>
 			
 			
 			

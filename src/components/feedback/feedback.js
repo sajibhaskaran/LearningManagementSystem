@@ -18,6 +18,7 @@ class Feedback extends Component {
 	render() {
 		// checking the props
 		if (this.props.feedback > [0]) {
+			
 			// building a list
 			const renderList = this.props.feedback.map((item, i) => {
 				return (

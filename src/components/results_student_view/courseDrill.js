@@ -10,7 +10,6 @@ import { courseDrillAction } from '../../actions/Results/course_drill_action';
 class CourseDrill extends Component{
 
 	componentDidMount() {
-		
 		const url = `/SPA/getDrills?courseId=${this.props.match.params.value}`;
 		this.props.courseDrillAction(url);
 	}

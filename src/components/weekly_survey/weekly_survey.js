@@ -106,7 +106,7 @@ class WeeklySurvey extends Component {
                                     onChange={this.handleInputChange} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="HoursStudied">How many hours did you study today this week?</label>
+                                <label htmlFor="HoursStudied">How many hours did you study this week?</label>
                                 <input
                                     type="text"
                                     className="form-control"
