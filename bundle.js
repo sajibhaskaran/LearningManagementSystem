@@ -751,6 +751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(262);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(639);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
 
@@ -28173,6 +28174,7 @@ var Feedback = function (_Component) {
 		value: function render() {
 			// checking the props
 			if (this.props.feedback > [0]) {
+
 				// building a list
 				var renderList = this.props.feedback.map(function (item, i) {
 					return _react2.default.createElement(
@@ -29565,7 +29567,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // libraries
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /// <reference path="../app.js" />
+// libraries
 
 
 // action
@@ -29605,78 +29608,149 @@ var Progress = function (_Component) {
 			// doing the calculation to figure out the progress in individual courses.
 
 			if (this.props.courseProgress != null) {
-				var count = 0;
+				console.log(this.props.courseProgress);
 
-				var daysUsed = this.props.courseProgress.Data.daysUsed;
-				var daysStudyDone = this.props.courseProgress.Data.daysActuallyDone;
-				var courseDays = this.props.courseProgress.CourseDays;
-				var courses = [];
-
-				this.props.courseProgress.CoursesDone.push(this.props.courseProgress.CurrentCoursePercent);
-				if (daysUsed >= daysStudyDone) {
-					while (daysUsed > courseDays[count]) {
-
-						daysUsed -= courseDays[count];
-						var temp = 0;
-						if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
-							var temp = 100;
-						} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
-							temp = this.props.courseProgress.CoursesDone[count];
-						}
-
-						courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
-						count++;
-					}
-
-					var percent = Math.round(daysUsed / courseDays[count] * 100);
-
-					courses.push([this.props.courseProgress.AllCourses[count], this.props.courseProgress.CoursesDone[count], percent]);
-				} else {
-					while (daysUsed >= courseDays[count]) {
-
-						daysUsed -= courseDays[count];
-						daysStudyDone -= courseDays[count];
-						var temp = 0;
-						if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
-							var temp = 100;
-						} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
-							temp = this.props.courseProgress.CoursesDone[count];
-						}
-
-						courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
-						count++;
-					}
-
-					var _percent = Math.round(daysUsed / courseDays[count] * 100);
-					var percentDone = 0;
-					if (daysStudyDone <= courseDays[count]) {
-						percentDone = Math.round(daysStudyDone / courseDays[count] * 100);
-					} else percentDone = 100;
-
-					daysStudyDone -= courseDays[count];
-
-					courses.push([this.props.courseProgress.AllCourses[count], percentDone, _percent]);
-					count++;
-
-					while (daysStudyDone >= courseDays[count]) {
-
-						daysStudyDone -= courseDays[count];
-						var temp = 0;
-						if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
-							var temp = 100;
-						} else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
-							temp = this.props.courseProgress.CoursesDone[count];
-						}
-
-						courses.push([this.props.courseProgress.AllCourses[count], temp, 0]);
-						count++;
-					}
+				var currentCourse = this.props.courseProgress.CurrCourse[0];
+				var courses = this.props.courseProgress.PageCourse;
+				var daysUsed = currentCourse.DaysUsed;
+				var courseProgress = [];
+				var doneDays = 0;
+				//let totalDays = 0;
+				//for(let i in courses){ totalDays += courses[i].dComplete;}
+				for (var i = 0; i < currentCourse.coursePosition - 1; i++) {
+					doneDays += courses[i].dComplete;
 				}
 
-				// returning a list of course progress bars
-				return courses.map(function (course, i) {
-					return _react2.default.createElement(_ProgressBar2.default, { key: i, name: course[0], percentDone: course[1], percentShouldHaveDone: course[2] });
-				});
+				if (daysUsed > doneDays) {
+
+					var count = 0;
+					var percent = 0;
+
+					while (daysUsed > courses[count].dComplete) {
+
+						daysUsed -= courses[count].dComplete;
+
+						if (count < currentCourse.coursePosition - 1) percent = 100;else if (count == currentCourse.coursePosition - 1) percent = currentCourse.PagePercent;else percent = 0;
+
+						courseProgress.push(courses[count].cName, percent, 100);
+						count++;
+					}
+
+					console.log(courseProgress, daysUsed, doneDays, count);
+				}
+
+				/*
+    let daysUsed = this.props.courseProgress.Data.daysUsed;
+    let daysStudyDone = this.props.courseProgress.Data.daysActuallyDone;
+    let courseDays = this.props.courseProgress.CourseDays;
+    let courses = [];
+    
+    		this.props.courseProgress.CoursesDone.push(this.props.courseProgress.CurrentCoursePercent);
+    if (daysUsed >= daysStudyDone) {
+    	while (daysUsed > courseDays[count]) {
+    				daysUsed -= courseDays[count];
+    		var temp = 0;
+    		if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+    			var temp = 100;
+    		}
+    		else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+    			temp = this.props.courseProgress.CoursesDone[count];
+    		}
+    				courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
+    		count++;
+    	}
+    			let percent = Math.round((daysUsed / courseDays[count]) * 100);
+    			courses.push([this.props.courseProgress.AllCourses[count], this.props.courseProgress.CoursesDone[count], percent]);
+    		}
+    else {
+    	while (daysUsed >= courseDays[count]) {
+    
+    		daysUsed -= courseDays[count];
+    		daysStudyDone -= courseDays[count];
+    		var temp = 0;
+    		if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+    			var temp = 100;
+    		}
+    		else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+    			temp = this.props.courseProgress.CoursesDone[count];
+    		}
+    				courses.push([this.props.courseProgress.AllCourses[count], temp, 100]);
+    		count++;
+    	}
+    			let percent = Math.round((daysUsed / courseDays[count]) * 100);
+    	let percentDone = 0;
+    	if (daysStudyDone <= courseDays[count]) {
+    		percentDone = Math.round((daysStudyDone / courseDays[count]) * 100);
+    	} else percentDone = 100;
+    			daysStudyDone -= courseDays[count]
+    			courses.push([this.props.courseProgress.AllCourses[count], percentDone, percent]);
+    	count++
+    			while (daysStudyDone >= courseDays[count]) {
+    
+    				daysStudyDone -= courseDays[count];
+    		var temp = 0;
+    		if (typeof this.props.courseProgress.CoursesDone[count] === 'string') {
+    			var temp = 100;
+    		}
+    		else if (typeof this.props.courseProgress.CoursesDone[count] === 'number') {
+    			temp = this.props.courseProgress.CoursesDone[count];
+    		}
+    				courses.push([this.props.courseProgress.AllCourses[count], temp, 0]);
+    		count++;
+    	}
+    
+    }
+    
+    		// returning a list of course progress bars
+    return courses.map((course, i) => {
+    	return <ProgressBar key={i} name={course[0]} percentDone={course[1]} percentShouldHaveDone={course[2]} />
+    });
+    }
+    	*/
+			}
+		}
+	}, {
+		key: 'totalCourse',
+		value: function totalCourse() {
+
+			if (this.props.courseProgress != null) {
+
+				var currentCourse = this.props.courseProgress.CurrCourse[0];
+				var courses = this.props.courseProgress.PageCourse;
+				var doneDays = 0;
+				//let totalDays = 0;
+				//for(let i in courses){ totalDays += courses[i].dComplete;}
+				for (var i = 0; i < currentCourse.coursePosition - 1; i++) {
+					doneDays += courses[i].dComplete;
+				}
+				var coursePercentToTotal = currentCourse.dayToComplete / currentCourse.TotalDays * 100;
+				var donePercentToTotal = Math.round(currentCourse.PagePercent * coursePercentToTotal / 100);
+				var totalDonePercent = Math.floor(doneDays / currentCourse.TotalDays * 100 + donePercentToTotal);
+				console.log(doneDays, coursePercentToTotal, donePercentToTotal, totalDonePercent);
+				return _react2.default.createElement(_ProgressBar2.default, {
+					name: "Boot Camp",
+					percentDone: totalDonePercent,
+					percentShouldHaveDone: currentCourse.PercentDone });
+			}
+		}
+	}, {
+		key: 'renderCourseProgress',
+		value: function renderCourseProgress() {
+			if (this.props.courseProgress != null) {
+
+				var currentCourse = this.props.courseProgress.CurrCourse[0];
+				var courses = this.props.courseProgress.PageCourse;
+
+				var totalDays = currentCourse.TotalDays;
+
+				//const progress = courses.map((course, i) => {
+
+
+				//});
+
+				for (var i = 0; i < courses.length; i++) {
+					totalDays -= courses[i].dComplete;
+				}
 			}
 		}
 
@@ -29685,9 +29759,16 @@ var Progress = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-
-			var percentDone = this.props.courseProgress === null ? 0 : this.props.courseProgress.Data.percentActuallyDone;
-			var percentShouldHaveDone = this.props.courseProgress === null ? 0 : this.props.courseProgress.Data.percentShouldHaveDone;
+			if (this.props.courseProgress != null) {
+				var data = this.props.courseProgress.CurrCourse[0];
+				var percentDone = Math.round(data.DaysUsed / data.TotalDays * 100);
+				console.log(percentDone);
+				console.log(data.PercentDone);
+			}
+			//const percentDone = this.props.courseProgress === null ?
+			//	0 : this.props.courseProgress.Data.percentActuallyDone;
+			//const percentShouldHaveDone = this.props.courseProgress === null ?
+			//	0 : this.props.courseProgress.Data.percentShouldHaveDone;
 
 			return _react2.default.createElement(
 				_loader2.default,
@@ -29711,10 +29792,7 @@ var Progress = function (_Component) {
 								)
 							),
 							_react2.default.createElement('hr', null),
-							_react2.default.createElement(_ProgressBar2.default, {
-								name: "Boot Camp",
-								percentDone: percentDone,
-								percentShouldHaveDone: percentShouldHaveDone }),
+							this.totalCourse(),
 							_react2.default.createElement('hr', null),
 							this.courseList()
 						)
@@ -58479,7 +58557,7 @@ function showSiblings(container, mountNode) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Provider; });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["b"] = createProvider;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(6);
@@ -58507,53 +58585,58 @@ function warnAboutReceivingStore() {
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__utils_warning__["a" /* default */])('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
 }
 
-var Provider = function (_Component) {
-  _inherits(Provider, _Component);
+function createProvider() {
+  var _Provider$childContex;
 
-  Provider.prototype.getChildContext = function getChildContext() {
-    return { store: this.store, storeSubscription: null };
-  };
+  var storeKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'store';
+  var subKey = arguments[1];
 
-  function Provider(props, context) {
-    _classCallCheck(this, Provider);
+  var subscriptionKey = subKey || storeKey + 'Subscription';
 
-    var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+  var Provider = function (_Component) {
+    _inherits(Provider, _Component);
 
-    _this.store = props.store;
-    return _this;
+    Provider.prototype.getChildContext = function getChildContext() {
+      var _ref;
+
+      return _ref = {}, _ref[storeKey] = this[storeKey], _ref[subscriptionKey] = null, _ref;
+    };
+
+    function Provider(props, context) {
+      _classCallCheck(this, Provider);
+
+      var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+
+      _this[storeKey] = props.store;
+      return _this;
+    }
+
+    Provider.prototype.render = function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react__["Children"].only(this.props.children);
+    };
+
+    return Provider;
+  }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+  if (process.env.NODE_ENV !== 'production') {
+    Provider.prototype.componentWillReceiveProps = function (nextProps) {
+      if (this[storeKey] !== nextProps.store) {
+        warnAboutReceivingStore();
+      }
+    };
   }
 
-  Provider.prototype.render = function render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react__["Children"].only(this.props.children);
+  Provider.propTypes = {
+    store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
+    children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element.isRequired
   };
+  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[storeKey] = __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired, _Provider$childContex[subscriptionKey] = __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["b" /* subscriptionShape */], _Provider$childContex);
+  Provider.displayName = 'Provider';
 
   return Provider;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-
-
-
-if (process.env.NODE_ENV !== 'production') {
-  Provider.prototype.componentWillReceiveProps = function (nextProps) {
-    var store = this.store;
-    var nextStore = nextProps.store;
-
-
-    if (store !== nextStore) {
-      warnAboutReceivingStore();
-    }
-  };
 }
 
-Provider.propTypes = {
-  store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
-  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element.isRequired
-};
-Provider.childContextTypes = {
-  store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
-  storeSubscription: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["b" /* subscriptionShape */]
-};
-Provider.displayName = 'Provider';
+/* harmony default export */ __webpack_exports__["a"] = (createProvider());
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),

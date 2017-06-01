@@ -1,4 +1,5 @@
-﻿// libraries
+﻿/// <reference path="../app.js" />
+// libraries
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -36,8 +37,46 @@ class Progress extends Component {
 		// doing the calculation to figure out the progress in individual courses.
 
 		if (this.props.courseProgress != null) {
-			let count = 0;
+			console.log(this.props.courseProgress);
+			
 
+			const currentCourse = this.props.courseProgress.CurrCourse[0];
+			const courses = this.props.courseProgress.PageCourse;
+			let daysUsed = currentCourse.DaysUsed;
+			let courseProgress = [];
+			let doneDays = 0;
+			//let totalDays = 0;
+			//for(let i in courses){ totalDays += courses[i].dComplete;}
+			for(let i = 0; i < currentCourse.coursePosition-1; i++){
+				doneDays += courses[i].dComplete;
+			}
+
+			if(daysUsed > doneDays){
+			
+				let count = 0;
+				let percent = 0;
+				
+				while (daysUsed > courses[count].dComplete){
+
+					daysUsed -= courses[count].dComplete;
+
+					if(count < currentCourse.coursePosition - 1) percent = 100;
+					else if(count == currentCourse.coursePosition - 1) percent = currentCourse.PagePercent;
+					else percent = 0;
+
+					courseProgress.push(courses[count].cName, percent, 100)
+					count++;
+
+				
+				}
+
+				console.log(courseProgress, daysUsed, doneDays, count)
+			
+			}
+
+
+
+			/*
 			let daysUsed = this.props.courseProgress.Data.daysUsed;
 			let daysStudyDone = this.props.courseProgress.Data.daysActuallyDone;
 			let courseDays = this.props.courseProgress.CourseDays;
@@ -124,18 +163,79 @@ class Progress extends Component {
 			});
 		}
 
+		*/
+
+		}
 	}
+	totalCourse(){
+	
+		if(this.props.courseProgress != null){
+		
+			const currentCourse = this.props.courseProgress.CurrCourse[0];
+			const courses = this.props.courseProgress.PageCourse;
+			let doneDays = 0;
+			//let totalDays = 0;
+			//for(let i in courses){ totalDays += courses[i].dComplete;}
+			for(let i = 0; i < currentCourse.coursePosition-1; i++){
+				doneDays += courses[i].dComplete;
+			}
+			const coursePercentToTotal = (currentCourse.dayToComplete/currentCourse.TotalDays)*100;
+			const donePercentToTotal = Math.round((currentCourse.PagePercent*coursePercentToTotal)/100);
+			const totalDonePercent = Math.floor((doneDays/currentCourse.TotalDays)*100 + donePercentToTotal);
+			console.log(doneDays, coursePercentToTotal, donePercentToTotal, totalDonePercent);
+			return(
+				<ProgressBar
+							name={"Boot Camp"}
+							percentDone={totalDonePercent}
+							percentShouldHaveDone={currentCourse.PercentDone} />
+				
+				);
+		}
+	
+
+
+
+}
+
+renderCourseProgress(){
+	if(this.props.courseProgress != null) {
+
+		const currentCourse = this.props.courseProgress.CurrCourse[0];
+		const courses = this.props.courseProgress.PageCourse;
+
+		let totalDays = currentCourse.TotalDays;
+
+		//const progress = courses.map((course, i) => {
+				
+		
+		//});
+
+		for(let i=0; i < courses.length; i++){
+			totalDays -= courses[i].dComplete
+		
+		}
+    
+	}
+
+
+}
 	
 
 
 
     // render function after checking the props availability.
     render() {
-
-		const percentDone = this.props.courseProgress === null ?
-			0 : this.props.courseProgress.Data.percentActuallyDone;
-		const percentShouldHaveDone = this.props.courseProgress === null ?
-			0 : this.props.courseProgress.Data.percentShouldHaveDone;
+    	if(this.props.courseProgress != null){
+    		const data= this.props.courseProgress.CurrCourse[0];
+    		const percentDone = Math.round((data.DaysUsed/data.TotalDays)*100);
+    		console.log(percentDone);
+			console.log(data.PercentDone)
+    	
+    	}
+		//const percentDone = this.props.courseProgress === null ?
+		//	0 : this.props.courseProgress.Data.percentActuallyDone;
+		//const percentShouldHaveDone = this.props.courseProgress === null ?
+		//	0 : this.props.courseProgress.Data.percentShouldHaveDone;
 			
 			return (
 				<Loader Loaded={this.props.Loaded} className="loader">
@@ -147,16 +247,17 @@ class Progress extends Component {
                                 <h1>Progress</h1>
 							</div>
 							<hr />
+							{this.totalCourse()}
 							{/* progress bar of the total course*/}
-							<ProgressBar
+							{/*<ProgressBar
 								name={"Boot Camp"}
 								percentDone={percentDone }
-								percentShouldHaveDone={percentShouldHaveDone} />
+								percentShouldHaveDone={percentShouldHaveDone} />*/}
 
 							<hr />
 							{/* calling the function to display the progress bars of the indiviadual courses.*/}
+							
 							{this.courseList()}
-
 
 							</div>
 						</div>
