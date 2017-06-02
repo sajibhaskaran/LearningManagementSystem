@@ -125,14 +125,10 @@ componentWillReceiveProps(nextProps) {
 
 render() {
 	return (
-		<div className="text-center">
-			 
+		<div className="text-center">			 
 
 		<h1>List of students</h1>
 			
-			
-			
-
 			<div className="container-1">
 				<input
 				type="text"

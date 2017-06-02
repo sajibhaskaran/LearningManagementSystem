@@ -24,7 +24,60 @@ class Daily extends Component {
         this.props.studentSearchAction();
 
         this.handleChange = this.handleChange.bind(this)
-    }
+	}
+		
+	// filtering out the data
+	mapUnreadStudents() {
+		
+		
+			var unreadStudents = [];
+			var user = this.state.students;
+			// filtering the this.state.students.
+			for (let i = 0; i < user.length; i++) {
+				if (!user[i].Reports == [0]) {
+					for (let r = 0; r < user[i].Reports.length; r++) {
+						if (user[i].Feedbacks !== [0] && user[i].Feedbacks.length != user[i].Reports.length) {
+							for (let f = 0; f < user[i].Feedbacks.length; f++) {
+								if (user[i].Reports[r].DailyReportFormId != user[i].Feedbacks[f].DailyReportId) {									
+									unreadStudents.push(user[i]);
+									break;
+								}
+								
+							}
+							break;
+						}
+						
+					}
+				}
+			}
+	
+				
+			// building a list of cards of those student's whose daily reports hasn't been responded.
+				const studentMap = unreadStudents.map((student, i) => {
+					let userInfo = [
+						student.Name,
+						student.Id,
+						student.Location
+					]
+
+					return (
+						<div className="col-sm-4 col-12 page" key={i}>
+							<Link to={`/instructorDailyReportResult/${userInfo}`}>
+								<div className="card" style={{ height: "auto", padding: "5px" }}>
+									<div className="card-block spaCourseBox text-center">
+										<h6>{student.Name}</h6>
+										<p> {student.Location || "not listed"}</p>
+									</div>
+								</div>
+							</Link>
+						</div>
+
+					);
+				})
+				return studentMap;
+			}
+		
+	
 
     mapStudentViews() {
 
@@ -68,7 +121,7 @@ class Daily extends Component {
     }
     }
 
-
+	// search functionality.
 	handleChange(e) {
 
 		let searchResult = this.props.studentSearch.filter(student => student.Name
@@ -117,20 +170,16 @@ componentWillReceiveProps(nextProps) {
 	this.setState({
         students: nextProps.studentSearch
     })
-
-	
+		
 
     }
 
 
 render() {
 	return (
-		<div className="text-center">
-			 
+		<div className="text-center">			 
 
-		<h1>student's daily reports</h1>
-			
-			
+		<h1>student's daily reports</h1>			
 			
 
 			<div className="container-1">
@@ -144,7 +193,16 @@ render() {
 			</div>
 
 			<hr className="style-two" />
+			<h4>Please Respond to Daily Reports</h4>
+			<div className="container">
+				<div className="row">
+					{this.mapUnreadStudents()}
+				</div>
+			</div>
 
+			<hr className="style-two" />
+			<br />
+			<h4>All Students</h4>
 			<div className="container">
 				<div className="row">
     {this.mapStudentViews()}

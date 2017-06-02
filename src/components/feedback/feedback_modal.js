@@ -9,7 +9,7 @@ import Loader from '../../components/loader/loader';
 
 // actions
 import { sendFeedbackMessage } from '../../actions/Feedback/send_feedback_message_action';
-
+import { resultsInstructorViewAction } from '../../actions/Results/results_instructor_view_action';
 
 
 
@@ -19,6 +19,7 @@ class FeedbackModal extends Component {
 		this.state = {
 			Id: this.props.id,
 			Content: "",
+			DailyReportId: ""
 
 		};
 
@@ -32,15 +33,29 @@ class FeedbackModal extends Component {
 			const name = e.target.name;
 
 			this.setState({
-				Content: value
+				Content: value,
+				DailyReportId: this.props.dailyReportId
 			});
 		}
 
 	handleSubmit(event) {
 		event.preventDefault();
+		
+		this.setState({
+			DailyReportId: this.props.dailyReportId
+		});
+		
 		// calling the action
 		sendFeedbackMessage(this.state);
 		// clearing the text area.
+
+
+		
+		const url = `/SPA/getDailyReport?Id=${this.props.id}`;
+		// calling the action
+		resultsInstructorViewAction(url);
+
+
 		this.setState({
 			Content: ''
 		});
@@ -51,6 +66,9 @@ class FeedbackModal extends Component {
 
 
 	render() {
+
+		
+
 		// styles for the modal.
 		const modalStyle = {
 			position: 'fixed',
@@ -69,7 +87,7 @@ class FeedbackModal extends Component {
 
 			return null;
 		}
-
+		
 		return (
 			<Modal show={this.props.show}
 				onHide={this.props.toggleModal}
@@ -96,8 +114,8 @@ class FeedbackModal extends Component {
 
 				</Modal.Body>
 				<Modal.Footer>
-					<Button bsStyle="info" onClick={this.props.toggleModal}>Close</Button>
-					<Button bsStyle="info" type="submit" onSubmit={this.handleSubmit} >Send</Button>
+						<Button bsStyle="info" onClick={this.props.toggleModal}>Close</Button>
+						<Button bsStyle="info" type="submit" id={this.props.dailyReportId} onSubmit={this.handleSubmit} >Send</Button>
 				</Modal.Footer>
 					</form>
 			</Modal>

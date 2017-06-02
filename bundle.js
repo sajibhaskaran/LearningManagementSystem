@@ -751,7 +751,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(262);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(639);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
 
@@ -24247,6 +24246,8 @@ var _loader2 = _interopRequireDefault(_loader);
 
 var _send_feedback_message_action = __webpack_require__(298);
 
+var _results_instructor_view_action = __webpack_require__(61);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24272,7 +24273,8 @@ var FeedbackModal = function (_Component) {
 
 		_this.state = {
 			Id: _this.props.id,
-			Content: ""
+			Content: "",
+			DailyReportId: ""
 
 		};
 
@@ -24289,16 +24291,28 @@ var FeedbackModal = function (_Component) {
 			var name = e.target.name;
 
 			this.setState({
-				Content: value
+				Content: value,
+				DailyReportId: this.props.dailyReportId
 			});
 		}
 	}, {
 		key: 'handleSubmit',
 		value: function handleSubmit(event) {
 			event.preventDefault();
+
+			this.setState({
+				DailyReportId: this.props.dailyReportId
+			});
+
 			// calling the action
 			(0, _send_feedback_message_action.sendFeedbackMessage)(this.state);
 			// clearing the text area.
+
+
+			var url = '/SPA/getDailyReport?Id=' + this.props.id;
+			// calling the action
+			(0, _results_instructor_view_action.resultsInstructorViewAction)(url);
+
 			this.setState({
 				Content: ''
 			});
@@ -24309,6 +24323,7 @@ var FeedbackModal = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+
 			// styles for the modal.
 			var modalStyle = {
 				position: 'fixed',
@@ -24377,7 +24392,7 @@ var FeedbackModal = function (_Component) {
 						),
 						_react2.default.createElement(
 							_reactBootstrap.Button,
-							{ bsStyle: 'info', type: 'submit', onSubmit: this.handleSubmit },
+							{ bsStyle: 'info', type: 'submit', id: this.props.dailyReportId, onSubmit: this.handleSubmit },
 							'Send'
 						)
 					)
@@ -28692,7 +28707,7 @@ exports.default = SendMessage;
 
 
 Object.defineProperty(exports, "__esModule", {
-				value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28731,171 +28746,255 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var Daily = function (_Component) {
-				_inherits(Daily, _Component);
+	_inherits(Daily, _Component);
 
-				function Daily(props) {
-								_classCallCheck(this, Daily);
+	function Daily(props) {
+		_classCallCheck(this, Daily);
 
-								var _this = _possibleConstructorReturn(this, (Daily.__proto__ || Object.getPrototypeOf(Daily)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (Daily.__proto__ || Object.getPrototypeOf(Daily)).call(this, props));
 
-								_this.state = {
-												Loaded: false,
-												term: '',
-												students: []
-								};
+		_this.state = {
+			Loaded: false,
+			term: '',
+			students: []
+		};
 
-								_this.props.studentSearchAction();
+		_this.props.studentSearchAction();
 
-								_this.handleChange = _this.handleChange.bind(_this);
-								return _this;
+		_this.handleChange = _this.handleChange.bind(_this);
+		return _this;
+	}
+
+	// filtering out the data
+
+
+	_createClass(Daily, [{
+		key: 'mapUnreadStudents',
+		value: function mapUnreadStudents() {
+
+			var unreadStudents = [];
+			var user = this.state.students;
+			// filtering the this.state.students.
+			for (var i = 0; i < user.length; i++) {
+				if (!user[i].Reports == [0]) {
+					for (var r = 0; r < user[i].Reports.length; r++) {
+						if (user[i].Feedbacks !== [0] && user[i].Feedbacks.length != user[i].Reports.length) {
+							for (var f = 0; f < user[i].Feedbacks.length; f++) {
+								if (user[i].Reports[r].DailyReportFormId != user[i].Feedbacks[f].DailyReportId) {
+									unreadStudents.push(user[i]);
+									break;
+								}
+							}
+							break;
+						}
+					}
 				}
+			}
 
-				_createClass(Daily, [{
-								key: 'mapStudentViews',
-								value: function mapStudentViews() {
+			// building a list of cards of those student's whose daily reports hasn't been responded.
+			var studentMap = unreadStudents.map(function (student, i) {
+				var userInfo = [student.Name, student.Id, student.Location];
 
-												if (this.state.students !== null) {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'col-sm-4 col-12 page', key: i },
+					_react2.default.createElement(
+						_reactRouterDom.Link,
+						{ to: '/instructorDailyReportResult/' + userInfo },
+						_react2.default.createElement(
+							'div',
+							{ className: 'card', style: { height: "auto", padding: "5px" } },
+							_react2.default.createElement(
+								'div',
+								{ className: 'card-block spaCourseBox text-center' },
+								_react2.default.createElement(
+									'h6',
+									null,
+									student.Name
+								),
+								_react2.default.createElement(
+									'p',
+									null,
+									' ',
+									student.Location || "not listed"
+								)
+							)
+						)
+					)
+				);
+			});
+			return studentMap;
+		}
+	}, {
+		key: 'mapStudentViews',
+		value: function mapStudentViews() {
 
-																// Preload images
-																//var preload = new Image();
-																//const picArray = [StudentSearch]
-																//const path = "/images/resultsIMG/";
+			if (this.state.students !== null) {
 
-																// Map over props and populate our page based on these props
-																var studentMap = this.state.students.map(function (student, i) {
-																				// Gives ability to pass two table ID's (student info) to <Link> Params
-																				var userInfo = [student.Name, student.Id, student.Location];
+				// Preload images
+				//var preload = new Image();
+				//const picArray = [StudentSearch]
+				//const path = "/images/resultsIMG/";
 
-																				return _react2.default.createElement(
-																								'div',
-																								{ className: 'col-sm-4 col-12 page', key: i },
-																								_react2.default.createElement(
-																												_reactRouterDom.Link,
-																												{ to: '/instructorDailyReportResult/' + userInfo },
-																												_react2.default.createElement(
-																																'div',
-																																{ className: 'card', style: { height: "auto", paddingBottom: "5px" } },
-																																_react2.default.createElement(
-																																				'div',
-																																				{ className: 'card-block spaCourseBox text-center' },
-																																				_react2.default.createElement(
-																																								'h6',
-																																								null,
-																																								student.Name,
-																																								' '
-																																				),
-																																				_react2.default.createElement(
-																																								'p',
-																																								null,
-																																								' ',
-																																								student.Location || "not listed"
-																																				)
-																																)
-																												)
-																								)
-																				);
-																});
+				// Map over props and populate our page based on these props
+				var studentMap = this.state.students.map(function (student, i) {
+					// Gives ability to pass two table ID's (student info) to <Link> Params
+					var userInfo = [student.Name, student.Id, student.Location];
 
-																return studentMap;
-												}
-								}
-				}, {
-								key: 'handleChange',
-								value: function handleChange(e) {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'col-sm-4 col-12 page', key: i },
+						_react2.default.createElement(
+							_reactRouterDom.Link,
+							{ to: '/instructorDailyReportResult/' + userInfo },
+							_react2.default.createElement(
+								'div',
+								{ className: 'card', style: { height: "auto", paddingBottom: "5px" } },
+								_react2.default.createElement(
+									'div',
+									{ className: 'card-block spaCourseBox text-center' },
+									_react2.default.createElement(
+										'h6',
+										null,
+										student.Name,
+										' '
+									),
+									_react2.default.createElement(
+										'p',
+										null,
+										' ',
+										student.Location || "not listed"
+									)
+								)
+							)
+						)
+					);
+				});
 
-												var searchResult = this.props.studentSearch.filter(function (student) {
-																return student.Name.toLowerCase().includes(e.target.value.toLowerCase());
-												});
+				return studentMap;
+			}
+		}
 
-												this.setState({
+		// search functionality.
 
-																term: e.target.value,
-																students: searchResult
+	}, {
+		key: 'handleChange',
+		value: function handleChange(e) {
 
-												});
-								}
-				}, {
-								key: 'componentDidUpdate',
-								value: function componentDidUpdate(prevProps, prevState) {
+			var searchResult = this.props.studentSearch.filter(function (student) {
+				return student.Name.toLowerCase().includes(e.target.value.toLowerCase());
+			});
 
-												// set loaded to true
-												if (this.state.Loaded === false) {
+			this.setState({
 
-																this.setState({ Loaded: true });
-												}
+				term: e.target.value,
+				students: searchResult
 
-												$(".spaCourseBox").matchHeight();
-								}
-				}, {
-								key: 'componentDidMount',
-								value: function componentDidMount() {
-												// get request to return a list of all the TechAcademy students 
-												//this.props.studentSearchAction();
-												this.setState({
-																students: this.props.studentSearch
-												});
-								}
-				}, {
-								key: 'componentWillReceiveProps',
-								value: function componentWillReceiveProps(nextProps) {
+			});
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(prevProps, prevState) {
 
-												this.setState({
-																students: nextProps.studentSearch
-												});
-								}
-				}, {
-								key: 'render',
-								value: function render() {
-												return _react2.default.createElement(
-																'div',
-																{ className: 'text-center' },
-																_react2.default.createElement(
-																				'h1',
-																				null,
-																				'student\'s daily reports'
-																),
-																_react2.default.createElement(
-																				'div',
-																				{ className: 'container-1' },
-																				_react2.default.createElement('input', {
-																								type: 'text',
-																								id: 'search',
-																								placeholder: 'Search....',
-																								value: this.state.term,
-																								onChange: this.handleChange
-																				})
-																),
-																_react2.default.createElement('hr', { className: 'style-two' }),
-																_react2.default.createElement(
-																				'div',
-																				{ className: 'container' },
-																				_react2.default.createElement(
-																								'div',
-																								{ className: 'row' },
-																								this.mapStudentViews()
-																				)
-																)
-												);
-								}
-				}]);
+			// set loaded to true
+			if (this.state.Loaded === false) {
 
-				return Daily;
+				this.setState({ Loaded: true });
+			}
+
+			$(".spaCourseBox").matchHeight();
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			// get request to return a list of all the TechAcademy students 
+			//this.props.studentSearchAction();
+			this.setState({
+				students: this.props.studentSearch
+			});
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+
+			this.setState({
+				students: nextProps.studentSearch
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				{ className: 'text-center' },
+				_react2.default.createElement(
+					'h1',
+					null,
+					'student\'s daily reports'
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'container-1' },
+					_react2.default.createElement('input', {
+						type: 'text',
+						id: 'search',
+						placeholder: 'Search....',
+						value: this.state.term,
+						onChange: this.handleChange
+					})
+				),
+				_react2.default.createElement('hr', { className: 'style-two' }),
+				_react2.default.createElement(
+					'h4',
+					null,
+					'Please Respond to Daily Reports'
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'container' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						this.mapUnreadStudents()
+					)
+				),
+				_react2.default.createElement('hr', { className: 'style-two' }),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement(
+					'h4',
+					null,
+					'All Students'
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'container' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						this.mapStudentViews()
+					)
+				)
+			);
+		}
+	}]);
+
+	return Daily;
 }(_react.Component);
 
 // Bind actions to redux
 
 
 function mapDispatchToProps(dispatch) {
-				return (0, _redux.bindActionCreators)({
-								studentSearchAction: _student_search_action.studentSearchAction
-				}, dispatch);
+	return (0, _redux.bindActionCreators)({
+		studentSearchAction: _student_search_action.studentSearchAction
+	}, dispatch);
 }
 
 // Allow this component to access redux store
 function mapStateToProps(state) {
-				return {
-								studentSearch: state.StudentSearch
-				};
+	return {
+		studentSearch: state.StudentSearch
+	};
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Daily);
@@ -30037,7 +30136,7 @@ exports.default = Resources;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -30049,6 +30148,8 @@ var _react2 = _interopRequireDefault(_react);
 var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(11);
+
+var _reactBootstrap = __webpack_require__(556);
 
 var _loader = __webpack_require__(24);
 
@@ -30079,171 +30180,321 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var DailyReportResult = function (_Component) {
-    _inherits(DailyReportResult, _Component);
+	_inherits(DailyReportResult, _Component);
 
-    function DailyReportResult(props) {
-        _classCallCheck(this, DailyReportResult);
+	function DailyReportResult(props) {
+		_classCallCheck(this, DailyReportResult);
 
-        var _this = _possibleConstructorReturn(this, (DailyReportResult.__proto__ || Object.getPrototypeOf(DailyReportResult)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (DailyReportResult.__proto__ || Object.getPrototypeOf(DailyReportResult)).call(this, props));
 
-        _this.state = { isOpen: false };
+		_this.state = {
+			Loaded: false,
+			isOpen: false,
+			tempId: ''
+		};
 
-        _this.toggleModal = _this.toggleModal.bind(_this);
-        return _this;
-    }
+		_this.toggleModal = _this.toggleModal.bind(_this);
+		return _this;
+	}
 
-    _createClass(DailyReportResult, [{
-        key: 'toggleModal',
-        value: function toggleModal() {
-            this.setState({
-                isOpen: !this.state.isOpen
-            });
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            // getting the user info from the props/params
-            var userInfo = this.props.match.params.value.split(',');
-            // url to pass to the end point
-            var url = '/SPA/getDailyReport?Id=' + userInfo[1];
-            // calling the action
-            this.props.resultsInstructorViewAction(url);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
+	// function for toggling the modal
 
-            // checking to see if data exists
-            if (this.props.resultsInstructorView > [0]) {
 
-                var renderList = this.props.resultsInstructorView.map(function (item, i) {
-                    return _react2.default.createElement(
-                        'div',
-                        { key: i },
-                        _react2.default.createElement('hr', { className: 'style-two' }),
-                        _react2.default.createElement(
-                            'h4',
-                            null,
-                            'Date Submitted: '
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            item.Date
-                        ),
-                        _react2.default.createElement(
-                            'h5',
-                            null,
-                            'Course Position: '
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            item.CoursePosition
-                        ),
-                        _react2.default.createElement(
-                            'h5',
-                            null,
-                            'Feedback: '
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            item.Feedback
-                        ),
-                        _react2.default.createElement(
-                            'h5',
-                            null,
-                            'Hours Studied: '
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            item.HoursStudied
-                        ),
-                        _react2.default.createElement(
-                            'h5',
-                            null,
-                            'Positive Experiences: '
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            item.PositiveExperiences
-                        ),
-                        _react2.default.createElement(
-                            'h5',
-                            null,
-                            'Help Needed: '
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            item.NeedHelp
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            { type: 'button', className: 'btn btn-info btn-lg', onClick: _this2.toggleModal },
-                            'Give Feedback'
-                        ),
-                        _react2.default.createElement(_feedback_modal2.default, {
-                            show: _this2.state.isOpen,
-                            toggleModal: _this2.toggleModal,
-                            name: _this2.props.match.params.value.split(',')[0],
-                            id: _this2.props.match.params.value.split(',')[1] })
-                    );
-                });
+	_createClass(DailyReportResult, [{
+		key: 'toggleModal',
+		value: function toggleModal(e) {
+			var id = '';
+			if (typeof e == 'undefined') {
+				this.setState({
+					isOpen: !this.state.isOpen,
+					tempId: id
+				});
+			} else {
+				id = e.target.id;
+				this.setState({
+					isOpen: !this.state.isOpen,
+					tempId: e.target.id
+				});
+			}
 
-                return _react2.default.createElement(
-                    'div',
-                    { className: 'container text-center' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'row' },
-                        _react2.default.createElement(
-                            'h1',
-                            null,
-                            'Daily Reports'
-                        ),
-                        _react2.default.createElement(
-                            'h3',
-                            null,
-                            'Student Name: '
-                        ),
-                        _react2.default.createElement(
-                            'h5',
-                            null,
-                            this.props.match.params.value.split(',')[2]
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-sm-12 text-left' },
-                        renderList
-                    )
-                );
-            } else {
-                return _react2.default.createElement(
-                    'h6',
-                    null,
-                    'No daily reports yet'
-                );
-            }
-        }
-    }]);
+			// for refreshing the page.
+			if (this.state.isOpen == true) {
 
-    return DailyReportResult;
+				// getting the user info from the props/params
+				var userInfo = this.props.match.params.value.split(',');
+				// url to pass to the end point
+				var url = '/SPA/getDailyReport?Id=' + userInfo[1];
+				// calling the action
+				this.props.resultsInstructorViewAction(url);
+			}
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			// getting the user info from the props/params
+			var userInfo = this.props.match.params.value.split(',');
+			// url to pass to the end point
+			var url = '/SPA/getDailyReport?Id=' + userInfo[1];
+			// calling the action
+			this.props.resultsInstructorViewAction(url);
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(prevProps, prevState) {
+
+			// set loaded to true
+			if (this.state.Loaded === false) {
+
+				this.setState({ Loaded: true });
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			// checking to see if data exists
+			if (this.props.resultsInstructorView > [0]) {
+
+				// building the filtered daily reports
+				var renderList = this.props.resultsInstructorView.map(function (item, i) {
+					if (item.Feedbacks.length == 0) {
+
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement('hr', { className: 'style-two' }),
+							_react2.default.createElement(
+								'h6',
+								null,
+								_react2.default.createElement(
+									'strong',
+									null,
+									'Date Submitted :'
+								),
+								' ',
+								item.Date
+							),
+							_react2.default.createElement(
+								'h6',
+								null,
+								_react2.default.createElement(
+									'strong',
+									null,
+									'Course Position : '
+								),
+								item.CoursePosition
+							),
+							_react2.default.createElement(
+								'h6',
+								null,
+								_react2.default.createElement(
+									'strong',
+									null,
+									'Feedback : '
+								),
+								item.Feedback
+							),
+							_react2.default.createElement(
+								'h6',
+								null,
+								_react2.default.createElement(
+									'strong',
+									null,
+									'Positive Experiences :'
+								),
+								item.PositiveExperiences
+							),
+							_react2.default.createElement(
+								'h6',
+								null,
+								_react2.default.createElement(
+									'strong',
+									null,
+									'Help Needed : '
+								),
+								item.NeedHelp
+							),
+							_react2.default.createElement(
+								'h6',
+								null,
+								_react2.default.createElement(
+									'strong',
+									null,
+									'Hours Studied :'
+								),
+								item.HoursStudied
+							),
+							_react2.default.createElement(
+								'button',
+								{ type: 'button', className: 'btn btn-info btn-lg', onClick: _this2.toggleModal, id: item.DailyReportId },
+								'Give Feedback'
+							)
+						);
+					}
+				});
+
+				// building the already responded daily reports
+				var renderAllList = this.props.resultsInstructorView.map(function (item, i) {
+					if (item.Feedbacks.length > 0) {
+
+						return _react2.default.createElement(
+							_reactBootstrap.Panel,
+							{ key: i, header: item.Date, eventKey: i, bsStyle: 'primary', className: 'text-center' },
+							_react2.default.createElement('hr', { className: 'style-two' }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'text-left' },
+								_react2.default.createElement(
+									'h6',
+									null,
+									_react2.default.createElement(
+										'strong',
+										null,
+										'Date Submitted :'
+									),
+									' ',
+									item.Date
+								),
+								_react2.default.createElement(
+									'h6',
+									null,
+									_react2.default.createElement(
+										'strong',
+										null,
+										'Course Position : '
+									),
+									item.CoursePosition
+								),
+								_react2.default.createElement(
+									'h6',
+									null,
+									_react2.default.createElement(
+										'strong',
+										null,
+										'Feedback : '
+									),
+									item.Feedback
+								),
+								_react2.default.createElement(
+									'h6',
+									null,
+									_react2.default.createElement(
+										'strong',
+										null,
+										'Positive Experiences :'
+									),
+									' ',
+									item.PositiveExperiences
+								),
+								_react2.default.createElement(
+									'h6',
+									null,
+									_react2.default.createElement(
+										'strong',
+										null,
+										'Help Needed : '
+									),
+									item.NeedHelp
+								),
+								_react2.default.createElement(
+									'h6',
+									null,
+									_react2.default.createElement(
+										'strong',
+										null,
+										'Hours Studied :'
+									),
+									' ',
+									item.HoursStudied
+								),
+								_react2.default.createElement(
+									'h6',
+									null,
+									_react2.default.createElement(
+										'strong',
+										null,
+										'Instructor Feedback : '
+									),
+									_react2.default.createElement(
+										'mark',
+										null,
+										item.Feedbacks[0].Content
+									)
+								)
+							)
+						);
+					}
+				});
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'container text-center' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'h1',
+							null,
+							'Daily Reports'
+						),
+						_react2.default.createElement(
+							'h3',
+							null,
+							'Student Name: '
+						),
+						_react2.default.createElement(
+							'h5',
+							null,
+							this.props.match.params.value.split(',')[0]
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-sm-12 text-left' },
+						renderList,
+						_react2.default.createElement('hr', { className: 'style-two' }),
+						_react2.default.createElement(
+							'h2',
+							{ className: 'text-center' },
+							'Past Reports'
+						),
+						_react2.default.createElement(
+							_reactBootstrap.Accordion,
+							null,
+							renderAllList
+						),
+						_react2.default.createElement(_feedback_modal2.default, {
+							show: this.state.isOpen,
+							toggleModal: this.toggleModal,
+							name: this.props.match.params.value.split(',')[0],
+							id: this.props.match.params.value.split(',')[1],
+							dailyReportId: this.state.testId
+
+						})
+					)
+				);
+			} else {
+				return _react2.default.createElement(
+					'h6',
+					null,
+					'No daily reports yet'
+				);
+			}
+		}
+	}]);
+
+	return DailyReportResult;
 }(_react.Component);
 
 function mapStateToProps(state) {
-    return { resultsInstructorView: state.ResultsInstructorView };
+	return { resultsInstructorView: state.ResultsInstructorView };
 }
 
 function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        resultsInstructorViewAction: _results_instructor_view_action.resultsInstructorViewAction
-    }, dispatch);
+	return (0, _redux.bindActionCreators)({
+		resultsInstructorViewAction: _results_instructor_view_action.resultsInstructorViewAction
+	}, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DailyReportResult);
@@ -58557,7 +58808,7 @@ function showSiblings(container, mountNode) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["b"] = createProvider;
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Provider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(6);
@@ -58585,58 +58836,53 @@ function warnAboutReceivingStore() {
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__utils_warning__["a" /* default */])('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
 }
 
-function createProvider() {
-  var _Provider$childContex;
+var Provider = function (_Component) {
+  _inherits(Provider, _Component);
 
-  var storeKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'store';
-  var subKey = arguments[1];
+  Provider.prototype.getChildContext = function getChildContext() {
+    return { store: this.store, storeSubscription: null };
+  };
 
-  var subscriptionKey = subKey || storeKey + 'Subscription';
+  function Provider(props, context) {
+    _classCallCheck(this, Provider);
 
-  var Provider = function (_Component) {
-    _inherits(Provider, _Component);
+    var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
 
-    Provider.prototype.getChildContext = function getChildContext() {
-      var _ref;
-
-      return _ref = {}, _ref[storeKey] = this[storeKey], _ref[subscriptionKey] = null, _ref;
-    };
-
-    function Provider(props, context) {
-      _classCallCheck(this, Provider);
-
-      var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
-
-      _this[storeKey] = props.store;
-      return _this;
-    }
-
-    Provider.prototype.render = function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react__["Children"].only(this.props.children);
-    };
-
-    return Provider;
-  }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-  if (process.env.NODE_ENV !== 'production') {
-    Provider.prototype.componentWillReceiveProps = function (nextProps) {
-      if (this[storeKey] !== nextProps.store) {
-        warnAboutReceivingStore();
-      }
-    };
+    _this.store = props.store;
+    return _this;
   }
 
-  Provider.propTypes = {
-    store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
-    children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element.isRequired
+  Provider.prototype.render = function render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react__["Children"].only(this.props.children);
   };
-  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[storeKey] = __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired, _Provider$childContex[subscriptionKey] = __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["b" /* subscriptionShape */], _Provider$childContex);
-  Provider.displayName = 'Provider';
 
   return Provider;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+
+
+
+if (process.env.NODE_ENV !== 'production') {
+  Provider.prototype.componentWillReceiveProps = function (nextProps) {
+    var store = this.store;
+    var nextStore = nextProps.store;
+
+
+    if (store !== nextStore) {
+      warnAboutReceivingStore();
+    }
+  };
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (createProvider());
+Provider.propTypes = {
+  store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
+  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element.isRequired
+};
+Provider.childContextTypes = {
+  store: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["a" /* storeShape */].isRequired,
+  storeSubscription: __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__["b" /* subscriptionShape */]
+};
+Provider.displayName = 'Provider';
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
