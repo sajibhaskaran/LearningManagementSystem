@@ -16,6 +16,7 @@ import Inbox from '../containers/Inbox/inbox_container';
 import StudentDashboard from '../containers/courses_dashboard';
 import Main from '../containers/main';
 import Instructor from '../containers/instructor_dashboard';
+import DeputyCEO from '../containers/deputyCEO_dashboard';
 import Admin from '../containers/admin_dashboard';
 import Progress from '../components/progress/progress';
 import Results from '../components/results_student_view/results';
@@ -25,6 +26,7 @@ import DailyReportResult from '../components/results_student_view/daily_report_r
 import InstructorDailyReportResult from '../components/results_instructor_view/daily_report_results_instructor';
 // For Instructor Navigation 
 import InstructorDailyReports from '../components/instructor_daily_reports/instructor_daily_reports';
+import DeputyCEOWeeklyReports from '../components/results_deputyCEO_view/deputyCEO_weekly_reports';
 //
 import InstructorWeeklyReportResult from '../components/results_instructor_view/weekly_report_results_instructor';
 import InstructorTestResult from '../components/results_instructor_view/test_results_instructor';
@@ -125,6 +127,7 @@ export default class CoursesDashboard extends Component {
 
 					<Route path="/dailyReport" component={DailyReport} />
 
+
 					<Route path="/instructorDailyReportResult/:value" component={InstructorDailyReportResult} />
 
                     <Route path="/instructorDailyReports" component={InstructorDailyReports} />
@@ -143,6 +146,26 @@ export default class CoursesDashboard extends Component {
                     <Route path="/loader" component={Loader} />
                 </Switch>
             );
+        }
+
+        if (navigationRole === 'DeputyCEO') {
+            return (
+                <Switch>
+                    <Route exact path="/" component={DeputyCEO} />
+
+                    <Route path="/feedback" component={Feedback} />
+
+                    <Route path="/studentCourses/:value" component={UniqueStudentCourses} />
+
+                    <Route path="/weeklyReports" component={DeputyCEOWeeklyReports} />
+
+                    <Route path="/instructorWeeklyReportResult/:value" component={InstructorWeeklyReportResult} />
+
+                    <Route path="/instructorDrillResult/:value" component={InstructorDrillResult} />
+
+                    <Route path="/instructorTestResult/:value" component={InstructorTestResult} />
+                </Switch>
+                );
         }
 
         else {

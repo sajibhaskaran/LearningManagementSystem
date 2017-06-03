@@ -43,7 +43,7 @@ class Feedback extends Component {
 				</div>
 			);
 		}
-		else return <h3>No feedbacks yet.</h3>;
+		else return <h3>No feedback yet.</h3>;
 
 	}
 

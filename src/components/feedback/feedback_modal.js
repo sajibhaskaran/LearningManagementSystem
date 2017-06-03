@@ -36,10 +36,13 @@ class FeedbackModal extends Component {
 				Content: value,
 				DailyReportId: this.props.dailyReportId
 			});
-		}
+	}
+
+
 
 	handleSubmit(event) {
 		event.preventDefault();
+		
 		
 		this.setState({
 			DailyReportId: this.props.dailyReportId
@@ -49,7 +52,7 @@ class FeedbackModal extends Component {
 		sendFeedbackMessage(this.state);
 		// clearing the text area.
 
-
+		console.log("id :", this.props.id);
 		
 		const url = `/SPA/getDailyReport?Id=${this.props.id}`;
 		// calling the action

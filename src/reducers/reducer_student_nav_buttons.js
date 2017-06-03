@@ -34,6 +34,13 @@ const userNavigations = [
         { title: "Report", navnumber: 105, icon: "fa fa-file", url: "/DailyReport", onclick: defaultObject, customclass: "" },
         { title: "Survey", navnumber: 106, icon: "fa fa-file-o", url: "/weeklySurvey", onclick: defaultObject, customclass: "" },
         { title: "Profile", navnumber: 107, icon: "fa fa-user", url: "/profile", onclick: defaultObject, customclass: "" }
+    ],
+
+    [
+        // DeputyCEO
+        { title: "Dashboard", navnumber: 100, icon: "fa fa-home", url: "/", onclick: defaultObject, customclass: "" },
+        { title: "Inbox", navnumber: 102, icon: "fa fa-inbox", url: "/Feedback", onclick: defaultObject, customclass: ""},
+        { title: "Report", navnumber: 105, icon: "fa fa-file", url: "/weeklyReports", onclick: defaultObject, customclass: "" }
     ]
 ];
 
@@ -49,7 +56,8 @@ export default function (role) {
             return userNavigations[1];
         case 'Admin':
             return userNavigations[2];
-            
+        case 'DeputyCEO':
+            return userNavigations[3];  
     }
 
 }

@@ -59,7 +59,7 @@ class DailyReportResult extends Component {
 			const url = `/SPA/getDailyReport?Id=${userInfo[1]}`;
 			// calling the action
 			this.props.resultsInstructorViewAction(url);
-
+			console.log("done")
 		}
 
 	}
@@ -165,7 +165,7 @@ class DailyReportResult extends Component {
 								toggleModal={this.toggleModal}
 								name={this.props.match.params.value.split(',')[0]}
 								id={this.props.match.params.value.split(',')[1]}
-								dailyReportId={this.state.testId}
+								dailyReportId={this.state.tempId}
 
 							/>
 

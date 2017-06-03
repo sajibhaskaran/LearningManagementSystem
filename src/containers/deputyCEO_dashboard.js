@@ -12,46 +12,46 @@ import Loader from '../components/loader/loader';
 // Actions
 import { studentSearchAction } from '../actions/Student Search/student_search_action';
 
-class Instructor extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			Loaded: false,
-			term: '',
-			students: []
-		};
+class DeputyCEO extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            Loaded: false,
+            term: '',
+            students: []
+        };
 
-		this.props.studentSearchAction();
+        this.props.studentSearchAction();
 
-		this.handleChange = this.handleChange.bind(this)
-	}
+        this.handleChange = this.handleChange.bind(this)
+    }
 
-	mapStudentViews() {
+    mapStudentViews() {
 
-		if (this.state.students !== null) {
+        if (this.state.students !== null) {
 
-			// Preload images
-			//var preload = new Image();
-			//const picArray = [StudentSearch]
-			//const path = "/images/resultsIMG/";
+            // Preload images
+            //var preload = new Image();
+            //const picArray = [StudentSearch]
+            //const path = "/images/resultsIMG/";
 
-			// Map over props and populate our page based on these props
-			const studentMap = this.state.students.map((student, i) => {
+            // Map over props and populate our page based on these props
+            const studentMap = this.state.students.map((student, i) => {
 
-				// Gives ability to pass two table ID's (student info) to <Link> Params
-				let userInfo = [
+                // Gives ability to pass two table ID's (student info) to <Link> Params
+                let userInfo = [
 					student.Id,
 					student.Name,
                     student.Location
-				]
+                ]
 
-				return (
+                return (
 					
 					
 					<div className="col-sm-4 col-12 page" key={i}>
 						<Link to={`/studentCourses/${userInfo}`} >
 						<div className="card" style={{ height: "auto", paddingBottom: "5px" }}>
-							{/*<img className="card-img-top img-responsive" src={path + picArray[i]} alt="Card image cap" />*/}
+    {/*<img className="card-img-top img-responsive" src={path + picArray[i]} alt="Card image cap" />*/}
 							<div className="card-block spaCourseBox text-center">
 									<h6>{student.Name} </h6>
 									<p> { student.Location  || "not listed"}</p>
@@ -61,12 +61,12 @@ class Instructor extends Component {
 					</div>
 
 				);
-			});
+    });
 
 			return studentMap;
 
-		}
-	}
+    }
+    }
 
 
 	handleChange(e) {
@@ -78,57 +78,61 @@ class Instructor extends Component {
 		
 		this.setState({
 			
-			term: e.target.value,
-			students: searchResult
+        term: e.target.value,
+        students: searchResult
 
 
 
-		})
+    })
 
-	}
+    }
 
 
 
 componentDidUpdate(prevProps, prevState) {
 
-	// set loaded to true
+        // set loaded to true
 	if (this.state.Loaded === false) {
 
 		this.setState({ Loaded: true });
-	}
+    }
 
 	$(".spaCourseBox").matchHeight();
-}
+    }
 
 
 componentDidMount() {
-	// get request to return a list of all the TechAcademy students 
-	//this.props.studentSearchAction();
+        // get request to return a list of all the TechAcademy students 
+        //this.props.studentSearchAction();
 	this.setState({
-		students: this.props.studentSearch
-	})
+        students: this.props.studentSearch
+    })
 
 	
 	
-}
+    }
 
 componentWillReceiveProps(nextProps) {
 	
 	this.setState({
-		students: nextProps.studentSearch
-	})
+        students: nextProps.studentSearch
+    })
 
 	
 
-}
+    }
 
 
 render() {
 	return (
-		<div className="text-center">			 
-        <h1>Instructor Dashboard</h1>
+		<div className="text-center">
+			 
+        <h1>Q.C. Manager Dashboard</h1>
 		<h4>List of students</h4>
 			
+			
+			
+
 			<div className="container-1">
 				<input
 				type="text"
@@ -143,30 +147,30 @@ render() {
 
 			<div className="container">
 				<div className="row">
-					{this.mapStudentViews()}
+    {this.mapStudentViews()}
 				</div>
 			</div>
 		</div>
 	);
-}
-}
+    }
+    }
 
 
 
 
-// Bind actions to redux
+        // Bind actions to redux
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		studentSearchAction: studentSearchAction,
-	}, dispatch);
-}
+        studentSearchAction: studentSearchAction,
+    }, dispatch);
+    }
 
-// Allow this component to access redux store
+        // Allow this component to access redux store
 function mapStateToProps(state) {
 	return {
-		studentSearch: state.StudentSearch
-	};
-}
+        studentSearch: state.StudentSearch
+    };
+    }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Instructor);
+export default connect(mapStateToProps, mapDispatchToProps)(DeputyCEO);
 
