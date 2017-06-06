@@ -47,16 +47,16 @@ export default (props) => {
                 <p>{props.Field.Content}</p>
             </div>
         </div>;
-
+	
     return (
         <div className="col-xs-12">
 
                 {title}
 
-                <div className="row">
-                    <div className="col-xs-12">
+				<div className="embed-responsive embed-responsive-16by9">
+                   
                         {video}
-                    </div>
+                   
                 </div>
 
                 {content}

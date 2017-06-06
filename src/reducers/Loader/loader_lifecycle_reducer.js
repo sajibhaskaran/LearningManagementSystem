@@ -2,6 +2,8 @@
 import { FETCH_COURSES } from '../../actions/Course Designer/course_dashboard_action';
 import { FETCH_STUDENT_COURSE_VIEW } from "../../actions/fetch_student_course_view";
 import { FETCH_PROGRESS } from "../../actions/Progress/progress_action";
+import { FEEDBACK_ACTION } from "../../actions/Feedback/get_feedback_action";
+import { RESULTS_INSTRUCTOR_VIEW_ACTION } from "../../actions/Results/results_instructor_view_action";
 
 
 // Keeps track of when the loader should be in a loading state
@@ -22,6 +24,12 @@ export default function (state = false, action) {
 			return true;
 
 		case FETCH_PROGRESS:
+			return true;
+
+		case FEEDBACK_ACTION:
+			return true;
+
+		case RESULTS_INSTRUCTOR_VIEW_ACTION:
 			return true;
     }
 

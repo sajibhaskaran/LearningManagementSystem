@@ -52,7 +52,7 @@ class FeedbackModal extends Component {
 		sendFeedbackMessage(this.state);
 		// clearing the text area.
 
-		console.log("id :", this.props.id);
+		//console.log("id :", this.props.id);
 		
 		const url = `/SPA/getDailyReport?Id=${this.props.id}`;
 		// calling the action

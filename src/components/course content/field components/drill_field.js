@@ -74,7 +74,7 @@ class DrillField extends Component {
                         type="text"
                         style={{
                             width: "100%", resize: "none",
-                            height: "5em", overflow: "auto",
+                            height: "20em", overflow: "auto",
                             wordBreak: "break-all",
                             wordBreak: "break-word"
                         }}

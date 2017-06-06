@@ -27,6 +27,7 @@ class Daily extends Component {
 	}
 		
 	// filtering out the data
+
 	mapUnreadStudents() {
 		
 		
