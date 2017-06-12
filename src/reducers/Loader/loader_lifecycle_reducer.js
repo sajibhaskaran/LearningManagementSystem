@@ -9,6 +9,7 @@ import { RESULTS_INSTRUCTOR_VIEW_ACTION } from "../../actions/Results/results_in
 // Keeps track of when the loader should be in a loading state
 // Initial state is loaded: false
 export default function (state = false, action) {
+	
 
     switch (action.type) {
 

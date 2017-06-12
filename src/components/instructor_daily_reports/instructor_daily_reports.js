@@ -29,54 +29,71 @@ class Daily extends Component {
 	// filtering out the data
 
 	mapUnreadStudents() {
-		
-		
-			var unreadStudents = [];
-			var user = this.state.students;
-			// filtering the this.state.students.
-			for (let i = 0; i < user.length; i++) {
-				if (!user[i].Reports == [0]) {
-					for (let r = 0; r < user[i].Reports.length; r++) {
-						if (user[i].Feedbacks !== [0] && user[i].Feedbacks.length != user[i].Reports.length) {
-							for (let f = 0; f < user[i].Feedbacks.length; f++) {
-								if (user[i].Reports[r].DailyReportFormId != user[i].Feedbacks[f].DailyReportId) {									
-									unreadStudents.push(user[i]);
-									break;
-								}
-								
-							}
-							break;
-						}
-						
-					}
-				}
-			}
-	
-				
+		if (this.state.students !== null) {
+			//console.log(this.state.students);
+
+			//var unreadStudents = [];
+			//var user = this.state.students;
+			//// filtering the this.state.students.
+			//for (let i = 0; i < user.length; i++) {
+			//	if (!user[i].Reports == [0]) {
+			//		if (user[i].Reports.length > user[i].Feedbacks.length) {
+			//			unreadStudents.push(user[i]);
+			//		}
+			//		else {
+			//			for (let r = 0; r < user[i].Reports.length; r++) {
+			//				if (user[i].Feedbacks !== [0] && user[i].Feedbacks.length != user[i].Reports.length) {
+			//					for (let f = 0; f < user[i].Feedbacks.length; f++) {
+			//						if (user[i].Reports[r].DailyReportFormId != user[i].Feedbacks[f].DailyReportId) {
+			//							unreadStudents.push(user[i]);
+			//							break;
+			//						}
+
+			//					}
+			//					break;
+			//				}
+
+			//			}
+
+			//		}
+					
+			//	}
+			//}
+
+			const unreadStudents = this.state.students.reduce((newList, item) => {
+				if (item.Reports.length > item.Feedbacks.length) newList.push(item);
+				return newList;
+			}, []);
+
+			
+
+
 			// building a list of cards of those student's whose daily reports hasn't been responded.
-				const studentMap = unreadStudents.map((student, i) => {
-					let userInfo = [
-						student.Name,
-						student.Id,
-						student.Location
-					]
+			const studentMap = unreadStudents.map((student, i) => {
+				let userInfo = [
+					student.Name,
+					student.Id,
+					student.Location
+				]
 
-					return (
-						<div className="col-sm-4 col-12 page" key={i}>
-							<Link to={`/instructorDailyReportResult/${userInfo}`}>
-								<div className="card" style={{ height: "auto", padding: "5px" }}>
-									<div className="card-block spaCourseBox text-center">
-										<h6>{student.Name}</h6>
-										<p> {student.Location || "not listed"}</p>
-									</div>
+				return (
+					<div className="col-sm-4 col-12 page" key={i}>
+						<Link to={`/instructorDailyReportResult/${userInfo}`}>
+							<div className="card" style={{ height: "auto", padding: "5px" }}>
+								<div className="card-block spaCourseBox text-center">
+									<h6>{student.Name}</h6>
+									<p> {student.Location || "not listed"}</p>
 								</div>
-							</Link>
-						</div>
+							</div>
+						</Link>
+					</div>
 
-					);
-				})
-				return studentMap;
-			}
+				);
+			})
+			return studentMap;
+
+		}
+	}
 		
 	
 

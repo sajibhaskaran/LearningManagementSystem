@@ -422,12 +422,12 @@ class StudentCourseView extends Component {
 
 		let courseID = courseId.slice(1, courseId.length);
 	// Posting the currunt page
-		postCurrentPosition(courseID, pageNumber);
+		postCurrentPosition(courseID, pageNumber-1);
 
     // Check to make sure they don't go past the last page
         if (this.props.studentCourseView !== null){
             if (pageNumber > this.props.studentCourseView.LastPageNumber){
-                window.location.hash = "#/";
+                window.location.hash = "#/studentDashboard";
                 return;
 }
 }

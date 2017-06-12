@@ -1,4 +1,5 @@
 ﻿import { STUDENT_SEARCH_ACTION } from "../../actions/Student Search/student_search_action";
+import { STUDENT_SEARCH_WEEKLY_ACTION } from "../../actions/Student Search/student_search_weekly_action";
 
 export default function (state = null, action) {
 	
@@ -6,7 +7,10 @@ export default function (state = null, action) {
 	
 		// triggers when a user is selected and clears our message state
 		case STUDENT_SEARCH_ACTION:
-			return action.payload.data;
+		    return action.payload.data;
+
+	    case STUDENT_SEARCH_WEEKLY_ACTION:
+	        return action.payload.data;
 	}
 
 	return state;

@@ -31,11 +31,21 @@ class FeedbackModal extends Component {
 			// handling the 
 			const value = e.target.value;
 			const name = e.target.name;
+			if(this.props.hasOwnProperty("WeeklyReportId")) {
+			    this.setState({
+			        Content: value,
+			        DailyReportId: this.props.WeeklyReportId
+			    });
 
-			this.setState({
-				Content: value,
-				DailyReportId: this.props.dailyReportId
-			});
+
+			}else{
+			    this.setState({
+			        Content: value,
+			        DailyReportId: this.props.dailyReportId
+			    });
+			}
+
+			
 	}
 
 
@@ -44,17 +54,19 @@ class FeedbackModal extends Component {
 		event.preventDefault();
 		
 		
-		this.setState({
-			DailyReportId: this.props.dailyReportId
-		});
-		
 		// calling the action
 		sendFeedbackMessage(this.state);
 		// clearing the text area.
 
 		//console.log("id :", this.props.id);
 		
-		const url = `/SPA/getDailyReport?Id=${this.props.id}`;
+		let url='';
+		if(this.props.hasOwnProperty("WeeklyReportId")){
+		    console.log("it hit");
+		     url = `/SPA/getWeeklyReport?Id=${this.props.id}`;
+		}else url = `/SPA/getDailyReport?Id=${this.props.id}`;
+		
+		
 		// calling the action
 		resultsInstructorViewAction(url);
 

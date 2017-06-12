@@ -55,6 +55,7 @@ import Progress from "./Progress/progress_reducer";
 
 // Feedback
 import Feedback from "./Feedback/feedback_reducer";
+import WeeklyFeedback from "./Feedback/weekly_feedback_reducer";
 
 // redux and redux form
 import { combineReducers } from 'redux';
@@ -88,11 +89,13 @@ const rootReducer = combineReducers({
 	// Student Search
     StudentSearch: StudentSearch,
 
+
     // Progress Bars
 	Progress: Progress,
 
 	// Feedback
 	Feedback: Feedback,
+	WeeklyFeedback: WeeklyFeedback,
 
 
     // Loader

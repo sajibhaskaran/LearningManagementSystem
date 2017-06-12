@@ -11,7 +11,7 @@ import Loader from '../../components/loader/loader';
 import { resultsInstructorViewAction } from '../../actions/Results/results_instructor_view_action';
 import { loadedFalse } from "../../actions/Loader/loaded_false_action";
 
-// model
+// modal
 import FeedbackModal from '../../components/Feedback/feedback_modal';
 
 
@@ -96,6 +96,7 @@ class DailyReportResult extends Component {
 	renderList() {
 
 		if (this.props.resultsInstructorView > [0]) {
+			
 
 			// building the filtered daily reports
 			const renderList = this.props.resultsInstructorView.map((item, i) => {
