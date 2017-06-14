@@ -18,7 +18,60 @@ import WeeklyFeedbackModal from '../../components/Feedback/feedback_modal_weekly
 
 
 
-class WeeklyReportResult extends Component {
+class WeeklyReportResult extends Component {renderListDaily() {
+		if (this.props.feedback > [0]) {
+			
+
+			// building a list
+			const renderList = this.props.feedback.DailyFeedbacks.map((item, i) => {
+				if (i < 3) {
+					return (
+
+						<div key={i} className="text-left">
+
+							<hr className="style-two" />
+							<h6><strong>Date Report Submitted :</strong> {item.Date}</h6>
+							<h6><strong>Course Position : </strong>{item.CoursePosition}</h6>
+							<h6><strong>Feedback : </strong>{item.Feedback}</h6>
+							<h6><strong>Positive Experiences :</strong>{item.PositiveExperiences}</h6>
+							<h6><strong>Help Needed : </strong>{item.NeedHelp}</h6>
+							<h6><strong>Hours Studied :</strong>{item.HoursStudied}</h6>
+							<h6><strong>Feedback Date: </strong><mark>{item.Date}</mark></h6>
+							<h6><strong>Content: </strong><mark>{item.Content}</mark></h6>
+
+
+						</div>
+					);
+				} else {
+					return (
+
+						<Panel key={i} header={item.Date} eventKey={i} bsStyle="primary" className="text-center">
+							<hr className="style-two" />
+							<h6><strong>Date Report Submitted :</strong> {item.Date}</h6>
+							<h6><strong>Course Position : </strong>{item.CoursePosition}</h6>
+							<h6><strong>Feedback : </strong>{item.Feedback}</h6>
+							<h6><strong>Positive Experiences :</strong>{item.PositiveExperiences}</h6>
+							<h6><strong>Help Needed : </strong>{item.NeedHelp}</h6>
+							<h6><strong>Hours Studied :</strong>{item.HoursStudied}</h6>
+							<h6><strong>Feedback Date: </strong><mark>{item.Date}</mark></h6>
+							<h6><strong>Content: </strong><mark>{item.Content}</mark></h6>
+
+
+
+						</Panel>
+					);
+
+
+				}
+
+
+
+			});
+
+			return renderList;
+		}
+
+	}
     constructor(props) {
         super(props);
 
@@ -121,7 +174,7 @@ renderAllList() {
     
     if (this.props.resultsInstructorView > [0]) {
         
-        // building the already responded daily reports
+        // building the already responded weekly reports
         const renderAllList = this.props.resultsInstructorView.map((item, i) => {
             console.log(item.Feedbacks);
             if (item.Feedbacks.length > 0) {

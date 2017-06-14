@@ -31,6 +31,7 @@ import DeputyCEOWeeklyReports from '../components/results_deputyCEO_view/deputyC
 import InstructorWeeklyReportResult from '../components/results_instructor_view/weekly_report_results_instructor';
 import InstructorTestResult from '../components/results_instructor_view/test_results_instructor';
 import InstructorDrillResult from '../components/results_instructor_view/drill_results_instructor';
+import DrillReportResultsInstructor from '../components/results_instructor_view/drill_report_results_instructor';
 
 import WeeklyReportResult from '../components/weekly_survey/weekly_report_results';
 import Feedback from '../components/feedback/feedback';
@@ -129,6 +130,8 @@ export default class CoursesDashboard extends Component {
 
 
 					<Route path="/instructorDailyReportResult/:value" component={InstructorDailyReportResult} />
+
+					<Route path="/drillReportResultsInstructor/:value" component={DrillReportResultsInstructor} />
 
                     <Route path="/instructorDailyReports" component={InstructorDailyReports} />
 

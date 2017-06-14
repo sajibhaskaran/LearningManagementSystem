@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 // actions
 import { profileAccess } from "../actions/profile_access_action";
+import { fetchStudentCourseView } from "../actions/fetch_student_course_view";
 
 // components
 import StudentDashboard from '../containers/courses_dashboard';
@@ -16,30 +17,33 @@ class Main extends Component {
 		super(props);
 	}
 
+   
 
 	componentDidMount() {
-		// calling the action to get user info.
-		this.props.profileAccess();
-
-
+        // calling the action to get user info.
+        this.props.profileAccess();
+       
+          
+      
 	}
 
 	// checking to see where student left off, displaying that page, otherwise displaying the dashboard
 	renderPage() {
 		// checking to see if props exists
-		if (this.props.userData !== null) {
-			if (this.props.userData.PageNumber >= 1) {
-				return (
+        if (this.props.userData !== null) {
+            if (this.props.userData.PageNumber >= 1) {
 
-					<StudentCourseView
-						courseId={':' + this.props.userData.CurrentCourse}
-						pageNumber={':' + this.props.userData.PageNumber}
-					/>
-				);
-			}
-			else {
-				return <StudentDashboard />
-			}
+                return (
+
+                    <StudentCourseView
+                        courseId={':' + this.props.userData.CurrentCourse}
+                        pageNumber={':' + this.props.userData.PageNumber}
+                    />
+                );
+            }
+            else {
+                return <StudentDashboard />
+            }
 		}
 		
 
