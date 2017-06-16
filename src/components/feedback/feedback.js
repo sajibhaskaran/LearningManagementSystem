@@ -103,7 +103,7 @@ class Feedback extends Component {
 					return (
 						<div key={i} className="text-left">
 
-						<hr className="text-left" />
+							<hr className="style-two" />
 							<h6><strong>Date Submitted : </strong>{item.Date}</h6>
 							<h6><strong>Course Position : </strong>{item.CoursePostion}</h6>
 							<h6><strong>Need Help : </strong>{item.NeedHelp}</h6>
@@ -152,7 +152,7 @@ class Feedback extends Component {
 					return (
 						<div key={i} className="text-left">
 
-							<hr className="text-left" />
+							<hr className="style-two" />
 							<h6><strong>Date : </strong>{item.Date}</h6>
 							<h6><strong>Submission Text : </strong>{item.SubmissionText}</h6>
 							<h6><strong>Passed : </strong>{item.Passed}</h6>
